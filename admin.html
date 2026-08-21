@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher & Admin Dashboard | Nandi Al-Hikma Holiday Madrasa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit & Amiri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            850: '#064e3b',
+                            950: '#022c22',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-islamic-pattern {
+            background-color: #022c22;
+            background-image: radial-gradient(#d97706 0.75px, transparent 0.75px), radial-gradient(#059669 0.75px, #022c22 0.75px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <div id="recaptcha-container"></div>
+
+    <!-- VIEW 1: AUTHENTICATION / PHONE OTP LOGIN -->
+    <div id="view-login" class="min-h-screen flex items-center justify-center p-4 bg-islamic-pattern">
+        <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl max-w-md w-full space-y-6 relative border border-emerald-900/30">
+            
+            <div class="text-center space-y-3">
+                <div class="flex justify-center items-center gap-3">
+                    <img src="8708-removebg-preview.png" alt="Madrasa Logo" class="h-16 w-auto object-contain">
+                    <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-12 w-auto object-contain">
+                </div>
+                <div>
+                    <h1 class="text-lg font-extrabold text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h1>
+                    <p class="text-xs font-bold text-gold-600 uppercase tracking-wide">Teacher & Admin Management Portal</p>
+                </div>
+            </div>
+
+            <!-- STEP 1: PHONE INPUT -->
+            <form id="phone-login-form" onsubmit="handleSendOtp(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Authorized Mobile Number</label>
+                    <div class="relative">
+                        <span class="absolute left-3.5 top-3 text-sm font-semibold text-slate-400">+91</span>
+                        <input type="tel" id="input-phone" required placeholder="9876543210" class="w-full pl-12 pr-4 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none font-semibold">
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-send-otp" class="w-full py-3 bg-emerald-850 hover:bg-emerald-950 text-white font-bold rounded-xl shadow text-sm transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="smartphone" class="w-4 h-4"></i>
+                    <span>Send SMS OTP</span>
+                </button>
+            </form>
+
+            <!-- STEP 2: OTP VERIFICATION -->
+            <form id="otp-verify-form" onsubmit="handleVerifyOtp(event)" class="hidden space-y-4">
+                <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900">
+                    SMS OTP sent to <strong id="display-sent-phone">+91 XXXXX XXXXX</strong>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">6-Digit Verification Code</label>
+                    <input type="text" id="input-otp" required maxlength="6" placeholder="123456" class="w-full px-4 py-2.5 text-center text-lg font-bold tracking-widest border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                </div>
+
+                <button type="submit" id="btn-verify-otp" class="w-full py-3 bg-gold-400 hover:bg-gold-500 text-slate-950 font-bold rounded-xl shadow text-sm transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span>Verify & Login</span>
+                </button>
+            </form>
+
+            <div id="auth-msg" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
+
+            <div class="text-center pt-2 border-t border-slate-100">
+                <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-emerald-800">← Back to Main Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 2: AUTHENTICATED DASHBOARD -->
+    <div id="view-dashboard" class="hidden min-h-screen flex flex-col md:flex-row bg-slate-100">
+
+        <!-- SIDEBAR -->
+        <aside class="w-full md:w-64 bg-emerald-950 text-slate-300 flex-shrink-0 border-r border-emerald-900 flex flex-col justify-between">
+            <div>
+                <div class="p-5 border-b border-emerald-900 flex items-center gap-3">
+                    <img src="8708-removebg-preview.png" alt="Logo" class="h-10 w-auto">
+                    <div>
+                        <h2 class="text-xs font-extrabold text-white leading-tight">NANDI AL-HIKMA</h2>
+                        <span class="text-[10px] text-gold-400 font-bold uppercase tracking-wider block">Dashboard</span>
+                    </div>
+                </div>
+
+                <div class="p-4 m-3 bg-emerald-900/60 rounded-xl border border-emerald-800 text-xs space-y-1">
+                    <div class="flex items-center justify-between">
+                        <span id="user-display-role" class="px-2 py-0.5 rounded text-[9px] font-extrabold bg-gold-400 text-slate-950 uppercase">TEACHER</span>
+                        <span id="user-display-class" class="text-slate-300 font-semibold text-[10px]">Standard 1</span>
+                    </div>
+                    <p id="user-display-name" class="font-bold text-white text-sm truncate">Faculty Member</p>
+                </div>
+
+                <nav class="px-3 py-2 space-y-1 text-xs font-bold">
+                    <button onclick="switchNav('overview')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white bg-emerald-850">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+                    </button>
+                    <button onclick="switchNav('students')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900">
+                        <i data-lucide="users" class="w-4 h-4"></i> Students
+                    </button>
+                    <button onclick="switchNav('marks')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900">
+                        <i data-lucide="edit-3" class="w-4 h-4"></i> Mark Entry
+                    </button>
+                    <div id="admin-menu-group" class="hidden space-y-1 pt-2 border-t border-emerald-900">
+                        <span class="px-3 text-[10px] uppercase font-bold text-gold-500">Admin Only</span>
+                        <button onclick="switchNav('results')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900">
+                            <i data-lucide="award" class="w-4 h-4"></i> Publish Results
+                        </button>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="p-4 border-t border-emerald-900">
+                <button onclick="handleLogout()" class="w-full py-2.5 bg-rose-900/80 hover:bg-rose-900 text-rose-100 font-bold text-xs rounded-xl flex items-center justify-center gap-2">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="flex-1 p-6 space-y-6">
+
+            <section id="panel-overview" class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-900">Overview Panel</h3>
+                <div class="p-6 bg-white rounded-2xl border border-slate-200">
+                    <p class="text-xs text-slate-600">Assigned Class: <strong id="overview-class" class="text-slate-900">Standard 1</strong></p>
+                </div>
+            </section>
+
+            <section id="panel-students" class="hidden space-y-4">
+                <h3 class="text-lg font-bold text-slate-900">Student Directory</h3>
+                <div class="bg-white rounded-2xl border border-slate-200 p-4">
+                    <ul id="students-list" class="divide-y divide-slate-100 text-xs"></ul>
+                </div>
+            </section>
+
+            <section id="panel-marks" class="hidden space-y-4">
+                <h3 class="text-lg font-bold text-slate-900">Mark Evaluation Entry</h3>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+                    <select id="mark-select-student" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl">
+                        <option value="">Select Student</option>
+                    </select>
+                    <button onclick="saveStudentMarks('DRAFT')" class="px-5 py-2.5 bg-emerald-850 text-white text-xs font-bold rounded-xl">Save Mark Draft</button>
+                </div>
+            </section>
+
+            <section id="panel-results" class="hidden space-y-4">
+                <h3 class="text-lg font-bold text-slate-900">Result Publishing Controls</h3>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                    <p class="text-xs text-slate-600 mb-4">Toggle publication status to reveal grades on `results.html`.</p>
+                    <button onclick="saveStudentMarks('PUBLISHED')" class="px-5 py-2.5 bg-gold-400 text-slate-950 text-xs font-bold rounded-xl">Publish All Class Results</button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- FIREBASE MODULE -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+        import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, where, addDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0T9Ve0RdOtr1pGmp_qEAcFqlZfhhMq5s",
+            authDomain: "madrasa-5c753.firebaseapp.com",
+            projectId: "madrasa-5c753",
+            storageBucket: "madrasa-5c753.firebasestorage.app",
+            messagingSenderId: "1096374227616",
+            appId: "1:1096374227616:web:62e57fb836405bbfb0afc5"
+        };
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let confirmationResultGlobal = null;
+        let recaptchaVerifier = null;
+        let currentUserProfile = null;
+
+        window.handleSendOtp = async function(e) {
+            e.preventDefault();
+            const phoneInput = document.getElementById('input-phone').value.trim();
+            const fullPhone = phoneInput.startsWith('+') ? phoneInput : `+91${phoneInput}`;
+
+            if (!recaptchaVerifier) {
+                recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+            }
+
+            try {
+                confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+                document.getElementById('phone-login-form').classList.add('hidden');
+                document.getElementById('otp-verify-form').classList.remove('hidden');
+                document.getElementById('display-sent-phone').textContent = fullPhone;
+            } catch(err) {
+                alert("Failed to send OTP: " + err.message);
+            }
+        };
+
+        window.handleVerifyOtp = async function(e) {
+            e.preventDefault();
+            const otpCode = document.getElementById('input-otp').value.trim();
+            try {
+                await confirmationResultGlobal.confirm(otpCode);
+            } catch(err) {
+                alert("Invalid OTP Code.");
+            }
+        };
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserProfile = {
+                    name: "Staff Member",
+                    phone: user.phoneNumber || "+919876543210",
+                    role: user.phoneNumber === "+919876543210" ? "admin" : "teacher",
+                    assignedClass: "std-1"
+                };
+
+                document.getElementById('view-login').classList.add('hidden');
+                document.getElementById('view-dashboard').classList.remove('hidden');
+                document.getElementById('user-display-name').textContent = currentUserProfile.name;
+                document.getElementById('user-display-role').textContent = currentUserProfile.role.toUpperCase();
+                document.getElementById('user-display-class').textContent = currentUserProfile.assignedClass.toUpperCase();
+
+                if (currentUserProfile.role === 'admin') {
+                    document.getElementById('admin-menu-group').classList.remove('hidden');
+                }
+            } else {
+                document.getElementById('view-login').classList.remove('hidden');
+                document.getElementById('view-dashboard').classList.add('hidden');
+            }
+        });
+
+        window.switchNav = function(panel) {
+            ['overview', 'students', 'marks', 'results'].forEach(p => {
+                document.getElementById(`panel-${p}`).classList.add('hidden');
+            });
+            document.getElementById(`panel-${panel}`).classList.remove('hidden');
+        };
+
+        window.saveStudentMarks = async function(status) {
+            const payload = {
+                studentId: "ADM-2026-001",
+                studentName: "Mohammed Rayan",
+                classId: currentUserProfile.assignedClass,
+                academicYear: "2025-2026",
+                examId: "annual-2026",
+                status: status,
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                const resultsRef = collection(db, 'artifacts', appId, 'public', 'data', 'results');
+                await addDoc(resultsRef, payload);
+                alert(`Marks saved with status: ${status}`);
+            } catch(e) {}
+        };
+
+        window.handleLogout = function() {
+            signOut(auth);
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
+
