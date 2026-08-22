@@ -79,17 +79,17 @@
                 <a href="index.html" class="flex items-center gap-3">
                     <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-12 sm:h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/60?text=Madrasa+Logo'">
                     <div class="border-l border-slate-200 pl-3">
-                        <h1 class="font-extrabold text-sm sm:text-base text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h1>
-                        <p class="text-[10px] sm:text-xs text-gold-600 font-bold tracking-wide uppercase">WISDOM EDUCATION BOARD</p>
+                        <h1 class="font-extrabold text-sm sm:text-base text-emerald-950 leading-tight"></h1>
+                        <p class="text-[10px] sm:text-xs text-gold-600 font-bold tracking-wide uppercase"></p>
                     </div>
                 </a>
 
                 <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-100 p-1 rounded-xl">
                     <button id="tab-btn-results" onclick="switchTab('results')" class="px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all bg-emerald-850 text-white shadow">
-                        <span class="flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4"></i> <span class="hidden sm:inline">Result Portal</span><span class="sm:hidden">റിസൾട്ട്</span></span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4"></i> <span class="hidden sm:inline">Result Portal</span><span class="sm:hidden">Result</span></span>
                     </button>
                     <button id="tab-btn-register" onclick="switchTab('register')" class="px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all text-slate-600 hover:text-emerald-950">
-                        <span class="flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4"></i> <span class="hidden sm:inline">Registration</span><span class="sm:hidden">അഡ്മിഷൻ</span></span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4"></i> <span class="hidden sm:inline">Registration</span><span class="sm:hidden">Admission</span></span>
                     </button>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                     <span class="px-3 py-1 bg-gold-500/20 text-gold-400 border border-gold-400/30 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider inline-block">Official Verification Portal</span>
                     <h2 class="text-xl sm:text-3xl font-extrabold text-white">പരീക്ഷാ ഫലവും മാർക്ക് ഷീറ്റും</h2>
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        കുട്ടിയുടെ അഡ്മിഷൻ നമ്പറും ജനന തീയതിയും നൽകി വിസ്ഡം എഡ്യൂക്കേഷൻ ബോർഡ് ഔദ്യോഗികമായി പബ്ലിഷ് ചെയ്ത മാർക്ക് ലിസ്റ്റ് പരിശോധിക്കുകയും പ്രിന്റ് ചെയ്യുകയും ചെയ്യാം.
+                        കുട്ടിയുടെ അഡ്മിഷൻ നമ്പറും ജനന തീയതിയും നൽകി ഔദ്യോഗികമായി പബ്ലിഷ് ചെയ്ത മാർക്ക് ലിസ്റ്റ് പരിശോധിക്കുകയും പ്രിന്റ് ചെയ്യുകയും ചെയ്യാം.
                     </p>
                 </div>
             </div>
@@ -118,25 +118,25 @@
                 <form id="result-search-form" onsubmit="handleResultSearch(event)" class="space-y-5">
                     <div class="border-b border-slate-100 pb-3">
                         <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                            <i data-lucide="search" class="w-5 h-5 text-emerald-850"></i> ഫലം പരിശോധിക്കാൻ വിവരങ്ങൾ നൽകുക
+                            <i data-lucide="search" class="w-5 h-5 text-emerald-850"></i>Check Result
                         </h3>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">അഡ്മിഷൻ നമ്പർ (Reg No / Admission No) *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Reg No / Admission No *</label>
                             <input type="text" id="search-student-id" required placeholder="ഉദാ: ADM-2026-001" class="w-full px-4 py-3 text-sm font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-emerald-800 focus:outline-none transition">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">ജനന തീയ്യതി (Date of Birth) *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date of Birth *</label>
                             <input type="date" id="search-dob" required class="w-full px-4 py-3 text-sm font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-emerald-800 focus:outline-none transition">
                         </div>
                     </div>
 
                     <button type="submit" id="search-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-extrabold rounded-2xl shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center gap-2 text-sm">
                         <i data-lucide="file-search" class="w-4 h-4"></i>
-                        <span id="search-btn-text">മാർക്ക് ലിസ്റ്റ് കാണുക</span>
+                        <span id="search-btn-text">View Mark list</span>
                     </button>
                 </form>
             </div>
@@ -148,15 +148,15 @@
                 <div id="result-empty-state" class="no-print text-center py-10 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
                     <i data-lucide="award" class="w-10 h-10 text-slate-300 mx-auto mb-2"></i>
                     <h4 class="text-sm font-bold text-slate-700">വിവരങ്ങൾ നൽകി തിരയുക</h4>
-                    <p class="text-xs text-slate-500 mt-1">അഡ്മിഷൻ നമ്പറും ജനന തീയ്യതിയും നൽകി "മാർക്ക് ലിസ്റ്റ് കാണുക" ബട്ടൺ ക്ലിക്ക് ചെയ്യുക.</p>
+                    <p class="text-xs text-slate-500 mt-1">അഡ്മിഷൻ നമ്പറും ജനന തീയ്യതിയും നൽകി "View Mark list" ബട്ടൺ ക്ലിക്ക് ചെയ്യുക.</p>
                 </div>
 
                 <!-- UNPUBLISHED / NOT FOUND STATE -->
                 <div id="result-unpublished-state" class="hidden no-print text-center p-8 bg-amber-50 border border-amber-200 rounded-3xl space-y-2">
                     <i data-lucide="alert-circle" class="w-8 h-8 text-amber-700 mx-auto"></i>
-                    <h4 class="text-sm font-bold text-amber-900">റിസൾട്ട് കണ്ടെത്താനായില്ല</h4>
+                    <h4 class="text-sm font-bold text-amber-900">Result not found.</h4>
                     <p id="error-msg-text" class="text-xs text-amber-800 max-w-md mx-auto">
-                        നൽകിയ അഡ്മിഷൻ നമ്പറിലോ ജനന തീയ്യതിയിലോ മാറ്റമുണ്ട്. അല്ലെങ്കിൽ ടീച്ചർമാർ മാർക്കുകൾ ഇതുവരെ പ്രസിദ്ധീകരിച്ചിട്ടില്ല. വിവരങ്ങൾ ശരിയാണെന്ന് ഉറപ്പുവരുത്തുക.
+                        നൽകിയ അഡ്മിഷൻ നമ്പറിലോ ജനന തീയ്യതിയിലോ മാറ്റമുണ്ട്. വിവരങ്ങൾ ശരിയാണെന്ന് ഉറപ്പുവരുത്തുക.After, Please Contact Your Teacher. 
                     </p>
                 </div>
 
@@ -180,8 +180,8 @@
                             <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-16 sm:h-20 w-auto object-contain drop-shadow" onerror="this.src='https://via.placeholder.com/80?text=Madrasa+Logo'">
                             <div>
                                 <h2 class="text-lg sm:text-xl font-black text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
-                                <p class="text-xs font-bold text-gold-600 uppercase tracking-wide">Nandi Post, Kozhikode, Kerala, India</p>
-                                <p class="text-[10px] font-semibold text-slate-500 mt-0.5">Wisdom Board Affiliation Code: <strong class="text-slate-800">WEB-NDI-87</strong></p>
+                                <p class="text-xs font-bold text-gold-600 uppercase tracking-wide">Nandi, Kozhikode, Kerala, India</p>
+                                <p class="text-[10px] font-semibold text-slate-500 mt-0.5"> <strong class="text-slate-800"></strong></p>
                             </div>
                         </div>
 
@@ -221,7 +221,7 @@
                             <strong id="ms-roll-no" class="text-slate-900 font-bold">--</strong>
                         </div>
                         <div>
-                            <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Date of Birth (DOB)</span>
+                            <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Date of Birth</span>
                             <strong id="ms-dob" class="text-slate-900 font-bold">--</strong>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                                 <tr class="bg-emerald-950 text-white font-extrabold uppercase text-[10px] sm:text-[11px] tracking-wider">
                                     <th class="p-3 border-b border-emerald-900">Subject</th>
                                     <th class="p-3 border-b border-emerald-900 text-center w-28">Max Marks</th>
-                                    <th class="p-3 border-b border-emerald-900 text-center w-32">Obtained Marks</th>
+                                    <th class="p-3 border-b border-emerald-900 text-center w-32">Marks</th>
                                     <th class="p-3 border-b border-emerald-900 text-center w-24">Grade</th>
                                 </tr>
                             </thead>
