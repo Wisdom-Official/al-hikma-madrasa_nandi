@@ -79,6 +79,11 @@
 
                 <!-- Action CTA Buttons -->
                 <div class="hidden sm:flex items-center gap-2.5">
+                    
+                    <!-- ========================================================================================= -->
+                    <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: യഥാർത്ഥ റിസൾട്ട് & രജിസ്ട്രേഷൻ ലിങ്കുകൾ താഴെ കമന്റ് ചെയ്തു വെച്ചിരിക്കുന്നു. -->
+                    <!-- റിസൾട്ട് പബ്ലിഷ് ചെയ്യുകയോ അഡ്മിഷൻ ആരംഭിക്കുകയോ ചെയ്യുമ്പോൾ താഴെയുള്ള ലിങ്ക് കമന്റ് മാറ്റി (Uncomment) ഉപയോഗിക്കുക. -->
+                    <!--
                     <a href="results.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-950 bg-gold-400 hover:bg-gold-500 rounded-lg shadow-sm transition-all">
                         <i data-lucide="award" class="w-4 h-4"></i>
                         <span>Results</span>
@@ -87,6 +92,20 @@
                         <i data-lucide="user-plus" class="w-4 h-4"></i>
                         <span>Register</span>
                     </a>
+                    -->
+                    <!-- ========================================================================================= -->
+
+                    <!-- പുതിയ താൽക്കാലിക ബട്ടണുകൾ (നോട്ടീസ് കാണിക്കാൻ വേണ്ടി) -->
+                    <button onclick="showResultNotice()" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-950 bg-gold-400 hover:bg-gold-500 rounded-lg shadow-sm transition-all cursor-pointer">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                        <span>Results</span>
+                    </button>
+                    
+                    <button onclick="showAdmissionNotice()" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-emerald-850 hover:bg-emerald-950 rounded-lg shadow-sm transition-all cursor-pointer">
+                        <i data-lucide="user-plus" class="w-4 h-4"></i>
+                        <span>Register</span>
+                    </button>
+
                     <a href="admin.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition-all">
                         <i data-lucide="lock" class="w-4 h-4 text-emerald-800"></i>
                         <span>Staff Login</span>
@@ -111,12 +130,27 @@
             <a href="index.html#contact" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Contact Us</a>
             
             <div class="pt-3 flex flex-col gap-2">
+                <!-- ========================================================================================= -->
+                <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: മൊബൈൽ മെനുവിലെ യഥാർത്ഥ ലിങ്കുകൾ താഴെ കമന്റ് ചെയ്തിരിക്കുന്നു -->
+                <!--
                 <a href="results.html" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-emerald-950 bg-gold-400 rounded-lg shadow">
                     <i data-lucide="award" class="w-4 h-4"></i> View Examination Results
                 </a>
                 <a href="results.html?tab=register" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-white bg-emerald-850 rounded-lg shadow">
                     <i data-lucide="user-plus" class="w-4 h-4"></i> Online Admission Registration
                 </a>
+                -->
+                <!-- ========================================================================================= -->
+
+                <!-- മൊബൈൽ മെനുവിനായുള്ള പുതിയ നോട്ടീസ് ബട്ടണുകൾ -->
+                <button onclick="toggleMobileMenu(); showResultNotice();" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-emerald-950 bg-gold-400 rounded-lg shadow text-center">
+                    <i data-lucide="award" class="w-4 h-4"></i> View Examination Results
+                </button>
+                
+                <button onclick="toggleMobileMenu(); showAdmissionNotice();" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-white bg-emerald-850 rounded-lg shadow text-center">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i> Online Admission Registration
+                </button>
+
                 <a href="admin.html" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-slate-800 bg-slate-100 border border-slate-300 rounded-lg">
                     <i data-lucide="lock" class="w-4 h-4"></i> Teacher & Admin Login
                 </a>
@@ -148,6 +182,9 @@
                         </p>
                         
                         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <!-- ========================================================================================= -->
+                            <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: ഹീറോ സെക്ഷനിലെ ഒറിജിനൽ ലിങ്ക് ബട്ടണുകൾ കമന്റ് ചെയ്തു വെച്ചിരിക്കുന്നു -->
+                            <!--
                             <a href="results.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-gold-400 hover:bg-gold-500 rounded-xl shadow-lg transition-all">
                                 <i data-lucide="award" class="w-4 h-4"></i>
                                 <span>Check Exam Results</span>
@@ -156,6 +193,19 @@
                                 <i data-lucide="user-plus" class="w-4 h-4"></i>
                                 <span>Student Registration</span>
                             </a>
+                            -->
+                            <!-- ========================================================================================= -->
+
+                            <!-- ഹീറോ സെക്ഷനിലെ പുതിയ നോട്ടീസ് ബട്ടണുകൾ -->
+                            <button onclick="showResultNotice()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-gold-400 hover:bg-gold-500 rounded-xl shadow-lg transition-all cursor-pointer">
+                                <i data-lucide="award" class="w-4 h-4"></i>
+                                <span>Check Exam Results</span>
+                            </button>
+
+                            <button onclick="showAdmissionNotice()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-emerald-850 hover:bg-emerald-950 border border-emerald-700/60 rounded-xl shadow-lg transition-all cursor-pointer">
+                                <i data-lucide="user-plus" class="w-4 h-4"></i>
+                                <span>Student Registration</span>
+                            </button>
                         </div>
                     </div>
 
@@ -302,6 +352,25 @@
 
     </main>
 
+    <!-- NOTIFICATION MODAL (അറിയിപ്പ് കാണിക്കാനുള്ള മോഡൽ) -->
+    <div id="noticeModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-2xl max-w-md w-full p-6 text-center transform transition-all scale-100 animate-in fade-in zoom-in duration-200">
+            <div class="w-16 h-16 bg-gold-100 text-gold-600 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gold-200 shadow-inner">
+                <i data-lucide="bell" class="w-8 h-8"></i>
+            </div>
+            
+            <h3 id="noticeModalTitle" class="text-xl font-bold text-slate-900 mb-2">അറിയിപ്പ് (Notice)</h3>
+            
+            <p id="noticeModalMessage" class="text-sm font-semibold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 leading-relaxed my-4">
+                <!-- നോട്ടീസ് മെസ്സേജ് ഇവിടെ വരും -->
+            </p>
+
+            <button onclick="closeNoticeModal()" class="w-full py-3 px-6 text-xs font-bold uppercase tracking-wider text-white bg-emerald-850 hover:bg-emerald-950 rounded-xl shadow-md transition-all cursor-pointer">
+                ശരി (OK)
+            </button>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="bg-emerald-950 text-slate-400 py-8 text-xs border-t border-emerald-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -338,6 +407,29 @@
             { id: 7, name: "Standard 7", desc: "Senior preparatory standard under Wisdom Board guidelines.", subjects: 6 },
             { id: 8, name: "Standard 8", desc: "Final Board examination class leading to official certification.", subjects: 6 }
         ];
+
+        // മെസ്സേജ് മോഡൽ കാണിക്കാനും അടയ്ക്കാനുമുള്ള ഫങ്ഷനുകൾ
+        window.showNoticeModal = function(title, message) {
+            document.getElementById('noticeModalTitle').innerText = title || 'അറിയിപ്പ്';
+            document.getElementById('noticeModalMessage').innerText = message;
+            const modal = document.getElementById('noticeModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        window.closeNoticeModal = function() {
+            const modal = document.getElementById('noticeModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        window.showResultNotice = function() {
+            window.showNoticeModal('അറിയിപ്പ് (Notice)', 'റിസൾട്ട് പബ്ലിഷ് ചെയ്യുന്ന നേരത്ത് ഇത് കാണാവുന്നതാണ്.');
+        };
+
+        window.showAdmissionNotice = function() {
+            window.showNoticeModal('അറിയിപ്പ് (Notice)', '2026-27 അധ്യയന വർഷത്തിലെ അഡ്മിഷൻ അവസാനിച്ചു.');
+        };
 
         window.toggleMobileMenu = function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
