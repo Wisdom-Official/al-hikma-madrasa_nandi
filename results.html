@@ -43,19 +43,19 @@
             background-position: 0 0, 14px 14px;
         }
 
-        /* PRINT MEDIA STYLES - Perfectly Fills Full A4 Page */
+        /* PERFECT PRINT & PDF STYLES - Guaranteed Single Page (A4 / Letter) */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 0;
+                margin: 5mm;
             }
             html, body {
-                background: #ffffff !important;
-                color: #000000 !important;
+                background: white !important;
+                color: black !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                width: 210mm !important;
-                height: 297mm !important;
+                width: 100% !important;
+                height: 100% !important;
                 overflow: hidden !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -69,78 +69,73 @@
                 max-width: 100% !important;
                 width: 100% !important;
             }
+            #section-results {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
             #printable-marksheet {
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: space-between !important;
                 box-sizing: border-box !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                padding: 12mm 15mm !important;
-                margin: 0 !important;
+                width: 100% !important;
+                max-height: 280mm !important; /* Strict height limit to avoid 2nd page overflow */
+                padding: 10px 16px !important;
+                margin: 0 auto !important;
                 box-shadow: none !important;
-                border: 3px double #022c22 !important;
+                border: 2px solid #022c22 !important;
                 border-radius: 0 !important;
                 page-break-inside: avoid !important;
                 page-break-after: avoid !important;
                 background: white !important;
             }
 
-            /* Adjust proportions so elements stretch nicely to fill A4 */
-            #printable-marksheet .font-arabic {
-                font-size: 28px !important;
-            }
-            #printable-marksheet h2 {
-                font-size: 20px !important;
-            }
-            #printable-marksheet h3 {
-                font-size: 15px !important;
-            }
-            #printable-marksheet img {
-                height: 55px !important;
-                width: auto !important;
-            }
+            /* Compact Spacing for Print to Fit 8+ Subjects easily */
+            #printable-marksheet .font-arabic { font-size: 20px !important; line-height: 1 !important; }
+            #printable-marksheet h2 { font-size: 15px !important; }
+            #printable-marksheet h3 { font-size: 13px !important; }
+            #printable-marksheet p { font-size: 10px !important; }
+            #printable-marksheet img { height: 38px !important; width: auto !important; }
             
-            /* Table optimization for print */
-            #printable-marksheet table {
-                font-size: 13px !important;
+            #printable-marksheet .header-container { padding-bottom: 8px !important; }
+            #printable-marksheet .student-info-grid { padding: 8px !important; gap: 6px !important; }
+            #printable-marksheet .summary-grid { padding: 8px !important; gap: 6px !important; }
+
+            /* Table Optimization */
+            #printable-marksheet table { font-size: 11px !important; }
+            #printable-marksheet table th { padding: 4px 8px !important; background-color: #022c22 !important; color: white !important; }
+            #printable-marksheet table td { padding: 4px 8px !important; }
+
+            /* Signatures Fit */
+            #printable-marksheet .signature-section {
+                padding-top: 15px !important;
+                margin-top: 5px !important;
+                page-break-inside: avoid !important;
             }
-            #printable-marksheet table th {
-                padding: 8px 12px !important;
-                background-color: #022c22 !important;
-                color: white !important;
-            }
-            #printable-marksheet table td {
-                padding: 8px 12px !important;
-            }
-            
-            /* General Layout Spacing for Print */
-            #printable-marksheet .py-3 { padding-top: 10px !important; padding-bottom: 10px !important; }
-            #printable-marksheet .p-4 { padding: 12px !important; }
-            #printable-marksheet .pt-8 { padding-top: 40px !important; }
+            #printable-marksheet .signature-space { height: 25px !important; }
         }
     </style>
 </head>
-<body class="font-sans bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-white">
+<body class="font-sans bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-white antialiased">
 
     <!-- NAVIGATION HEADER -->
     <header class="bg-white border-b border-emerald-100 sticky top-0 z-40 shadow-sm no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="index.html" class="flex items-center gap-3">
-                    <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-12 sm:h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/60?text=Madrasa+Logo'">
-                    <div class="border-l border-slate-200 pl-3">
-                        <h1 class="font-extrabold text-sm sm:text-base text-emerald-950 leading-tight">NANDI AL-HIKMA</h1>
-                        <p class="text-[10px] sm:text-xs text-gold-600 font-bold tracking-wide uppercase">HOLIDAY MADRASA</p>
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="index.html" class="flex items-center gap-2 sm:gap-3">
+                    <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-10 sm:h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/60?text=Madrasa+Logo'">
+                    <div class="border-l border-slate-200 pl-2 sm:pl-3">
+                        <h1 class="font-extrabold text-xs sm:text-base text-emerald-950 leading-tight">NANDI AL-HIKMA</h1>
+                        <p class="text-[9px] sm:text-xs text-gold-600 font-bold tracking-wide uppercase">HOLIDAY MADRASA</p>
                     </div>
                 </a>
 
-                <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-100 p-1 rounded-xl">
-                    <button id="tab-btn-results" onclick="switchTab('results')" class="px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all bg-emerald-850 text-white shadow">
-                        <span class="flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4"></i> <span class="hidden sm:inline">Result Portal</span><span class="sm:hidden">Result</span></span>
+                <div class="flex items-center gap-1 sm:gap-2 bg-slate-100 p-1 rounded-xl">
+                    <button id="tab-btn-results" onclick="switchTab('results')" class="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-extrabold uppercase tracking-wider transition-all bg-emerald-850 text-white shadow">
+                        <span class="flex items-center gap-1 sm:gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span class="hidden sm:inline">Result Portal</span><span class="sm:hidden">Result</span></span>
                     </button>
-                    <button id="tab-btn-register" onclick="switchTab('register')" class="px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all text-slate-600 hover:text-emerald-950">
-                        <span class="flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4"></i> <span class="hidden sm:inline">Registration</span><span class="sm:hidden">Admission</span></span>
+                    <button id="tab-btn-register" onclick="switchTab('register')" class="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-extrabold uppercase tracking-wider transition-all text-slate-600 hover:text-emerald-950">
+                        <span class="flex items-center gap-1 sm:gap-1.5"><i data-lucide="user-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span class="hidden sm:inline">Registration</span><span class="sm:hidden">Admission</span></span>
                     </button>
                 </div>
             </div>
@@ -148,44 +143,44 @@
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="flex-grow py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <main class="flex-grow py-4 sm:py-8 px-2.5 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
 
         <!-- TAB 1: RESULT PORTAL -->
-        <section id="section-results" class="space-y-6 sm:space-y-8">
+        <section id="section-results" class="space-y-4 sm:space-y-8">
             
             <!-- Hero Banner -->
-            <div class="bg-islamic-pattern text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-emerald-900 relative overflow-hidden no-print">
-                <div class="max-w-2xl relative z-10 space-y-2 sm:space-y-3">
-                    <span class="px-3 py-1 bg-gold-500/20 text-gold-400 border border-gold-400/30 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider inline-block">Official Verification Portal</span>
-                    <h2 class="text-xl sm:text-3xl font-extrabold text-white">പരീക്ഷാ ഫലവും മാർക്ക് ഷീറ്റും</h2>
-                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <div class="bg-islamic-pattern text-white rounded-2xl sm:rounded-3xl p-5 sm:p-10 shadow-xl border border-emerald-900 relative overflow-hidden no-print">
+                <div class="max-w-2xl relative z-10 space-y-1.5 sm:space-y-3">
+                    <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-gold-500/20 text-gold-400 border border-gold-400/30 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider inline-block">Official Verification Portal</span>
+                    <h2 class="text-lg sm:text-3xl font-extrabold text-white">പരീക്ഷാ ഫലവും മാർക്ക് ഷീറ്റും</h2>
+                    <p class="text-[11px] sm:text-sm text-slate-300 leading-relaxed">
                         കുട്ടിയുടെ അഡ്മിഷൻ നമ്പറും ജനന തീയതിയും നൽകി ഔദ്യോഗികമായി പബ്ലിഷ് ചെയ്ത മാർക്ക് ലിസ്റ്റ് പരിശോധിക്കുകയും പ്രിന്റ് ചെയ്യുകയും ചെയ്യാം.
                     </p>
                 </div>
             </div>
 
             <!-- Result Search Form Card -->
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md no-print max-w-2xl mx-auto">
-                <form id="result-search-form" onsubmit="handleResultSearch(event)" class="space-y-5">
-                    <div class="border-b border-slate-100 pb-3">
-                        <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                            <i data-lucide="search" class="w-5 h-5 text-emerald-850"></i>Check Result
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-slate-200 shadow-md no-print max-w-2xl mx-auto">
+                <form id="result-search-form" onsubmit="handleResultSearch(event)" class="space-y-4 sm:space-y-5">
+                    <div class="border-b border-slate-100 pb-2.5">
+                        <h3 class="text-sm sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="search" class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-850"></i>Check Result
                         </h3>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Reg No / Admission No *</label>
-                            <input type="text" id="search-student-id" required placeholder="ഉദാ: ADM-2026-001" class="w-full px-4 py-3 text-sm font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-emerald-800 focus:outline-none transition">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase mb-1">Reg No / Admission No *</label>
+                            <input type="text" id="search-student-id" required placeholder="ഉദാ: ADM-2026-001" class="w-full px-3.5 py-2.5 sm:py-3 text-xs sm:text-sm font-bold border border-slate-300 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-800 focus:outline-none transition">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date of Birth *</label>
-                            <input type="date" id="search-dob" required class="w-full px-4 py-3 text-sm font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-emerald-800 focus:outline-none transition">
+                            <label class="block text-[11px] sm:text-xs font-bold text-slate-700 uppercase mb-1">Date of Birth *</label>
+                            <input type="date" id="search-dob" required class="w-full px-3.5 py-2.5 sm:py-3 text-xs sm:text-sm font-bold border border-slate-300 rounded-xl sm:rounded-2xl focus:ring-2 focus:ring-emerald-800 focus:outline-none transition">
                         </div>
                     </div>
 
-                    <button type="submit" id="search-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-extrabold rounded-2xl shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center gap-2 text-sm">
+                    <button type="submit" id="search-btn" class="w-full py-3 sm:py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-extrabold rounded-xl sm:rounded-2xl shadow-lg shadow-emerald-900/20 transition-all flex items-center justify-center gap-2 text-xs sm:text-sm">
                         <i data-lucide="file-search" class="w-4 h-4"></i>
                         <span id="search-btn-text">View Mark list</span>
                     </button>
@@ -196,147 +191,144 @@
             <div id="result-display-area" class="max-w-4xl mx-auto space-y-6">
                 
                 <!-- Initial Empty State -->
-                <div id="result-empty-state" class="no-print text-center py-10 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-                    <i data-lucide="award" class="w-10 h-10 text-slate-300 mx-auto mb-2"></i>
-                    <h4 class="text-sm font-bold text-slate-700">വിവരങ്ങൾ നൽകി തിരയുക</h4>
-                    <p class="text-xs text-slate-500 mt-1">അഡ്മിഷൻ നമ്പറും ജനന തീയ്യതിയും നൽകി "View Mark list" ബട്ടൺ ക്ലിക്ക് ചെയ്യുക.</p>
+                <div id="result-empty-state" class="no-print text-center py-8 sm:py-10 bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-4 sm:p-6 shadow-sm">
+                    <i data-lucide="award" class="w-8 h-8 sm:w-10 sm:h-10 text-slate-300 mx-auto mb-2"></i>
+                    <h4 class="text-xs sm:text-sm font-bold text-slate-700">വിവരങ്ങൾ നൽകി തിരയുക</h4>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-1">അഡ്മിഷൻ നമ്പറും ജനന തീയ്യതിയും നൽകി "View Mark list" ബട്ടൺ ക്ലിക്ക് ചെയ്യുക.</p>
                 </div>
 
                 <!-- UNPUBLISHED / NOT FOUND STATE -->
-                <div id="result-unpublished-state" class="hidden no-print text-center p-8 bg-amber-50 border border-amber-200 rounded-3xl space-y-2">
-                    <i data-lucide="alert-circle" class="w-8 h-8 text-amber-700 mx-auto"></i>
-                    <h4 class="text-sm font-bold text-amber-900">Result not found.</h4>
-                    <p id="error-msg-text" class="text-xs text-amber-800 max-w-md mx-auto">
+                <div id="result-unpublished-state" class="hidden no-print text-center p-6 sm:p-8 bg-amber-50 border border-amber-200 rounded-2xl sm:rounded-3xl space-y-2">
+                    <i data-lucide="alert-circle" class="w-7 h-7 sm:w-8 sm:h-8 text-amber-700 mx-auto"></i>
+                    <h4 class="text-xs sm:text-sm font-bold text-amber-900">Result not found.</h4>
+                    <p id="error-msg-text" class="text-[11px] sm:text-xs text-amber-800 max-w-md mx-auto">
                         നൽകിയ അഡ്മിഷൻ നമ്പറിലോ ജനന തീയ്യതിയിലോ മാറ്റമുണ്ട്. വിവരങ്ങൾ ശരിയാണെന്ന് ഉറപ്പുവരുത്തുക.<br>After, Please Contact Your Teacher. 
                     </p>
                 </div>
 
                 <!-- OFFICIAL DIGITAL MARK SHEET CERTIFICATE CARD -->
-                <div id="printable-marksheet" class="hidden bg-white border-2 border-emerald-950 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-6">
+                <div id="printable-marksheet" class="hidden bg-white border-2 border-emerald-950 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl relative overflow-hidden space-y-3 sm:space-y-5">
                     
-                    <!-- Top Content Wrapper (For flex spacing during A4 print) -->
-                    <div class="space-y-5">
-                        <!-- Decorative Top Border Pattern -->
-                        <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-emerald-950 via-gold-500 to-emerald-950 no-print"></div>
+                    <!-- Decorative Top Border Pattern -->
+                    <div class="absolute top-0 left-0 right-0 h-2 sm:h-3 bg-gradient-to-r from-emerald-950 via-gold-500 to-emerald-950 no-print"></div>
 
-                        <!-- Bismillah Header -->
-                        <div class="text-center pt-2">
-                            <p class="font-arabic text-2xl sm:text-3xl text-emerald-950 font-bold">بسم الله الرحمن الرحيم</p>
-                            <p class="text-[10px] sm:text-xs uppercase font-extrabold text-gold-600 tracking-widest mt-1">OFFICIAL BOARD EXAMINATION STATEMENT OF MARKS</p>
-                        </div>
+                    <!-- Bismillah Header -->
+                    <div class="text-center pt-1">
+                        <p class="font-arabic text-xl sm:text-2xl text-emerald-950 font-bold">بسم الله الرحمن الرحيم</p>
+                        <p class="text-[9px] sm:text-[10px] uppercase font-bold text-gold-600 tracking-widest mt-0.5">OFFICIAL BOARD EXAMINATION STATEMENT OF MARKS</p>
+                    </div>
 
-                        <!-- Header Logos & Institution Details -->
-                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-emerald-950 pb-5 text-center sm:text-left">
-                            
-                            <!-- Left: Madrasa Logo & Name -->
-                            <div class="flex items-center gap-3">
-                                <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-16 sm:h-20 w-auto object-contain drop-shadow" onerror="this.src='https://via.placeholder.com/80?text=Madrasa+Logo'">
-                                <div>
-                                    <h2 class="text-lg sm:text-xl font-black text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
-                                    <p class="text-xs font-bold text-gold-600 uppercase tracking-wide">Nandi, Kozhikode, Kerala, India</p>
-                                </div>
-                            </div>
-
-                            <!-- Right: Wisdom Board Logo & Verified Badge -->
-                            <div class="flex flex-col items-center sm:items-end gap-1">
-                                <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-12 sm:h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/70?text=Wisdom+Board'">
-                                <span class="px-3 py-1 bg-emerald-100 text-emerald-950 text-[10px] font-black rounded-full border border-emerald-300 mt-1 uppercase tracking-wider">
-                                    VERIFIED STATEMENT
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <!-- Exam Title & Class Badge -->
-                        <div class="py-2 flex justify-between items-center border-b border-slate-200">
+                    <!-- Header Logos & Institution Details -->
+                    <div class="header-container flex flex-row items-center justify-between gap-2 border-b-2 border-emerald-950 pb-3 sm:pb-4 text-left">
+                        
+                        <!-- Left: Madrasa Logo & Name -->
+                        <div class="flex items-center gap-2 sm:gap-3">
+                            <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-12 sm:h-16 w-auto object-contain drop-shadow" onerror="this.src='https://via.placeholder.com/80?text=Madrasa+Logo'">
                             <div>
-                                <h3 id="ms-exam-name" class="text-xs sm:text-base font-black text-slate-900">Annual Board Examination</h3>
-                                <p class="text-[11px] text-slate-500 font-semibold">Wisdom Education Board Academic Year 2026–2027</p>
-                            </div>
-                            <div class="text-right">
-                                <span id="ms-class-badge" class="text-xs sm:text-sm font-black bg-emerald-950 text-gold-400 px-3.5 py-1 rounded-xl shadow-sm">Class 1</span>
+                                <h2 class="text-xs sm:text-lg font-black text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
+                                <p class="text-[9px] sm:text-xs font-bold text-gold-600 uppercase tracking-wide">Nandi, Kozhikode, Kerala, India</p>
                             </div>
                         </div>
 
-                        <!-- Student Personal Info Grid -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 py-3 text-xs bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                            <div>
-                                <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Student Name</span>
-                                <strong id="ms-student-name" class="text-slate-900 text-xs sm:text-sm font-extrabold">--</strong>
-                            </div>
-                            <div>
-                                <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Admission / Reg No</span>
-                                <strong id="ms-student-id" class="text-slate-900 font-mono font-bold">--</strong>
-                            </div>
-                            <div>
-                                <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Roll No</span>
-                                <strong id="ms-roll-no" class="text-slate-900 font-bold">--</strong>
-                            </div>
-                            <div>
-                                <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Date of Birth</span>
-                                <strong id="ms-dob" class="text-slate-900 font-bold">--</strong>
-                            </div>
+                        <!-- Right: Wisdom Board Logo & Verified Badge -->
+                        <div class="flex flex-col items-end gap-0.5 sm:gap-1">
+                            <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-10 sm:h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/70?text=Wisdom+Board'">
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-950 text-[8px] sm:text-[10px] font-black rounded-full border border-emerald-300 uppercase tracking-wider">
+                                VERIFIED STATEMENT
+                            </span>
                         </div>
 
-                        <!-- Subject Marks Table -->
-                        <div class="overflow-x-auto border border-slate-200 rounded-2xl">
-                            <table class="w-full text-left text-xs sm:text-sm border-collapse">
-                                <thead>
-                                    <tr class="bg-emerald-950 text-white font-extrabold uppercase text-[10px] sm:text-[11px] tracking-wider">
-                                        <th class="p-3 border-b border-emerald-900">Subject</th>
-                                        <th class="p-3 border-b border-emerald-900 text-center w-28">Max Marks</th>
-                                        <th class="p-3 border-b border-emerald-900 text-center w-32">Marks</th>
-                                        <th class="p-3 border-b border-emerald-900 text-center w-24">Grade</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="ms-marks-tbody" class="divide-y divide-slate-100 font-semibold text-slate-800">
-                                    <!-- Dynamic Rows Generated via JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
 
-                        <!-- Summary & Percentage Grid -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs">
-                            <div>
-                                <span class="text-emerald-900 font-bold block text-[10px] uppercase tracking-wider">Total Max</span>
-                                <span id="ms-total-max" class="text-base sm:text-lg font-bold text-emerald-950">0</span>
-                            </div>
-                            <div>
-                                <span class="text-emerald-900 font-bold block text-[10px] uppercase tracking-wider">Total Obtained</span>
-                                <span id="ms-total-obtained" class="text-base sm:text-lg font-extrabold text-emerald-950">0</span>
-                            </div>
-                            <div>
-                                <span class="text-emerald-900 font-bold block text-[10px] uppercase tracking-wider">Percentage</span>
-                                <span id="ms-percentage" class="text-base sm:text-lg font-extrabold text-emerald-950">0%</span>
-                            </div>
-                            <div>
-                                <span class="text-emerald-900 font-bold block text-[10px] uppercase tracking-wider">Result Status</span>
-                                <span id="ms-overall-result" class="text-base sm:text-lg font-black text-emerald-950">PASSED</span>
-                            </div>
+                    <!-- Exam Title & Class Badge -->
+                    <div class="py-1 sm:py-2 flex justify-between items-center border-b border-slate-200 text-xs">
+                        <div>
+                            <h3 id="ms-exam-name" class="text-xs sm:text-base font-black text-slate-900">Annual Board Examination</h3>
+                            <p class="text-[9px] sm:text-[11px] text-slate-500 font-semibold">Wisdom Education Board Academic Year 2026–2027</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="ms-class-badge" class="text-xs sm:text-sm font-black bg-emerald-950 text-gold-400 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl shadow-sm">Class 1</span>
                         </div>
                     </div>
 
-                    <!-- Bottom Content Wrapper (Official Signatures & Seal Section) -->
-                    <div class="pt-6 border-t border-slate-100">
-                        <div class="grid grid-cols-2 gap-4 text-center text-xs font-bold text-slate-700">
-                            <div class="space-y-8">
-                                <div class="h-10 flex items-end justify-center">
-                                    <span class="border-b border-dashed border-slate-400 w-36 inline-block"></span>
+                    <!-- Student Personal Info Grid -->
+                    <div class="student-info-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3.5 py-2 sm:py-3 text-xs bg-slate-50 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200">
+                        <div>
+                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Student Name</span>
+                            <strong id="ms-student-name" class="text-slate-900 text-xs sm:text-sm font-extrabold truncate block">--</strong>
+                        </div>
+                        <div>
+                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Admission / Reg No</span>
+                            <strong id="ms-student-id" class="text-slate-900 font-mono font-bold text-xs sm:text-sm">--</strong>
+                        </div>
+                        <div>
+                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Roll No</span>
+                            <strong id="ms-roll-no" class="text-slate-900 font-bold text-xs sm:text-sm">--</strong>
+                        </div>
+                        <div>
+                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Date of Birth</span>
+                            <strong id="ms-dob" class="text-slate-900 font-bold text-xs sm:text-sm">--</strong>
+                        </div>
+                    </div>
+
+                    <!-- Subject Marks Table -->
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl sm:rounded-2xl">
+                        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-emerald-950 text-white font-extrabold uppercase text-[9px] sm:text-[11px] tracking-wider">
+                                    <th class="p-2 sm:p-3 border-b border-emerald-900">Subject</th>
+                                    <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-20 sm:w-28">Max Marks</th>
+                                    <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-20 sm:w-32">Marks</th>
+                                    <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-16 sm:w-24">Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ms-marks-tbody" class="divide-y divide-slate-100 font-semibold text-slate-800">
+                                <!-- Dynamic Rows Generated via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Summary & Percentage Grid -->
+                    <div class="summary-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 p-2.5 sm:p-4 bg-emerald-50 rounded-xl sm:rounded-2xl border border-emerald-200 text-xs">
+                        <div>
+                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Total Max</span>
+                            <span id="ms-total-max" class="text-sm sm:text-lg font-bold text-emerald-950">0</span>
+                        </div>
+                        <div>
+                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Total Obtained</span>
+                            <span id="ms-total-obtained" class="text-sm sm:text-lg font-extrabold text-emerald-950">0</span>
+                        </div>
+                        <div>
+                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Percentage</span>
+                            <span id="ms-percentage" class="text-sm sm:text-lg font-extrabold text-emerald-950">0%</span>
+                        </div>
+                        <div>
+                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Result Status</span>
+                            <span id="ms-overall-result" class="text-sm sm:text-lg font-black text-emerald-950">PASSED</span>
+                        </div>
+                    </div>
+
+                    <!-- Official Signatures & Seal Section -->
+                    <div class="signature-section pt-4 sm:pt-6 border-t border-slate-100">
+                        <div class="grid grid-cols-2 gap-4 text-center text-[10px] sm:text-xs font-bold text-slate-700">
+                            <div class="space-y-4 sm:space-y-6">
+                                <div class="signature-space h-6 sm:h-8 flex items-end justify-center">
+                                    <span class="border-b border-dashed border-slate-400 w-28 sm:w-36 inline-block"></span>
                                 </div>
-                                <p class="text-[11px]">Class Teacher Signature</p>
+                                <p class="text-[10px] sm:text-[11px]">Class Teacher Signature</p>
                             </div>
-                            <div class="space-y-8">
-                                <div class="h-10 flex items-end justify-center">
-                                    <span class="border-b border-dashed border-slate-400 w-36 inline-block"></span>
+                            <div class="space-y-4 sm:space-y-6">
+                                <div class="signature-space h-6 sm:h-8 flex items-end justify-center">
+                                    <span class="border-b border-dashed border-slate-400 w-28 sm:w-36 inline-block"></span>
                                 </div>
-                                <p class="text-[11px]">Headmaster / Principal Seal</p>
+                                <p class="text-[10px] sm:text-[11px]">Headmaster / Principal Seal</p>
                             </div>
                         </div>
 
                         <!-- Action Print Button -->
-                        <div class="mt-6 pt-4 border-t border-slate-200 flex justify-between items-center no-print">
-                            <p class="text-[11px] text-slate-500 font-medium">Verified under Wisdom Education Board System</p>
-                            <button onclick="window.print()" class="px-6 py-3 bg-gold-400 hover:bg-gold-500 text-slate-950 font-extrabold rounded-2xl shadow-md flex items-center gap-2 text-xs transition">
+                        <div class="mt-4 pt-3 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-2 no-print">
+                            <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium">Verified under Wisdom Education Board System</p>
+                            <button onclick="window.print()" class="w-full sm:w-auto px-5 py-2.5 bg-gold-400 hover:bg-gold-500 text-slate-950 font-extrabold rounded-xl shadow-md flex items-center justify-center gap-2 text-xs transition">
                                 <i data-lucide="printer" class="w-4 h-4"></i> PRINT / SAVE PDF
                             </button>
                         </div>
@@ -348,14 +340,14 @@
 
         <!-- TAB 2: STUDENT ADMISSION REGISTRATION -->
         <section id="section-register" class="hidden space-y-6 no-print max-w-2xl mx-auto">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-5">
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-md space-y-4 sm:space-y-5">
                 <div class="border-b border-slate-200 pb-3">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-gold-600">Online Admission 2026</span>
-                    <h2 class="text-xl font-extrabold text-slate-900 mt-0.5">വിദ്യാർത്ഥി അഡ്മിഷൻ അപേക്ഷ ഫോം</h2>
+                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-0.5">വിദ്യാർത്ഥി അഡ്മിഷൻ അപേക്ഷ ഫോം</h2>
                 </div>
 
                 <form id="student-registration-form" onsubmit="handleRegistrationSubmit(event)" class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student Name *</label>
                             <input type="text" id="reg-name" required placeholder="Mohammed Rayan" class="w-full px-3.5 py-2.5 text-xs font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
@@ -401,7 +393,7 @@
 
                     <div id="reg-status-message" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
 
-                    <button type="submit" id="reg-submit-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-extrabold rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs">
+                    <button type="submit" id="reg-submit-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-extrabold rounded-xl sm:rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs">
                         <i data-lucide="send" class="w-4 h-4"></i> Submit Application 
                     </button>
                 </form>
@@ -411,8 +403,8 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-emerald-950 text-slate-400 py-6 text-xs border-t border-emerald-900 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+    <footer class="bg-emerald-950 text-slate-400 py-4 sm:py-6 text-[11px] sm:text-xs border-t border-emerald-900 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
             <p>&copy; 2026 Nandi Al-Hikma Holiday Madrasa. All Rights Reserved.</p>
         </div>
     </footer>
@@ -457,13 +449,13 @@
             if (tab === 'results') {
                 resultsSection.classList.remove('hidden');
                 registerSection.classList.add('hidden');
-                btnResults.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-emerald-850 text-white shadow";
-                btnRegister.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider text-slate-600";
+                btnResults.className = "px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-extrabold uppercase tracking-wider bg-emerald-850 text-white shadow";
+                btnRegister.className = "px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-600";
             } else {
                 resultsSection.classList.add('hidden');
                 registerSection.classList.remove('hidden');
-                btnRegister.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-emerald-850 text-white shadow";
-                btnResults.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider text-slate-600";
+                btnRegister.className = "px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-extrabold uppercase tracking-wider bg-emerald-850 text-white shadow";
+                btnResults.className = "px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-600";
             }
         };
 
@@ -580,10 +572,10 @@
 
                             tbody.innerHTML += `
                                 <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-                                    <td class="p-3 font-extrabold text-slate-900">${sub}</td>
-                                    <td class="p-3 text-center text-slate-500 font-bold">${max}</td>
-                                    <td class="p-3 text-center font-extrabold text-slate-900">${obt}</td>
-                                    <td class="p-3 text-center ${gradeInfo.color}">${gradeInfo.grade}</td>
+                                    <td class="p-2 sm:p-3 font-extrabold text-slate-900">${sub}</td>
+                                    <td class="p-2 sm:p-3 text-center text-slate-500 font-bold">${max}</td>
+                                    <td class="p-2 sm:p-3 text-center font-extrabold text-slate-900">${obt}</td>
+                                    <td class="p-2 sm:p-3 text-center ${gradeInfo.color}">${gradeInfo.grade}</td>
                                 </tr>
                             `;
                         });
@@ -598,10 +590,10 @@
                     const resElem = document.getElementById('ms-overall-result');
                     if (isOverallPass) {
                         resElem.textContent = "PASSED";
-                        resElem.className = "text-base sm:text-lg font-black text-emerald-800";
+                        resElem.className = "text-sm sm:text-lg font-black text-emerald-800";
                     } else {
                         resElem.textContent = "FAILED";
-                        resElem.className = "text-base sm:text-lg font-black text-rose-800";
+                        resElem.className = "text-sm sm:text-lg font-black text-rose-800";
                     }
 
                     document.getElementById('printable-marksheet').classList.remove('hidden');
