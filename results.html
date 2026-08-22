@@ -43,7 +43,7 @@
             background-position: 0 0, 14px 14px;
         }
 
-        /* PERFECT PRINT & PDF STYLES - Guaranteed Single Page (A4 / Letter) */
+        /* PERFECT PRINT & PDF STYLES - Guaranteed Single Page with Bottom Anchored Signatures */
         @media print {
             @page {
                 size: A4 portrait;
@@ -79,8 +79,8 @@
                 justify-content: space-between !important;
                 box-sizing: border-box !important;
                 width: 100% !important;
-                max-height: 280mm !important; /* Strict height limit to avoid 2nd page overflow */
-                padding: 10px 16px !important;
+                height: 282mm !important; /* Full A4 page height fit */
+                padding: 12px 18px !important;
                 margin: 0 auto !important;
                 box-shadow: none !important;
                 border: 2px solid #022c22 !important;
@@ -90,7 +90,7 @@
                 background: white !important;
             }
 
-            /* Compact Spacing for Print to Fit 8+ Subjects easily */
+            /* Compact Top Elements to Leave Room for Bottom Signatures */
             #printable-marksheet .font-arabic { font-size: 20px !important; line-height: 1 !important; }
             #printable-marksheet h2 { font-size: 15px !important; }
             #printable-marksheet h3 { font-size: 13px !important; }
@@ -106,13 +106,14 @@
             #printable-marksheet table th { padding: 4px 8px !important; background-color: #022c22 !important; color: white !important; }
             #printable-marksheet table td { padding: 4px 8px !important; }
 
-            /* Signatures Fit */
+            /* Signature Section Pushed to Bottom */
             #printable-marksheet .signature-section {
-                padding-top: 15px !important;
-                margin-top: 5px !important;
+                margin-top: auto !important; /* Key: Pushes signatures down to the bottom border */
+                padding-top: 24px !important;
+                padding-bottom: 10px !important;
                 page-break-inside: avoid !important;
             }
-            #printable-marksheet .signature-space { height: 25px !important; }
+            #printable-marksheet .signature-space { height: 32px !important; }
         }
     </style>
 </head>
@@ -207,119 +208,122 @@
                 </div>
 
                 <!-- OFFICIAL DIGITAL MARK SHEET CERTIFICATE CARD -->
-                <div id="printable-marksheet" class="hidden bg-white border-2 border-emerald-950 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl relative overflow-hidden space-y-3 sm:space-y-5">
+                <div id="printable-marksheet" class="hidden bg-white border-2 border-emerald-950 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[640px] sm:min-h-[750px] space-y-3 sm:space-y-5">
                     
-                    <!-- Decorative Top Border Pattern -->
-                    <div class="absolute top-0 left-0 right-0 h-2 sm:h-3 bg-gradient-to-r from-emerald-950 via-gold-500 to-emerald-950 no-print"></div>
+                    <!-- Top Content Section -->
+                    <div class="space-y-3 sm:space-y-5 flex-grow">
+                        <!-- Decorative Top Border Pattern -->
+                        <div class="absolute top-0 left-0 right-0 h-2 sm:h-3 bg-gradient-to-r from-emerald-950 via-gold-500 to-emerald-950 no-print"></div>
 
-                    <!-- Bismillah Header -->
-                    <div class="text-center pt-1">
-                        <p class="font-arabic text-xl sm:text-2xl text-emerald-950 font-bold">بسم الله الرحمن الرحيم</p>
-                        <p class="text-[9px] sm:text-[10px] uppercase font-bold text-gold-600 tracking-widest mt-0.5">OFFICIAL BOARD EXAMINATION STATEMENT OF MARKS</p>
-                    </div>
+                        <!-- Bismillah Header -->
+                        <div class="text-center pt-1">
+                            <p class="font-arabic text-xl sm:text-2xl text-emerald-950 font-bold">بسم الله الرحمن الرحيم</p>
+                            <p class="text-[9px] sm:text-[10px] uppercase font-bold text-gold-600 tracking-widest mt-0.5">OFFICIAL BOARD EXAMINATION STATEMENT OF MARKS</p>
+                        </div>
 
-                    <!-- Header Logos & Institution Details -->
-                    <div class="header-container flex flex-row items-center justify-between gap-2 border-b-2 border-emerald-950 pb-3 sm:pb-4 text-left">
-                        
-                        <!-- Left: Madrasa Logo & Name -->
-                        <div class="flex items-center gap-2 sm:gap-3">
-                            <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-12 sm:h-16 w-auto object-contain drop-shadow" onerror="this.src='https://via.placeholder.com/80?text=Madrasa+Logo'">
+                        <!-- Header Logos & Institution Details -->
+                        <div class="header-container flex flex-row items-center justify-between gap-2 border-b-2 border-emerald-950 pb-3 sm:pb-4 text-left">
+                            
+                            <!-- Left: Madrasa Logo & Name -->
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-12 sm:h-16 w-auto object-contain drop-shadow" onerror="this.src='https://via.placeholder.com/80?text=Madrasa+Logo'">
+                                <div>
+                                    <h2 class="text-xs sm:text-lg font-black text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
+                                    <p class="text-[9px] sm:text-xs font-bold text-gold-600 uppercase tracking-wide">Nandi, Kozhikode, Kerala, India</p>
+                                </div>
+                            </div>
+
+                            <!-- Right: Wisdom Board Logo & Verified Badge -->
+                            <div class="flex flex-col items-end gap-0.5 sm:gap-1">
+                                <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-10 sm:h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/70?text=Wisdom+Board'">
+                                <span class="px-2 py-0.5 bg-emerald-100 text-emerald-950 text-[8px] sm:text-[10px] font-black rounded-full border border-emerald-300 uppercase tracking-wider">
+                                    VERIFIED STATEMENT
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- Exam Title & Class Badge -->
+                        <div class="py-1 sm:py-2 flex justify-between items-center border-b border-slate-200 text-xs">
                             <div>
-                                <h2 class="text-xs sm:text-lg font-black text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
-                                <p class="text-[9px] sm:text-xs font-bold text-gold-600 uppercase tracking-wide">Nandi, Kozhikode, Kerala, India</p>
+                                <h3 id="ms-exam-name" class="text-xs sm:text-base font-black text-slate-900">Annual Board Examination</h3>
+                                <p class="text-[9px] sm:text-[11px] text-slate-500 font-semibold">Wisdom Education Board Academic Year 2026–2027</p>
+                            </div>
+                            <div class="text-right">
+                                <span id="ms-class-badge" class="text-xs sm:text-sm font-black bg-emerald-950 text-gold-400 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl shadow-sm">Class 1</span>
                             </div>
                         </div>
 
-                        <!-- Right: Wisdom Board Logo & Verified Badge -->
-                        <div class="flex flex-col items-end gap-0.5 sm:gap-1">
-                            <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-10 sm:h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/70?text=Wisdom+Board'">
-                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-950 text-[8px] sm:text-[10px] font-black rounded-full border border-emerald-300 uppercase tracking-wider">
-                                VERIFIED STATEMENT
-                            </span>
+                        <!-- Student Personal Info Grid -->
+                        <div class="student-info-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3.5 py-2 sm:py-3 text-xs bg-slate-50 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200">
+                            <div>
+                                <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Student Name</span>
+                                <strong id="ms-student-name" class="text-slate-900 text-xs sm:text-sm font-extrabold truncate block">--</strong>
+                            </div>
+                            <div>
+                                <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Admission / Reg No</span>
+                                <strong id="ms-student-id" class="text-slate-900 font-mono font-bold text-xs sm:text-sm">--</strong>
+                            </div>
+                            <div>
+                                <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Roll No</span>
+                                <strong id="ms-roll-no" class="text-slate-900 font-bold text-xs sm:text-sm">--</strong>
+                            </div>
+                            <div>
+                                <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Date of Birth</span>
+                                <strong id="ms-dob" class="text-slate-900 font-bold text-xs sm:text-sm">--</strong>
+                            </div>
                         </div>
 
-                    </div>
+                        <!-- Subject Marks Table -->
+                        <div class="overflow-x-auto border border-slate-200 rounded-xl sm:rounded-2xl">
+                            <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                                <thead>
+                                    <tr class="bg-emerald-950 text-white font-extrabold uppercase text-[9px] sm:text-[11px] tracking-wider">
+                                        <th class="p-2 sm:p-3 border-b border-emerald-900">Subject</th>
+                                        <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-20 sm:w-28">Max Marks</th>
+                                        <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-20 sm:w-32">Marks</th>
+                                        <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-16 sm:w-24">Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ms-marks-tbody" class="divide-y divide-slate-100 font-semibold text-slate-800">
+                                    <!-- Dynamic Rows Generated via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <!-- Exam Title & Class Badge -->
-                    <div class="py-1 sm:py-2 flex justify-between items-center border-b border-slate-200 text-xs">
-                        <div>
-                            <h3 id="ms-exam-name" class="text-xs sm:text-base font-black text-slate-900">Annual Board Examination</h3>
-                            <p class="text-[9px] sm:text-[11px] text-slate-500 font-semibold">Wisdom Education Board Academic Year 2026–2027</p>
-                        </div>
-                        <div class="text-right">
-                            <span id="ms-class-badge" class="text-xs sm:text-sm font-black bg-emerald-950 text-gold-400 px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl shadow-sm">Class 1</span>
-                        </div>
-                    </div>
-
-                    <!-- Student Personal Info Grid -->
-                    <div class="student-info-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3.5 py-2 sm:py-3 text-xs bg-slate-50 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200">
-                        <div>
-                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Student Name</span>
-                            <strong id="ms-student-name" class="text-slate-900 text-xs sm:text-sm font-extrabold truncate block">--</strong>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Admission / Reg No</span>
-                            <strong id="ms-student-id" class="text-slate-900 font-mono font-bold text-xs sm:text-sm">--</strong>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Roll No</span>
-                            <strong id="ms-roll-no" class="text-slate-900 font-bold text-xs sm:text-sm">--</strong>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">Date of Birth</span>
-                            <strong id="ms-dob" class="text-slate-900 font-bold text-xs sm:text-sm">--</strong>
-                        </div>
-                    </div>
-
-                    <!-- Subject Marks Table -->
-                    <div class="overflow-x-auto border border-slate-200 rounded-xl sm:rounded-2xl">
-                        <table class="w-full text-left text-xs sm:text-sm border-collapse">
-                            <thead>
-                                <tr class="bg-emerald-950 text-white font-extrabold uppercase text-[9px] sm:text-[11px] tracking-wider">
-                                    <th class="p-2 sm:p-3 border-b border-emerald-900">Subject</th>
-                                    <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-20 sm:w-28">Max Marks</th>
-                                    <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-20 sm:w-32">Marks</th>
-                                    <th class="p-2 sm:p-3 border-b border-emerald-900 text-center w-16 sm:w-24">Grade</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ms-marks-tbody" class="divide-y divide-slate-100 font-semibold text-slate-800">
-                                <!-- Dynamic Rows Generated via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Summary & Percentage Grid -->
-                    <div class="summary-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 p-2.5 sm:p-4 bg-emerald-50 rounded-xl sm:rounded-2xl border border-emerald-200 text-xs">
-                        <div>
-                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Total Max</span>
-                            <span id="ms-total-max" class="text-sm sm:text-lg font-bold text-emerald-950">0</span>
-                        </div>
-                        <div>
-                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Total Obtained</span>
-                            <span id="ms-total-obtained" class="text-sm sm:text-lg font-extrabold text-emerald-950">0</span>
-                        </div>
-                        <div>
-                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Percentage</span>
-                            <span id="ms-percentage" class="text-sm sm:text-lg font-extrabold text-emerald-950">0%</span>
-                        </div>
-                        <div>
-                            <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Result Status</span>
-                            <span id="ms-overall-result" class="text-sm sm:text-lg font-black text-emerald-950">PASSED</span>
+                        <!-- Summary & Percentage Grid -->
+                        <div class="summary-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 p-2.5 sm:p-4 bg-emerald-50 rounded-xl sm:rounded-2xl border border-emerald-200 text-xs">
+                            <div>
+                                <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Total Max</span>
+                                <span id="ms-total-max" class="text-sm sm:text-lg font-bold text-emerald-950">0</span>
+                            </div>
+                            <div>
+                                <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Total Obtained</span>
+                                <span id="ms-total-obtained" class="text-sm sm:text-lg font-extrabold text-emerald-950">0</span>
+                            </div>
+                            <div>
+                                <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Percentage</span>
+                                <span id="ms-percentage" class="text-sm sm:text-lg font-extrabold text-emerald-950">0%</span>
+                            </div>
+                            <div>
+                                <span class="text-emerald-900 font-bold block text-[9px] sm:text-[10px] uppercase tracking-wider">Result Status</span>
+                                <span id="ms-overall-result" class="text-sm sm:text-lg font-black text-emerald-950">PASSED</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Official Signatures & Seal Section -->
-                    <div class="signature-section pt-4 sm:pt-6 border-t border-slate-100">
+                    <!-- Official Signatures & Seal Section (Anchored to the Bottom) -->
+                    <div class="signature-section mt-auto pt-6 sm:pt-10 border-t border-slate-100">
                         <div class="grid grid-cols-2 gap-4 text-center text-[10px] sm:text-xs font-bold text-slate-700">
-                            <div class="space-y-4 sm:space-y-6">
-                                <div class="signature-space h-6 sm:h-8 flex items-end justify-center">
-                                    <span class="border-b border-dashed border-slate-400 w-28 sm:w-36 inline-block"></span>
+                            <div class="space-y-6 sm:space-y-8">
+                                <div class="signature-space h-8 sm:h-12 flex items-end justify-center">
+                                    <span class="border-b border-dashed border-slate-400 w-32 sm:w-44 inline-block"></span>
                                 </div>
                                 <p class="text-[10px] sm:text-[11px]">Class Teacher Signature</p>
                             </div>
-                            <div class="space-y-4 sm:space-y-6">
-                                <div class="signature-space h-6 sm:h-8 flex items-end justify-center">
-                                    <span class="border-b border-dashed border-slate-400 w-28 sm:w-36 inline-block"></span>
+                            <div class="space-y-6 sm:space-y-8">
+                                <div class="signature-space h-8 sm:h-12 flex items-end justify-center">
+                                    <span class="border-b border-dashed border-slate-400 w-32 sm:w-44 inline-block"></span>
                                 </div>
                                 <p class="text-[10px] sm:text-[11px]">Headmaster / Principal Seal</p>
                             </div>
