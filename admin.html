@@ -38,13 +38,7 @@
         }
     </script>
     <style>
-        .bg-pattern {
-            background-color: #022c22;
-            background-image: radial-gradient(#d97706 0.75px, transparent 0.75px), radial-gradient(#059669 0.75px, #022c22 0.75px);
-            background-size: 24px 24px;
-            background-position: 0 0, 12px 12px;
-        }
-        /* Sticky Column logic for Responsive UX Table */
+        /* Mobile Table Sticky Columns for UX */
         .sticky-col-1 {
             position: sticky;
             left: 0;
@@ -52,19 +46,22 @@
         }
         .sticky-col-2 {
             position: sticky;
-            left: 56px;
+            left: 48px;
             z-index: 20;
         }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-white">
 
-    <!-- TOP APPLICATION HEADER -->
+    <!-- Recaptcha Container for Firebase Phone Auth -->
+    <div id="recaptcha-container"></div>
+
+    <!-- APPLICATION HEADER -->
     <header class="bg-emerald-950 text-white border-b border-emerald-800/80 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex justify-between items-center">
             
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-gold-500 to-amber-300 text-emerald-950 flex items-center justify-center font-bold text-xl shadow-lg transition-transform group-hover:scale-105">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-gold-500 to-amber-300 text-emerald-950 flex items-center justify-center font-bold text-xl shadow-lg">
                     <i data-lucide="graduation-cap" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </div>
                 <div class="flex flex-col">
@@ -81,7 +78,7 @@
                         <span id="user-display-role" class="text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-900 text-emerald-200 border border-emerald-700/50 uppercase">STAFF</span>
                     </div>
                 </div>
-                <button onclick="handleLogout()" class="p-2 sm:px-3 sm:py-2 bg-rose-600/90 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition shadow-sm" title="ലോഗ്ഔട്ട്">
+                <button onclick="handleLogout()" class="p-2 sm:px-3 sm:py-2 bg-rose-600/90 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition shadow-sm">
                     <i data-lucide="log-out" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">ലോഗ്ഔട്ട്</span>
                 </button>
@@ -93,42 +90,54 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
 
-        <!-- VIEW 1: AUTHENTICATION LOGIN CARD -->
+        <!-- VIEW 1: AUTHENTICATION LOGIN CARD (PHONE OTP LOGIN) -->
         <section id="view-login" class="max-w-md mx-auto my-6 sm:my-12">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200/80 space-y-6 relative overflow-hidden">
                 <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-800 via-gold-500 to-emerald-950"></div>
                 
                 <div class="text-center space-y-2 pt-2">
                     <div class="w-16 h-16 bg-emerald-50 text-emerald-900 rounded-2xl border border-emerald-100 flex items-center justify-center mx-auto shadow-inner">
-                        <i data-lucide="user-check" class="w-8 h-8 text-emerald-850"></i>
+                        <i data-lucide="smartphone" class="w-8 h-8 text-emerald-850"></i>
                     </div>
                     <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">സ്റ്റാഫ് പോർട്ടൽ ലോഗിൻ</h2>
-                    <p class="text-xs text-slate-500">അംഗീകൃത മൊബൈൽ നമ്പർ നൽകി പ്രവേശിക്കുക</p>
+                    <p class="text-xs text-slate-500">അംഗീകൃത മൊബൈൽ നമ്പർ നൽകി OTP വെരിഫൈ ചെയ്യുക</p>
                 </div>
 
-                <form id="login-form" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <!-- STEP 1: PHONE FORM -->
+                <form id="phone-login-form" onsubmit="handleSendOtp(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">മൊബൈൽ നമ്പർ (+91)</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 text-sm font-semibold">+91</span>
-                            <input type="tel" id="login-phone" required maxlength="10" placeholder="8078775670" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:bg-white transition">
+                            <input type="tel" id="input-phone" required maxlength="10" placeholder="8078775670" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:bg-white transition">
                         </div>
                     </div>
 
-                    <div id="otp-section" class="hidden space-y-2">
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">OTP കോഡ്</label>
-                        <input type="text" id="login-otp" placeholder="123456" maxlength="6" class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-base font-extrabold text-slate-900 text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:bg-white transition">
-                    </div>
-
-                    <div id="recaptcha-container"></div>
-
-                    <div id="login-error" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold text-center"></div>
-
-                    <button type="submit" id="login-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-2xl text-xs sm:text-sm font-extrabold shadow-lg shadow-emerald-900/20 transition flex items-center justify-center space-x-2">
-                        <span id="login-btn-text">തുടരുക</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    <button type="submit" id="btn-send-otp" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-2xl text-xs sm:text-sm font-extrabold shadow-lg shadow-emerald-900/20 transition flex items-center justify-center space-x-2">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span id="btn-send-text">SMS OTP അയക്കുക</span>
                     </button>
                 </form>
+
+                <!-- STEP 2: OTP VERIFICATION FORM -->
+                <form id="otp-verify-form" onsubmit="handleVerifyOtp(event)" class="hidden space-y-4">
+                    <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 flex justify-between items-center">
+                        <span>OTP അയച്ചിട്ടുണ്ട്: <strong id="display-sent-phone">+91 XXXXX XXXXX</strong></span>
+                        <button type="button" onclick="resetToPhoneStep()" class="text-xs text-gold-600 underline font-bold">മാറ്റുക</button>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">6-ഡിജിറ്റ് OTP കോഡ്</label>
+                        <input type="text" id="input-otp" required maxlength="6" placeholder="123456" class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-base font-extrabold text-slate-900 text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:bg-white transition">
+                    </div>
+
+                    <button type="submit" id="btn-verify-otp" class="w-full py-3.5 bg-gold-400 hover:bg-gold-500 text-slate-950 rounded-2xl text-xs sm:text-sm font-extrabold shadow-lg transition flex items-center justify-center space-x-2">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                        <span id="btn-verify-text">OTP പരിശോധിക്കുക</span>
+                    </button>
+                </form>
+
+                <div id="auth-msg" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
 
                 <div class="text-center pt-2 border-t border-slate-100">
                     <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-emerald-850 flex items-center justify-center gap-1">
@@ -191,7 +200,7 @@
                                 <span id="active-class-badge" class="bg-gold-500 text-emerald-950 font-black text-xs px-2.5 py-0.5 rounded-md uppercase tracking-wider">Class 1</span>
                                 <span class="text-xs text-emerald-300 font-medium">വിഷയാടിസ്ഥാനത്തിലുള്ള മൂല്യനിർണ്ണയം</span>
                             </div>
-                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ വിഷയങ്ങൾ</h3>
+                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ विषयोंങ്ങൾ</h3>
                         </div>
                         <!-- Subject Badges Container -->
                         <div id="subjects-badge-container" class="flex flex-wrap gap-1.5 max-w-2xl">
@@ -319,15 +328,15 @@
 
     </main>
 
-    <!-- FIREBASE & CORE SCRIPT MODULE -->
+    <!-- FIREBASE MODULE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
             getAuth, 
-            signInAnonymously, 
-            signInWithCustomToken, 
-            onAuthStateChanged, 
-            signOut 
+            RecaptchaVerifier, 
+            signInWithPhoneNumber, 
+            signOut, 
+            onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { 
             getFirestore, 
@@ -336,10 +345,12 @@
             getDocs, 
             setDoc, 
             addDoc, 
+            query, 
+            where, 
             onSnapshot 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Initial Setup
+        // Updated Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
             authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
@@ -348,13 +359,12 @@
             messagingSenderId: "500915200975",
             appId: "1:500915200975:web:1ccf709bac2641fa32e8ba"
         };
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Subject Mapping Definition for Standards 1 - 8
+        // Subject Mapping Definition
         const CLASS_SUBJECTS = {
             "Class 1": ["Hifdh", "Arabic", "Duroos ul islam"],
             "Class 2": ["Hifdh", "Thilawah", "Thafseer", "Arabic", "Aqeedah", "Fiqh", "Akhlaq", "Tareekh"],
@@ -366,32 +376,157 @@
             "Class 8": ["Hifdh", "Thilawah", "Thafseer", "Arabic", "Aqeedah", "Fiqh", "Tareekh", "Hadith"]
         };
 
-        // Local State
-        let currentUser = null;
-        let userProfile = { role: 'teacher', assignedClass: 'Class 1', name: 'Rajeena', phone: '+918078775670' };
+        let confirmationResultGlobal = null;
+        let recaptchaVerifier = null;
+        let currentUserProfile = null;
         let currentClass = 'Class 1';
         let currentStudents = [];
         let currentClassResults = {};
 
-        // Auth Init Strategy
-        const initAuth = async () => {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
+        // UI Helpers
+        function showAuthMsg(msg, isError = true) {
+            const el = document.getElementById('auth-msg');
+            el.className = `p-3 rounded-xl text-xs font-bold text-center block ${isError ? 'bg-rose-100 text-rose-900 border border-rose-200' : 'bg-emerald-100 text-emerald-900 border border-emerald-200'}`;
+            el.textContent = msg;
+        }
+
+        function hideAuthMsg() {
+            document.getElementById('auth-msg').classList.add('hidden');
+        }
+
+        window.resetToPhoneStep = function() {
+            document.getElementById('phone-login-form').classList.remove('hidden');
+            document.getElementById('otp-verify-form').classList.add('hidden');
+            document.getElementById('input-otp').value = '';
+            hideAuthMsg();
+        };
+
+        // STEP 1: VERIFY PHONE IN FIRESTORE AUTHORIZED_USERS, THEN SEND OTP
+        window.handleSendOtp = async function(e) {
+            e.preventDefault();
+            hideAuthMsg();
+
+            const phoneInput = document.getElementById('input-phone').value.trim();
+            if (!phoneInput || phoneInput.length < 10) {
+                showAuthMsg("ദയവായി കൃത്യമായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക.");
+                return;
+            }
+
+            const fullPhone = phoneInput.startsWith('+') ? phoneInput : `+91${phoneInput}`;
+            const btnSend = document.getElementById('btn-send-otp');
+            const btnText = document.getElementById('btn-send-text');
+
+            try {
+                btnSend.disabled = true;
+                btnText.textContent = "പരിശോധിക്കുന്നു...";
+
+                // 1. Verify User Authorization from Firestore Collection
+                const usersRef = collection(db, 'authorized_users');
+                const q = query(usersRef, where("phone", "==", fullPhone));
+                const querySnap = await getDocs(q);
+
+                if (querySnap.empty) {
+                    showAuthMsg("ഈ ഫോൺ നമ്പർ പോർട്ടലിൽ രജിസ്റ്റർ ചെയ്തിട്ടില്ല. അഡ്മിനുമായി ബന്ധപ്പെടുക.");
+                    btnSend.disabled = false;
+                    btnText.textContent = "SMS OTP അയക്കുക";
+                    return;
+                }
+
+                currentUserProfile = querySnap.docs[0].data();
+                btnText.textContent = "OTP അയക്കുന്നു...";
+
+                // 2. Setup Recaptcha for Phone Verification
+                if (!recaptchaVerifier) {
+                    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                        'size': 'invisible',
+                        'callback': () => {}
+                    });
+                }
+
+                // 3. Send SMS OTP
+                confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+
+                document.getElementById('phone-login-form').classList.add('hidden');
+                document.getElementById('otp-verify-form').classList.remove('hidden');
+                document.getElementById('display-sent-phone').textContent = fullPhone;
+                showAuthMsg("SMS OTP അയച്ചിട്ടുണ്ട്!", false);
+
+            } catch (err) {
+                console.error(err);
+                showAuthMsg("OTP അയക്കുന്നതിൽ പരാജയപ്പെട്ടു: " + (err.message || "വെരിഫിക്കേഷൻ പരാജയം"));
+                if (recaptchaVerifier) {
+                    recaptchaVerifier.clear();
+                    recaptchaVerifier = null;
+                }
+            } finally {
+                btnSend.disabled = false;
+                btnText.textContent = "SMS OTP അയക്കുക";
             }
         };
-        initAuth();
 
+        // STEP 2: VERIFY RECEIVED OTP
+        window.handleVerifyOtp = async function(e) {
+            e.preventDefault();
+            hideAuthMsg();
+
+            const otpCode = document.getElementById('input-otp').value.trim();
+            if (!otpCode || otpCode.length !== 6) {
+                showAuthMsg("6 ഡിജിറ്റ് OTP കൃത്യമായി നൽകുക.");
+                return;
+            }
+
+            const btnVerify = document.getElementById('btn-verify-otp');
+            const btnText = document.getElementById('btn-verify-text');
+
+            try {
+                btnVerify.disabled = true;
+                btnText.textContent = "പരിശോധിക്കുന്നു...";
+
+                await confirmationResultGlobal.confirm(otpCode);
+                // Auth State Observer Will Trigger Setup
+            } catch (err) {
+                console.error(err);
+                showAuthMsg("നൽകിയ OTP തെറ്റാണ്. ദയവായി വീണ്ടും ശ്രമിക്കുക.");
+            } finally {
+                btnVerify.disabled = false;
+                btnText.textContent = "OTP പരിശോധിക്കുക";
+            }
+        };
+
+        // AUTHENTICATION OBSERVER
         onAuthStateChanged(auth, async (user) => {
-            currentUser = user;
             if (user) {
+                const userPhone = user.phoneNumber;
+
+                if (!currentUserProfile) {
+                    try {
+                        const usersRef = collection(db, 'authorized_users');
+                        const q = query(usersRef, where("phone", "==", userPhone));
+                        const snap = await getDocs(q);
+                        if (!snap.empty) {
+                            currentUserProfile = snap.docs[0].data();
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+
+                const profile = currentUserProfile || {
+                    name: "Staff Member",
+                    phone: userPhone,
+                    role: "teacher",
+                    assignedClass: "Class 1"
+                };
+
                 document.getElementById('view-login').classList.add('hidden');
                 document.getElementById('view-dashboard').classList.remove('hidden');
                 document.getElementById('user-info-bar').classList.remove('hidden');
 
-                await loadUserProfile();
-                setupDashboardView();
+                document.getElementById('user-display-name').textContent = profile.name || "Staff Member";
+                document.getElementById('user-display-role').textContent = (profile.role || 'teacher').toUpperCase();
+
+                setupDashboardView(profile);
+
             } else {
                 document.getElementById('view-login').classList.remove('hidden');
                 document.getElementById('view-dashboard').classList.add('hidden');
@@ -399,29 +534,11 @@
             }
         });
 
-        // Load Authorized User Profile from Firestore
-        async function loadUserProfile() {
-            try {
-                const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'authorized_users'));
-                if (!snap.empty) {
-                    const match = snap.docs.find(d => d.data().phone && d.data().phone.includes("8078775670"));
-                    if (match) {
-                        userProfile = match.data();
-                    }
-                }
-            } catch(e) {
-                console.error("Error loading profile:", e);
-            }
-
-            document.getElementById('user-display-name').textContent = userProfile.name || 'Staff Member';
-            document.getElementById('user-display-role').textContent = (userProfile.role || 'Teacher').toUpperCase();
-        }
-
-        function setupDashboardView() {
+        function setupDashboardView(profile) {
             const classSelect = document.getElementById('dashboard-class-select');
             
-            if (userProfile.assignedClass) {
-                let norm = userProfile.assignedClass;
+            if (profile && profile.assignedClass) {
+                let norm = profile.assignedClass;
                 if (norm.toLowerCase().includes('1') || norm.toLowerCase().includes('std-1')) norm = "Class 1";
                 if (norm.toLowerCase().includes('2')) norm = "Class 2";
                 if (norm.toLowerCase().includes('3')) norm = "Class 3";
@@ -433,11 +550,11 @@
                 currentClass = norm;
             }
 
-            if (userProfile.role === 'admin') {
+            if (profile && profile.role === 'admin') {
                 classSelect.disabled = false;
             } else {
                 classSelect.value = currentClass;
-                classSelect.disabled = true; // Teachers restricted to assigned class
+                classSelect.disabled = true; // Teachers restricted to their assigned class
             }
 
             renderClassMarksTable();
@@ -450,32 +567,22 @@
             loadClassData();
         };
 
-        // Realtime Data Subscription
+        // LOAD REALTIME DATA FROM FIRESTORE
         async function loadClassData() {
-            if (!currentUser) return;
-
             try {
-                // Students Listener
-                const stdRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
+                // Students
+                const stdRef = collection(db, 'students');
                 onSnapshot(stdRef, (snap) => {
                     const allDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                     currentStudents = allDocs.filter(s => s.classId === currentClass)
                                              .sort((a,b) => (parseInt(a.rollNo) || 0) - (parseInt(b.rollNo) || 0));
-                    
-                    // Fallback Demo Students for First-time UI preview
-                    if (currentStudents.length === 0 && currentClass === "Class 1") {
-                        currentStudents = [
-                            { id: '1', name: 'Muhammed Rayan', rollNo: 1, registerNo: 'ADM-2026-001', classId: 'Class 1' },
-                            { id: '2', name: 'Aisha Fathima', rollNo: 2, registerNo: 'ADM-2026-002', classId: 'Class 1' }
-                        ];
-                    }
 
                     renderClassMarksTable();
                     renderStudentList();
                 }, (err) => console.error(err));
 
-                // Results Listener
-                const resRef = collection(db, 'artifacts', appId, 'public', 'data', 'results');
+                // Results
+                const resRef = collection(db, 'results');
                 onSnapshot(resRef, (snap) => {
                     currentClassResults = {};
                     snap.docs.forEach(d => {
@@ -492,7 +599,7 @@
             }
         }
 
-        // Render Dynamic UX Marks Table
+        // RENDER DYNAMIC MARKS TABLE WITH UX STICKY COLUMNS
         function renderClassMarksTable() {
             document.getElementById('active-class-badge').textContent = currentClass;
             const subjects = CLASS_SUBJECTS[currentClass] || CLASS_SUBJECTS["Class 1"];
@@ -505,14 +612,14 @@
                 </span>
             `).join('');
 
-            // Table Header with Sticky Columns for Mobile Navigation
+            // Dynamic Header Columns
             const headerRow = document.getElementById('marks-table-header');
             headerRow.innerHTML = `
-                <th class="p-3 w-14 sticky-col-1 bg-slate-100 border-r border-slate-200">Roll</th>
-                <th class="p-3 min-w-[140px] sticky-col-2 bg-slate-100 border-r border-slate-200">പേര്</th>
+                <th class="p-3 w-12 sticky-col-1 bg-slate-100 border-r border-slate-200">Roll</th>
+                <th class="p-3 min-w-[130px] sticky-col-2 bg-slate-100 border-r border-slate-200">പേര്</th>
                 <th class="p-3 w-28 border-r border-slate-200">Reg No</th>
                 ${subjects.map(sub => `<th class="p-3 text-center min-w-[85px] border-r border-slate-200">${sub}</th>`).join('')}
-                <th class="p-3 text-center w-24 border-r border-slate-200">Total</th>
+                <th class="p-3 text-center w-20 border-r border-slate-200">Total</th>
                 <th class="p-3 text-center w-24">Status</th>
             `;
 
@@ -556,12 +663,12 @@
                 return `
                     <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
                         <td class="p-3 font-bold text-slate-900 sticky-col-1 bg-white border-r border-slate-200">${student.rollNo || idx + 1}</td>
-                        <td class="p-3 text-slate-900 font-extrabold sticky-col-2 bg-white border-r border-slate-200 truncate max-w-[150px]">${student.name}</td>
+                        <td class="p-3 text-slate-900 font-extrabold sticky-col-2 bg-white border-r border-slate-200 truncate max-w-[130px]">${student.name}</td>
                         <td class="p-3 text-xs text-slate-500 font-mono border-r border-slate-100">${regNo}</td>
                         ${subjectInputs}
                         <td class="p-3 text-center font-black text-emerald-950 row-total-${regNo} border-r border-slate-100">${total}</td>
                         <td class="p-3 text-center">
-                            <span class="row-status-${regNo} inline-block px-2.5 py-0.5 text-[10px] font-black rounded-md ${isPass ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'}">
+                            <span class="row-status-${regNo} inline-block px-2 py-0.5 text-[10px] font-black rounded-md ${isPass ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'}">
                                 ${isPass ? 'PASSED' : 'FAILED'}
                             </span>
                         </td>
@@ -588,14 +695,12 @@
             if (totalElem) totalElem.textContent = total;
             if (statusElem) {
                 statusElem.textContent = pass ? 'PASSED' : 'FAILED';
-                statusElem.className = `row-status-${regNo} inline-block px-2.5 py-0.5 text-[10px] font-black rounded-md ${pass ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'}`;
+                statusElem.className = `row-status-${regNo} inline-block px-2 py-0.5 text-[10px] font-black rounded-md ${pass ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'}`;
             }
         };
 
-        // Save All Class Marks to Firebase
+        // SAVE MARKS TO FIRESTORE
         window.saveAllClassMarks = async function() {
-            if (!currentUser) return;
-
             try {
                 for (const student of currentStudents) {
                     const regNo = student.registerNo || `REG-${student.rollNo}`;
@@ -617,26 +722,27 @@
                         rollNo: student.rollNo,
                         classId: currentClass,
                         subjects: markObj,
+                        status: "PUBLISHED",
                         totalMarks: grandTotal,
                         updatedAt: new Date().toISOString()
                     };
 
-                    const resultDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'results', `${currentClass}_${regNo}`);
+                    const resultDocRef = doc(db, 'results', `${currentClass}_${regNo}`);
                     await setDoc(resultDocRef, payload, { merge: true });
                 }
 
-                alert(`${currentClass} കുട്ടികളുടെ മാർക്കുകൾ വിജയകരമായി സേവ് ചെയ്തു!`);
+                alert(`${currentClass} വിദ്യാർത്ഥികളുടെ മാർക്കുകൾ വിജയകരമായി സേവ് ചെയ്തു!`);
             } catch(e) {
                 console.error("Save error:", e);
-                alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു.");
+                alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു: " + e.message);
             }
         };
 
-        // Add Student Manual Option
         window.addNewStudentRow = function() {
             switchNav('students');
         };
 
+        // ADD NEW STUDENT
         window.handleAddStudent = async function(e) {
             e.preventDefault();
             const rollNo = document.getElementById('std-roll').value.trim();
@@ -644,7 +750,7 @@
             const regNo = document.getElementById('std-regno').value.trim();
 
             try {
-                const stdRef = collection(db, 'artifacts', appId, 'public', 'data', 'students');
+                const stdRef = collection(db, 'students');
                 await addDoc(stdRef, {
                     name: name,
                     rollNo: parseInt(rollNo),
@@ -678,14 +784,14 @@
             `).join('');
         }
 
-        // Post Notice
+        // POST NOTICE
         window.handlePostNotice = async function(e) {
             e.preventDefault();
             const title = document.getElementById('notice-title').value;
             const content = document.getElementById('notice-content').value;
 
             try {
-                const noticeRef = collection(db, 'artifacts', appId, 'public', 'data', 'notices');
+                const noticeRef = collection(db, 'notices');
                 await addDoc(noticeRef, {
                     title: title,
                     content: content,
@@ -700,7 +806,7 @@
             }
         };
 
-        // Tab Switcher Logic
+        // NAV SWITCHER
         window.switchNav = function(panel) {
             ['marks', 'students', 'notices'].forEach(p => {
                 document.getElementById(`panel-${p}`).classList.add('hidden');
@@ -710,14 +816,11 @@
             document.getElementById(`btn-nav-${panel}`).className = "px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-850 text-white transition flex items-center space-x-2 shadow-sm shrink-0";
         };
 
-        // Form Login Trigger
-        window.handleLoginSubmit = function(e) {
-            e.preventDefault();
-            setupDashboardView();
-        };
-
         window.handleLogout = function() {
-            signOut(auth);
+            signOut(auth).then(() => {
+                currentUserProfile = null;
+                resetToPhoneStep();
+            });
         };
 
         window.addEventListener('DOMContentLoaded', () => {
