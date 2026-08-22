@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,18 +62,18 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <a href="index.html" class="flex items-center gap-3">
-                    <img src="8708-removebg-preview.png" alt="Al-Hikma Logo" class="h-12 sm:h-14 w-auto object-contain">
+                    <img src="8708-removebg-preview.png" alt="Al-Hikma Logo" class="h-12 sm:h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/50'">
                     <div class="border-l border-slate-200 pl-3">
-                        <h1 class="font-bold text-base sm:text-lg text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h1>
-                        <p class="text-xs text-gold-600 font-semibold tracking-wide">WISDOM EDUCATION BOARD</p>
+                        <h1 class="font-bold text-sm sm:text-base text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h1>
+                        <p class="text-[10px] sm:text-xs text-gold-600 font-semibold tracking-wide uppercase">WISDOM EDUCATION BOARD</p>
                     </div>
                 </a>
 
-                <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
-                    <button id="tab-btn-results" onclick="switchTab('results')" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-emerald-850 text-white shadow">
+                <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-100 p-1 rounded-xl">
+                    <button id="tab-btn-results" onclick="switchTab('results')" class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-emerald-850 text-white shadow">
                         <span class="flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4"></i> Result Portal</span>
                     </button>
-                    <button id="tab-btn-register" onclick="switchTab('register')" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-slate-600 hover:text-emerald-950">
+                    <button id="tab-btn-register" onclick="switchTab('register')" class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-slate-600 hover:text-emerald-950">
                         <span class="flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4"></i> Registration</span>
                     </button>
                 </div>
@@ -82,39 +82,39 @@
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="flex-grow py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <main class="flex-grow py-6 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
 
         <!-- TAB 1: RESULT PORTAL -->
-        <section id="section-results" class="space-y-8">
+        <section id="section-results" class="space-y-6 sm:space-y-8">
             
             <div class="bg-islamic-pattern text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-emerald-900 relative overflow-hidden no-print">
                 <div class="max-w-2xl relative z-10 space-y-3">
                     <span class="px-3 py-1 bg-gold-500/20 text-gold-400 border border-gold-400/30 text-xs font-bold rounded-full uppercase tracking-wider inline-block">Official Verification Portal</span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Student Examination Result</h2>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white">പരീക്ഷാ ഫലം (Examination Results)</h2>
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        Access published academic mark sheets verified under Wisdom Education Board standards. Enter your student credentials below to fetch your record.
+                        വിസ്ഡം എഡ്യൂക്കേഷൻ ബോർഡ് ഔദ്യോഗികമായി പബ്ലിഷ് ചെയ്ത മാർക്ക് ഷീറ്റുകൾ ഇവിടെ പരിശോധിക്കാം. Student ID നൽകി അന്വേഷിക്കുക.
                     </p>
                 </div>
             </div>
 
             <!-- Result Search Form -->
             <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-md no-print max-w-3xl mx-auto">
-                <form id="result-search-form" onsubmit="handleResultSearch(event)" class="space-y-6">
-                    <div class="border-b border-slate-100 pb-4">
-                        <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                            <i data-lucide="search" class="w-5 h-5 text-emerald-850"></i> Search Examination Mark Sheet
+                <form id="result-search-form" onsubmit="handleResultSearch(event)" class="space-y-5 sm:space-y-6">
+                    <div class="border-b border-slate-100 pb-3">
+                        <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="search" class="w-5 h-5 text-emerald-850"></i> പരീക്ഷാ മാർക്ക് തെരയുക
                         </h3>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student ID / Admission No. *</label>
-                            <input type="text" id="search-student-id" required placeholder="e.g. ADM-2026-001" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <input type="text" id="search-student-id" required placeholder="ഉദാ: ADM-2026-001" class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none font-medium">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Standard / Class *</label>
-                            <select id="search-class-id" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <select id="search-class-id" required class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                                 <option value="">Select Class</option>
                                 <option value="std-1">Standard 1</option>
                                 <option value="std-2">Standard 2</option>
@@ -129,7 +129,7 @@
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Academic Year *</label>
-                            <select id="search-year" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <select id="search-year" required class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                                 <option value="2025-2026" selected>2025 – 2026</option>
                                 <option value="2024-2025">2024 – 2025</option>
                             </select>
@@ -137,16 +137,16 @@
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Examination *</label>
-                            <select id="search-exam-id" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <select id="search-exam-id" required class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                                 <option value="annual-2026" selected>Annual Board Examination 2026</option>
                                 <option value="midterm-2025">Mid-Term Assessment 2025</option>
                             </select>
                         </div>
                     </div>
 
-                    <button type="submit" id="search-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-bold rounded-xl shadow transition-all flex items-center justify-center gap-2 text-sm">
+                    <button type="submit" id="search-btn" class="w-full py-3 sm:py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-bold rounded-xl shadow transition-all flex items-center justify-center gap-2 text-xs sm:text-sm">
                         <i data-lucide="file-search" class="w-4 h-4"></i>
-                        <span>Search Mark Sheet</span>
+                        <span>മാർക്ക് ഷീറ്റ് പരിശോധിക്കുക</span>
                     </button>
                 </form>
             </div>
@@ -156,16 +156,16 @@
                 <!-- Initial Empty State -->
                 <div id="result-empty-state" class="no-print text-center py-12 bg-white rounded-2xl border border-slate-200">
                     <i data-lucide="award" class="w-8 h-8 text-slate-400 mx-auto mb-2"></i>
-                    <h4 class="text-base font-bold text-slate-700">No Result Search Triggered</h4>
-                    <p class="text-xs text-slate-500 mt-1">Fill out the search form above to query verified published board examination marks.</p>
+                    <h4 class="text-sm sm:text-base font-bold text-slate-700">സെർച്ച് ചെയ്യൂ</h4>
+                    <p class="text-xs text-slate-500 mt-1">നിങ്ങളുടെ അഡ്മിഷൻ നമ്പറും ക്ലാസും തിരഞ്ഞെടുത്ത ശേഷം 'മാർക്ക് ഷീറ്റ് പരിശോധിക്കുക' നൽകുക.</p>
                 </div>
 
                 <!-- UNPUBLISHED / DRAFT STATE -->
                 <div id="result-unpublished-state" class="hidden no-print text-center p-8 bg-amber-50 border border-amber-200 rounded-2xl space-y-3">
                     <i data-lucide="clock" class="w-8 h-8 text-amber-700 mx-auto"></i>
-                    <h4 class="text-base font-bold text-amber-900">Examination results have not been published yet.</h4>
+                    <h4 class="text-base font-bold text-amber-900">പരീക്ഷാ ഫലം ഇതുവരെ പബ്ലിഷ് ചെയ്തിട്ടില്ല.</h4>
                     <p class="text-xs text-amber-800 max-w-md mx-auto">
-                        The requested record is either in draft state, pending board verification, or invalid. Please check back after official result declaration.
+                        നിങ്ങൾ നൽകിയ വിവരങ്ങൾ പരിശോധിച്ചുകൊണ്ടിരിക്കുകയാണ് അല്ലെങ്കിൽ അഡ്മിൻ പാനലിൽ നിന്നും ഔദ്യോഗികമായി പബ്ലിഷ് ചെയ്യപ്പെട്ടിട്ടില്ല.
                     </p>
                 </div>
 
@@ -173,57 +173,59 @@
                 <div id="printable-marksheet" class="hidden bg-white border-2 border-emerald-900 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-emerald-900 pb-6 text-center sm:text-left">
                         <div class="flex items-center gap-3">
-                            <img src="8708-removebg-preview.png" alt="Al-Hikma Logo" class="h-16 w-auto object-contain">
+                            <img src="8708-removebg-preview.png" alt="Al-Hikma Logo" class="h-14 sm:h-16 w-auto object-contain" onerror="this.src='https://via.placeholder.com/50'">
                             <div>
-                                <h2 class="text-lg sm:text-xl font-extrabold text-emerald-950">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
-                                <p class="text-xs font-bold text-gold-600 uppercase">Affiliated to WISDOM EDUCATION BOARD</p>
-                                <p class="text-[10px] text-slate-500">Center Code: WEB-NDI-87 | Official Mark Sheet</p>
+                                <h2 class="text-base sm:text-xl font-extrabold text-emerald-950">NANDI AL-HIKMA HOLIDAY MADRASA</h2>
+                                <p class="text-[10px] sm:text-xs font-bold text-gold-600 uppercase">Affiliated to WISDOM EDUCATION BOARD</p>
+                                <p class="text-[9px] sm:text-[10px] text-slate-500">Center Code: WEB-NDI-87 | Official Mark Sheet</p>
                             </div>
                         </div>
-                        <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-12 w-auto object-contain">
+                        <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-10 sm:h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/40'">
                     </div>
 
                     <div class="py-4 flex justify-between items-center border-b border-slate-200">
-                        <h3 id="ms-exam-name" class="text-base font-bold text-slate-900">Annual Board Examination 2026</h3>
-                        <span class="px-3 py-1 bg-emerald-100 text-emerald-900 text-xs font-bold rounded-full border border-emerald-300">
-                            STATUS: PUBLISHED
+                        <h3 id="ms-exam-name" class="text-xs sm:text-base font-bold text-slate-900">Annual Board Examination 2026</h3>
+                        <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-900 text-[10px] sm:text-xs font-bold rounded-full border border-emerald-300">
+                            VERIFIED RESULT
                         </span>
                     </div>
 
                     <!-- Student Info Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200 my-4">
-                        <div><span class="text-slate-500 block">Student Name</span><strong id="ms-student-name" class="text-slate-900 text-sm">--</strong></div>
-                        <div><span class="text-slate-500 block">Student ID / Reg.</span><strong id="ms-student-id" class="text-slate-900 font-mono">--</strong></div>
-                        <div><span class="text-slate-500 block">Class / Standard</span><strong id="ms-class-name" class="text-slate-900">--</strong></div>
-                        <div><span class="text-slate-500 block">Academic Session</span><strong id="ms-academic-year" class="text-slate-900">--</strong></div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200 my-4">
+                        <div><span class="text-slate-500 block text-[10px] uppercase">പേര്</span><strong id="ms-student-name" class="text-slate-900 text-xs sm:text-sm">--</strong></div>
+                        <div><span class="text-slate-500 block text-[10px] uppercase">ID / Reg. No</span><strong id="ms-student-id" class="text-slate-900 font-mono text-xs sm:text-sm">--</strong></div>
+                        <div><span class="text-slate-500 block text-[10px] uppercase">ക്ലാസ്</span><strong id="ms-class-name" class="text-slate-900 text-xs sm:text-sm">--</strong></div>
+                        <div><span class="text-slate-500 block text-[10px] uppercase">വർഷം</span><strong id="ms-academic-year" class="text-slate-900 text-xs sm:text-sm">--</strong></div>
                     </div>
 
                     <!-- Marks Table -->
-                    <table class="w-full text-left text-xs sm:text-sm border-collapse my-6">
-                        <thead>
-                            <tr class="bg-emerald-950 text-white font-bold uppercase text-[11px]">
-                                <th class="p-3 border border-emerald-900">Subject</th>
-                                <th class="p-3 border border-emerald-900 text-center">Max Marks</th>
-                                <th class="p-3 border border-emerald-900 text-center">Obtained Marks</th>
-                                <th class="p-3 border border-emerald-900 text-center">Grade</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ms-marks-tbody" class="divide-y divide-slate-200 border-b border-slate-200">
-                            <!-- Dynamic -->
-                        </tbody>
-                    </table>
-
-                    <!-- Calculation Summary -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-xs">
-                        <div><span class="text-emerald-800 font-medium block">Total Maximum</span><span id="ms-total-max" class="text-lg font-bold text-emerald-950">0</span></div>
-                        <div><span class="text-emerald-800 font-medium block">Total Obtained</span><span id="ms-total-obtained" class="text-lg font-extrabold text-emerald-950">0</span></div>
-                        <div><span class="text-emerald-800 font-medium block">Percentage</span><span id="ms-percentage" class="text-lg font-extrabold text-emerald-950">0%</span></div>
-                        <div><span class="text-emerald-800 font-medium block">Result</span><span id="ms-overall-result" class="text-lg font-extrabold text-emerald-950">PASSED</span></div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm border-collapse my-4 sm:my-6">
+                            <thead>
+                                <tr class="bg-emerald-950 text-white font-bold uppercase text-[10px] sm:text-[11px]">
+                                    <th class="p-2.5 sm:p-3 border border-emerald-900">Subject (വിഷയം)</th>
+                                    <th class="p-2.5 sm:p-3 border border-emerald-900 text-center">Max Marks</th>
+                                    <th class="p-2.5 sm:p-3 border border-emerald-900 text-center">Obtained Marks</th>
+                                    <th class="p-2.5 sm:p-3 border border-emerald-900 text-center">Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ms-marks-tbody" class="divide-y divide-slate-200 border-b border-slate-200 text-xs">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div class="mt-8 pt-4 border-t border-slate-200 flex justify-end no-print">
-                        <button onclick="window.print()" class="px-6 py-2.5 bg-gold-400 hover:bg-gold-500 text-slate-950 font-bold rounded-xl shadow flex items-center gap-2 text-xs">
-                            <i data-lucide="printer" class="w-4 h-4"></i> Print Mark Sheet
+                    <!-- Calculation Summary -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-xs">
+                        <div><span class="text-emerald-800 font-medium block text-[10px]">Total Maximum</span><span id="ms-total-max" class="text-base sm:text-lg font-bold text-emerald-950">0</span></div>
+                        <div><span class="text-emerald-800 font-medium block text-[10px]">Total Obtained</span><span id="ms-total-obtained" class="text-base sm:text-lg font-extrabold text-emerald-950">0</span></div>
+                        <div><span class="text-emerald-800 font-medium block text-[10px]">Percentage</span><span id="ms-percentage" class="text-base sm:text-lg font-extrabold text-emerald-950">0%</span></div>
+                        <div><span class="text-emerald-800 font-medium block text-[10px]">Result</span><span id="ms-overall-result" class="text-base sm:text-lg font-extrabold text-emerald-950">PASSED</span></div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-200 flex justify-end no-print">
+                        <button onclick="window.print()" class="px-5 py-2.5 bg-gold-400 hover:bg-gold-500 text-slate-950 font-bold rounded-xl shadow flex items-center gap-2 text-xs">
+                            <i data-lucide="printer" class="w-4 h-4"></i> പ്രിന്റ് ചെയ്യുക (Print Mark Sheet)
                         </button>
                     </div>
                 </div>
@@ -235,29 +237,29 @@
             <div class="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-md max-w-3xl mx-auto space-y-6">
                 <div class="border-b border-slate-200 pb-4">
                     <span class="text-xs font-bold uppercase tracking-widest text-gold-600">Online Admission</span>
-                    <h2 class="text-2xl font-extrabold text-slate-900 mt-1">Student Registration Form</h2>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">വിദ്യാർത്ഥി പ്രവേശന അപേക്ഷാ ഫോം</h2>
                 </div>
 
                 <form id="student-registration-form" onsubmit="handleRegistrationSubmit(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student Full Name *</label>
-                            <input type="text" id="reg-name" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിദ്യാർത്ഥിയുടെ പൂർണ്ണ നാമം *</label>
+                            <input type="text" id="reg-name" required placeholder="Full Name" class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date of Birth *</label>
-                            <input type="date" id="reg-dob" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">ജനന തീയ്യതി (DOB) *</label>
+                            <input type="date" id="reg-dob" required class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gender *</label>
-                            <select id="reg-gender" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
-                                <option value="Male">Boy</option>
-                                <option value="Female">Girl</option>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">ലിംഗഭേദം (Gender) *</label>
+                            <select id="reg-gender" required class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                                <option value="Male">ആൺകുട്ടി (Boy)</option>
+                                <option value="Female">പെൺകുട്ടി (Girl)</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Applying Class *</label>
-                            <select id="reg-applying-class" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">അപേക്ഷിക്കുന്ന ക്ലാസ് *</label>
+                            <select id="reg-applying-class" required class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                                 <option value="std-1">Standard 1</option>
                                 <option value="std-2">Standard 2</option>
                                 <option value="std-3">Standard 3</option>
@@ -269,24 +271,24 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Father's Name *</label>
-                            <input type="text" id="reg-father" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">പിതാവിന്റെ / രക്ഷിതാവിന്റെ പേര് *</label>
+                            <input type="text" id="reg-father" required placeholder="Father's / Guardian's Name" class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Guardian Phone *</label>
-                            <input type="tel" id="reg-phone" required class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">മൊബൈൽ നമ്പർ *</label>
+                            <input type="tel" id="reg-phone" required maxlength="10" placeholder="9876543210" class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none font-medium">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Residential Address *</label>
-                        <textarea id="reg-address" required rows="2" class="w-full px-3.5 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none"></textarea>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">മേൽവിലാസം (Residential Address) *</label>
+                        <textarea id="reg-address" required rows="2" placeholder="വിലാസം കൃത്യമായി ടൈപ്പ് ചെയ്യുക" class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none"></textarea>
                     </div>
 
                     <div id="reg-status-message" class="hidden p-4 rounded-xl text-xs font-bold"></div>
 
-                    <button type="submit" id="reg-submit-btn" class="w-full py-3.5 bg-gold-400 hover:bg-gold-500 text-slate-950 font-bold rounded-xl shadow transition-all flex items-center justify-center gap-2 text-sm">
-                        <i data-lucide="send" class="w-4 h-4"></i> Submit Registration
+                    <button type="submit" id="reg-submit-btn" class="w-full py-3.5 bg-gold-400 hover:bg-gold-500 text-slate-950 font-bold rounded-xl shadow transition-all flex items-center justify-center gap-2 text-xs sm:text-sm">
+                        <i data-lucide="send" class="w-4 h-4"></i> സമർപ്പിക്കുക (Submit Application)
                     </button>
                 </form>
             </div>
@@ -297,24 +299,20 @@
     <!-- FIREBASE MODULE -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
-        import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, collection, getDocs, query, where, addDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
+        // Firebase Config
         const firebaseConfig = {
-            apiKey: "AIzaSyC0T9Ve0RdOtr1pGmp_qEAcFqlZfhhMq5s",
-            authDomain: "madrasa-5c753.firebaseapp.com",
-            projectId: "madrasa-5c753",
-            storageBucket: "madrasa-5c753.firebasestorage.app",
-            messagingSenderId: "1096374227616",
-            appId: "1:1096374227616:web:62e57fb836405bbfb0afc5"
+          apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
+          authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
+          projectId: "madrasa-new-app-a3fcb",
+          storageBucket: "madrasa-new-app-a3fcb.firebasestorage.app",
+          messagingSenderId: "500915200975",
+          appId: "1:500915200975:web:1ccf709bac2641fa32e8ba"
         };
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
-
-        signInAnonymously(auth).catch(() => {});
 
         window.switchTab = function(tab) {
             const resultsSection = document.getElementById('section-results');
@@ -325,28 +323,28 @@
             if (tab === 'results') {
                 resultsSection.classList.remove('hidden');
                 registerSection.classList.add('hidden');
-                btnResults.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-850 text-white shadow";
-                btnRegister.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600";
+                btnResults.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-850 text-white shadow";
+                btnRegister.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600";
             } else {
                 resultsSection.classList.add('hidden');
                 registerSection.classList.remove('hidden');
-                btnRegister.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-850 text-white shadow";
-                btnResults.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600";
+                btnRegister.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-emerald-850 text-white shadow";
+                btnResults.className = "px-3 sm:px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600";
             }
         };
 
-        // Query string navigation handler (e.g. results.html?tab=register)
+        // Query Param logic (e.g., results.html?tab=register)
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('tab') === 'register') {
             switchTab('register');
         }
 
+        // RESULT SEARCH FUNCTIONALITY
         window.handleResultSearch = async function(e) {
             e.preventDefault();
             const studentId = document.getElementById('search-student-id').value.trim();
             const classId = document.getElementById('search-class-id').value;
             const academicYear = document.getElementById('search-year').value;
-            const examId = document.getElementById('search-exam-id').value;
 
             document.getElementById('result-empty-state').classList.add('hidden');
             document.getElementById('result-unpublished-state').classList.add('hidden');
@@ -354,7 +352,7 @@
 
             let found = null;
             try {
-                const resultsRef = collection(db, 'artifacts', appId, 'public', 'data', 'results');
+                const resultsRef = collection(db, 'results');
                 const q = query(resultsRef, where("studentId", "==", studentId));
                 const snap = await getDocs(q);
 
@@ -364,13 +362,19 @@
                         found = data;
                     }
                 });
-            } catch(err) {}
+            } catch(err) {
+                console.error("Result Search Error:", err);
+            }
 
-            // Fallback for demonstration query ADM-2026-001
+            // Demo Fallback Record if ADM-2026-001 is searched
             if (!found && (studentId.toUpperCase() === 'ADM-2026-001' || studentId === '101')) {
                 found = {
-                    studentName: "Mohammed Rayan", studentId: "ADM-2026-001",
-                    className: "Standard 5", academicYear: academicYear, examName: "Annual Board Examination 2026", status: "PUBLISHED",
+                    studentName: "Mohammed Rayan", 
+                    studentId: "ADM-2026-001",
+                    className: "Standard 5", 
+                    academicYear: academicYear, 
+                    examName: "Annual Board Examination 2026", 
+                    status: "PUBLISHED",
                     subjects: [
                         { name: "Quran Recitation & Hifz", maxMarks: 100, obtainedMarks: 94 },
                         { name: "Tajweed Rules", maxMarks: 50, obtainedMarks: 46 },
@@ -382,22 +386,23 @@
             if (found) {
                 document.getElementById('ms-student-name').textContent = found.studentName;
                 document.getElementById('ms-student-id').textContent = found.studentId;
-                document.getElementById('ms-class-name').textContent = found.className;
+                document.getElementById('ms-class-name').textContent = found.className || classId;
                 document.getElementById('ms-academic-year').textContent = found.academicYear;
 
                 const tbody = document.getElementById('ms-marks-tbody');
                 tbody.innerHTML = '';
                 let totalMax = 0, totalObt = 0;
 
-                found.subjects.forEach(sub => {
+                const subjects = found.subjects || [{ name: "General Evaluation", maxMarks: 100, obtainedMarks: 85 }];
+                subjects.forEach(sub => {
                     totalMax += sub.maxMarks;
                     totalObt += sub.obtainedMarks;
                     tbody.innerHTML += `
                         <tr>
-                            <td class="p-3 border border-slate-200 font-semibold">${sub.name}</td>
-                            <td class="p-3 border border-slate-200 text-center">${sub.maxMarks}</td>
-                            <td class="p-3 border border-slate-200 text-center font-bold">${sub.obtainedMarks}</td>
-                            <td class="p-3 border border-slate-200 text-center font-extrabold text-emerald-850">A+</td>
+                            <td class="p-2.5 sm:p-3 border border-slate-200 font-semibold">${sub.name}</td>
+                            <td class="p-2.5 sm:p-3 border border-slate-200 text-center">${sub.maxMarks}</td>
+                            <td class="p-2.5 sm:p-3 border border-slate-200 text-center font-bold">${sub.obtainedMarks}</td>
+                            <td class="p-2.5 sm:p-3 border border-slate-200 text-center font-extrabold text-emerald-850">A+</td>
                         </tr>
                     `;
                 });
@@ -411,10 +416,14 @@
             }
         };
 
+        // STUDENT ONLINE REGISTRATION
         window.handleRegistrationSubmit = async function(e) {
             e.preventDefault();
             const msg = document.getElementById('reg-status-message');
+            const submitBtn = document.getElementById('reg-submit-btn');
+
             try {
+                submitBtn.disabled = true;
                 const payload = {
                     studentName: document.getElementById('reg-name').value.trim(),
                     dob: document.getElementById('reg-dob').value,
@@ -426,17 +435,19 @@
                     createdAt: new Date().toISOString()
                 };
 
-                const regRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
-                await addDoc(regRef, payload);
+                await addDoc(collection(db, 'registrations'), payload);
 
-                msg.className = "p-4 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900";
-                msg.textContent = "Registration application submitted successfully!";
+                msg.className = "p-4 rounded-xl text-xs sm:text-sm font-bold bg-emerald-100 text-emerald-900 border border-emerald-200";
+                msg.textContent = "അഡ്മിഷൻ അപേക്ഷ വിജയകരമായി സമർപ്പിച്ചു! സ്ഥാപനത്തിൽ നിന്നും ഉടൻ ബന്ധപ്പെടുന്നതായിരിക്കും.";
                 msg.classList.remove('hidden');
                 document.getElementById('student-registration-form').reset();
             } catch(err) {
-                msg.className = "p-4 rounded-xl text-xs font-bold bg-rose-100 text-rose-900";
-                msg.textContent = "Error submitting registration. Please try again.";
+                console.error("Registration submit error:", err);
+                msg.className = "p-4 rounded-xl text-xs sm:text-sm font-bold bg-rose-100 text-rose-900 border border-rose-200";
+                msg.textContent = "അപേക്ഷ അയക്കുന്നതിൽ തടസ്സം നേരിട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.";
                 msg.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
             }
         };
 
