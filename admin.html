@@ -762,10 +762,10 @@
                 const resultDocRef = doc(db, 'results', `${currentClass}_${regNo}`);
                 await setDoc(resultDocRef, payload, { merge: true });
 
-                alert(`${student.name} (${regNo}) യുടെ മാർക്ക് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു!`);
+                alert(`${student.name} (${regNo}) The mark of has been successfully updated.!`);
             } catch(e) {
                 console.error("Single save error:", e);
-                alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു: " + e.message);
+                alert("Faced an issue/obstacle in saving the marks: " + e.message);
             } finally {
                 if(btn) {
                     btn.disabled = false;
@@ -782,10 +782,10 @@
                     const regNo = student.registerNo || `REG-${student.rollNo}`;
                     await window.saveSingleStudentMarks(regNo);
                 }
-                alert(`${currentClass} കുട്ടികളുടെ എല്ലാ മാർക്കുകളും ഫയർബേസിൽ സേവ് ചെയ്തു!`);
+                alert(`${currentClass} All Student's marks saved in Server !`);
             } catch(e) {
                 console.error("Save all error:", e);
-                alert("സേവ് ചെയ്യുന്നതിൽ തടസ്സം: " + e.message);
+                alert("Error in Saving: " + e.message);
             }
         };
 
@@ -816,10 +816,10 @@
                 });
 
                 document.getElementById('student-add-form').reset();
-                alert('കുട്ടിയുടെ വിവരങ്ങൾ വിജയകരമായി ഫയർബേസിൽ ചേർത്തു!');
+                alert('Student information successfully added to Server!');
             } catch(err) {
                 console.error("Add student error:", err);
-                alert('ഡാറ്റാബേസിൽ സേവ് ചെയ്യാൻ സാധിച്ചില്ല: ' + err.message);
+                alert('Failed Save in Server: ' + err.message);
             } finally {
                 btn.disabled = false;
             }
@@ -842,7 +842,7 @@
             if (!container) return;
 
             if (currentStudents.length === 0) {
-                container.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">കുട്ടികളുടെ വിവരങ്ങൾ ഒന്നും ചേർത്തിട്ടില്ല.</td></tr>`;
+                container.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">No information about Student has been added..</td></tr>`;
                 return;
             }
 
@@ -881,10 +881,10 @@
                     createdAt: new Date().toISOString()
                 });
 
-                alert('അറിയിപ്പ് വിജയകരമായി പ്രസിദ്ധീകരിച്ചു! വെബ്‌സൈറ്റിൽ തത്സമയം കാണാവുന്നതാണ്.');
+                alert('The announcement has been published successfully! You can watch it live on the website..');
                 e.target.reset();
             } catch(e) {
-                alert('നോട്ടീസ് പബ്ലിഷ് ചെയ്യാൻ സാധിച്ചില്ല: ' + e.message);
+                alert('Unable to publish notice.: ' + e.message);
             } finally {
                 btn.disabled = false;
             }
@@ -909,7 +909,7 @@
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] font-bold uppercase text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">${n.date || 'Notice'}</span>
                             <button onclick="deleteNotice('${n.id}')" class="text-xs text-rose-600 hover:text-rose-800 font-bold flex items-center gap-1 bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded transition">
-                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> ഡിലീറ്റ്
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete 
                             </button>
                         </div>
                         <h4 class="font-bold text-xs text-slate-900">${n.title}</h4>
@@ -924,12 +924,12 @@
         }
 
         window.deleteNotice = async function(id) {
-            if (confirm("ഈ അറിയിപ്പ് ഡിലീറ്റ് ചെയ്യണമെന്ന് ഉറപ്പാണോ?")) {
+            if (confirm("Are you sure, you want to delete this notification?")) {
                 try {
                     await deleteDoc(doc(db, 'notices', id));
-                    alert("അറിയിപ്പ് വിജയകരമായി ഡിലീറ്റ് ചെയ്തു.");
+                    alert("Notification successfully deleted..");
                 } catch(e) {
-                    alert("ഡിലീറ്റ് ചെയ്യാൻ സാധിച്ചില്ല: " + e.message);
+                    alert("Unable to delete.: " + e.message);
                 }
             }
         };
