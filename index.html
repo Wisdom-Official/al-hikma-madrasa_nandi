@@ -82,7 +82,6 @@
                     
                     <!-- ========================================================================================= -->
                     <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: യഥാർത്ഥ റിസൾട്ട് & രജിസ്ട്രേഷൻ ലിങ്കുകൾ താഴെ കമന്റ് ചെയ്തു വെച്ചിരിക്കുന്നു. -->
-                    <!-- റിസൾട്ട് പബ്ലിഷ് ചെയ്യുകയോ അഡ്മിഷൻ ആരംഭിക്കുകയോ ചെയ്യുമ്പോൾ താഴെയുള്ള ലിങ്ക് കമന്റ് മാറ്റി (Uncomment) ഉപയോഗിക്കുക. -->
                     <!--
                     <a href="results.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-950 bg-gold-400 hover:bg-gold-500 rounded-lg shadow-sm transition-all">
                         <i data-lucide="award" class="w-4 h-4"></i>
@@ -95,7 +94,7 @@
                     -->
                     <!-- ========================================================================================= -->
 
-                    <!-- പുതിയ താൽക്കാലിക ബട്ടണുകൾ (നോട്ടീസ് കാണിക്കാൻ വേണ്ടി) -->
+                    <!-- താൽക്കാലിക അറിയിപ്പ് ബട്ടണുകൾ -->
                     <button onclick="showResultNotice()" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-950 bg-gold-400 hover:bg-gold-500 rounded-lg shadow-sm transition-all cursor-pointer">
                         <i data-lucide="award" class="w-4 h-4"></i>
                         <span>Results</span>
@@ -131,7 +130,7 @@
             
             <div class="pt-3 flex flex-col gap-2">
                 <!-- ========================================================================================= -->
-                <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: മൊബൈൽ മെനുവിലെ യഥാർത്ഥ ലിങ്കുകൾ താഴെ കമന്റ് ചെയ്തിരിക്കുന്നു -->
+                <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: മൊബൈൽ മെനുവിലെ യഥാർത്ഥ ലിങ്കുകൾ -->
                 <!--
                 <a href="results.html" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-emerald-950 bg-gold-400 rounded-lg shadow">
                     <i data-lucide="award" class="w-4 h-4"></i> View Examination Results
@@ -142,7 +141,6 @@
                 -->
                 <!-- ========================================================================================= -->
 
-                <!-- മൊബൈൽ മെനുവിനായുള്ള പുതിയ നോട്ടീസ് ബട്ടണുകൾ -->
                 <button onclick="toggleMobileMenu(); showResultNotice();" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-emerald-950 bg-gold-400 rounded-lg shadow text-center">
                     <i data-lucide="award" class="w-4 h-4"></i> View Examination Results
                 </button>
@@ -183,7 +181,7 @@
                         
                         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
                             <!-- ========================================================================================= -->
-                            <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: ഹീറോ സെക്ഷനിലെ ഒറിജിനൽ ലിങ്ക് ബട്ടണുകൾ കമന്റ് ചെയ്തു വെച്ചിരിക്കുന്നു -->
+                            <!-- [ഹൈഡ് ചെയ്ത കോഡ് / HIDDEN CODE]: ഹീറോ സെക്ഷനിലെ ബട്ടണുകൾ -->
                             <!--
                             <a href="results.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-gold-400 hover:bg-gold-500 rounded-xl shadow-lg transition-all">
                                 <i data-lucide="award" class="w-4 h-4"></i>
@@ -196,7 +194,6 @@
                             -->
                             <!-- ========================================================================================= -->
 
-                            <!-- ഹീറോ സെക്ഷനിലെ പുതിയ നോട്ടീസ് ബട്ടണുകൾ -->
                             <button onclick="showResultNotice()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-gold-400 hover:bg-gold-500 rounded-xl shadow-lg transition-all cursor-pointer">
                                 <i data-lucide="award" class="w-4 h-4"></i>
                                 <span>Check Exam Results</span>
@@ -324,7 +321,7 @@
                     </div>
                 </div>
                 <div id="notices-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Populated dynamically -->
+                    <!-- Populated dynamically via Firebase onSnapshot -->
                 </div>
             </div>
         </section>
@@ -352,7 +349,7 @@
 
     </main>
 
-    <!-- NOTIFICATION MODAL (അറിയിപ്പ് കാണിക്കാനുള്ള മോഡൽ) -->
+    <!-- NOTIFICATION MODAL -->
     <div id="noticeModal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm items-center justify-center p-4 transition-all duration-300">
         <div class="bg-white rounded-3xl border border-slate-100 shadow-2xl max-w-md w-full p-6 text-center transform transition-all scale-100 animate-in fade-in zoom-in duration-200">
             <div class="w-16 h-16 bg-gold-100 text-gold-600 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gold-200 shadow-inner">
@@ -362,7 +359,7 @@
             <h3 id="noticeModalTitle" class="text-xl font-bold text-slate-900 mb-2">അറിയിപ്പ് (Notice)</h3>
             
             <p id="noticeModalMessage" class="text-sm font-semibold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 leading-relaxed my-4">
-                <!-- നോട്ടീസ് മെസ്സേജ് ഇവിടെ വരും -->
+                <!-- Message inserted dynamically -->
             </p>
 
             <button onclick="closeNoticeModal()" class="w-full py-3 px-6 text-xs font-bold uppercase tracking-wider text-white bg-emerald-850 hover:bg-emerald-950 rounded-xl shadow-md transition-all cursor-pointer">
@@ -379,18 +376,19 @@
         </div>
     </footer>
 
-    <!-- FIREBASE & JS LOGIC -->
+    <!-- FIREBASE & REALTIME JS LOGIC -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
-        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+        import { getFirestore, collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
+        // Admin പാനലുമായി സിങ്ക് ചെയ്ത ഒരേ Firebase Config
         const firebaseConfig = {
-            apiKey: "AIzaSyC0T9Ve0RdOtr1pGmp_qEAcFqlZfhhMq5s",
-            authDomain: "madrasa-5c753.firebaseapp.com",
-            projectId: "madrasa-5c753",
-            storageBucket: "madrasa-5c753.firebasestorage.app",
-            messagingSenderId: "1096374227616",
-            appId: "1:1096374227616:web:62e57fb836405bbfb0afc5"
+            apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
+            authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
+            projectId: "madrasa-new-app-a3fcb",
+            storageBucket: "madrasa-new-app-a3fcb.firebasestorage.app",
+            messagingSenderId: "500915200975",
+            appId: "1:500915200975:web:1ccf709bac2641fa32e8ba"
         };
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -408,7 +406,6 @@
             { id: 8, name: "Standard 8", desc: "Final Board examination class leading to official certification.", subjects: 6 }
         ];
 
-        // മെസ്സേജ് മോഡൽ കാണിക്കാനും അടയ്ക്കാനുമുള്ള ഫങ്ഷനുകൾ
         window.showNoticeModal = function(title, message) {
             document.getElementById('noticeModalTitle').innerText = title || 'അറിയിപ്പ്';
             document.getElementById('noticeModalMessage').innerText = message;
@@ -453,30 +450,54 @@
             `).join('');
         }
 
-        async function renderNotices() {
+        // അഡ്മിൻ പാനലിൽ നിന്ന് പബ്ലിഷ് ചെയ്യുന്ന നോട്ടീസുകൾ റിയൽടൈമായി വെബ്‌സൈറ്റിൽ കാണിക്കാനുള്ള ഫങ്ഷൻ
+        function setupRealtimeNotices() {
             const container = document.getElementById('notices-container');
-            let notices = [
+            
+            const defaultNotices = [
                 { title: "Wisdom Board Annual Exam Schedule 2026", date: "March 15, 2026", content: "The central holiday examination timetable has been published." },
                 { title: "Online Admission Open for Upcoming Vacation Session", date: "March 01, 2026", content: "Parents can register new students online via the result portal." }
             ];
 
-            try {
-                const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'notices'));
-                if (!snap.empty) notices = snap.docs.map(doc => doc.data());
-            } catch(e) {}
+            // റൂട്ട് കളക്ഷൻ നോട്ടീസുകൾ ലിസൺ ചെയ്യുന്നു
+            const noticesCol = collection(db, 'notices');
+            
+            onSnapshot(noticesCol, (snap) => {
+                let noticesList = [];
+                if (!snap.empty) {
+                    noticesList = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    // അഡ്മിൻ നൽകിയ വിവരങ്ങൾ ഏറ്റവും പുതിയത് മുകളിൽ വരാൻ സോർട്ട് ചെയ്യുന്നു
+                    noticesList.sort((a, b) => new Date(b.createdAt || Date.now()) - new Date(a.createdAt || Date.now()));
+                } else {
+                    noticesList = defaultNotices;
+                }
 
-            container.innerHTML = notices.map(n => `
-                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-2">
-                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold-100 text-gold-800">${n.date || 'Notice'}</span>
-                    <h4 class="font-bold text-slate-900 text-sm">${n.title}</h4>
-                    <p class="text-xs text-slate-600 leading-relaxed">${n.content}</p>
-                </div>
-            `).join('');
+                container.innerHTML = noticesList.map(n => `
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-2 shadow-sm hover:shadow-md transition">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold-100 text-gold-800 border border-gold-200">${n.date || 'Notice'}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm leading-snug">${n.title}</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">${n.content}</p>
+                    </div>
+                `).join('');
+
+                if (window.lucide) window.lucide.createIcons();
+            }, (err) => {
+                console.error("Notice stream error:", err);
+                container.innerHTML = defaultNotices.map(n => `
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-2">
+                        <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold-100 text-gold-800">${n.date}</span>
+                        <h4 class="font-bold text-slate-900 text-sm">${n.title}</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">${n.content}</p>
+                    </div>
+                `).join('');
+            });
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             renderClasses();
-            renderNotices();
+            setupRealtimeNotices();
             if (window.lucide) window.lucide.createIcons();
         });
     </script>
