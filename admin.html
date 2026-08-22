@@ -105,7 +105,7 @@
                 <!-- STEP 1: PHONE FORM -->
                 <form id="phone-login-form" onsubmit="handleSendOtp(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mobile No(+91)</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mobile No (+91)</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 text-sm font-semibold">+91</span>
                             <input type="tel" id="input-phone" required maxlength="10" placeholder="8078775670" class="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:bg-white transition">
@@ -462,7 +462,7 @@
 
             } catch (err) {
                 console.error(err);
-                showAuthMsg("PIN Analysing Failed: " + (err.message || "വെരിഫിക്കേഷൻ പരാജയം"));
+                showAuthMsg("PIN Analysing Failed: " + (err.message || "Verification Failed"));
                 if (recaptchaVerifier) {
                     recaptchaVerifier.clear();
                     recaptchaVerifier = null;
@@ -827,12 +827,12 @@
 
         // വിദ്യാർത്ഥിയെ ഡിലീറ്റ് ചെയ്യൽ
         window.deleteStudent = async function(id, name) {
-            if (confirm(`${name} എന്ന കുട്ടിയെ ലിസ്റ്റിൽ നിന്നും ഡിലീറ്റ് ചെയ്യണമെന്ന് ഉറപ്പാണോ?`)) {
+            if (confirm(`${name} Are you sure you want to delete the student from the list?`)) {
                 try {
                     await deleteDoc(doc(db, 'students', id));
-                    alert("വിദ്യാർത്ഥിയെ വിജയകരമായി ഡിലീറ്റ് ചെയ്തു.");
+                    alert("Student successfully deleted..");
                 } catch(e) {
-                    alert("ഡിലീറ്റ് ചെയ്യാൻ സാധിച്ചില്ല: " + e.message);
+                    alert("Failed to Delete: " + e.message);
                 }
             }
         };
