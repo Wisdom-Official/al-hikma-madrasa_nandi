@@ -38,7 +38,7 @@
         }
     </script>
     <style>
-        /* Mobile Table Sticky Columns for UX */
+        /* Mobile Table Sticky Columns for Responsive UX */
         .sticky-col-1 {
             position: sticky;
             left: 0;
@@ -78,7 +78,7 @@
                         <span id="user-display-role" class="text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-900 text-emerald-200 border border-emerald-700/50 uppercase">STAFF</span>
                     </div>
                 </div>
-                <button onclick="handleLogout()" class="p-2 sm:px-3 sm:py-2 bg-rose-600/90 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition shadow-sm">
+                <button onclick="handleLogout()" class="p-2 sm:px-3 sm:py-2 bg-rose-600/90 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition shadow-sm" title="ലോഗ്ഔട്ട്">
                     <i data-lucide="log-out" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">ലോഗ്ഔട്ട്</span>
                 </button>
@@ -200,7 +200,7 @@
                                 <span id="active-class-badge" class="bg-gold-500 text-emerald-950 font-black text-xs px-2.5 py-0.5 rounded-md uppercase tracking-wider">Class 1</span>
                                 <span class="text-xs text-emerald-300 font-medium">വിഷയാടിസ്ഥാനത്തിലുള്ള മൂല്യനിർണ്ണയം</span>
                             </div>
-                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ विषयोंങ്ങൾ</h3>
+                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ വിഷയങ്ങൾ</h3>
                         </div>
                         <!-- Subject Badges Container -->
                         <div id="subjects-badge-container" class="flex flex-wrap gap-1.5 max-w-2xl">
@@ -256,10 +256,10 @@
                 <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-5">
                     <div class="border-b border-slate-100 pb-3">
                         <h3 class="font-extrabold text-slate-900 text-base">വിദ്യാർത്ഥികളുടെ രജിസ്ട്രേഷൻ & ഇൻഫർമേഷൻ</h3>
-                        <p class="text-xs text-slate-500">ഈ ക്ലാസ്സിലെ വിദ്യാർത്ഥികളെ പുതുതായി ആഡ് ചെയ്യാം</p>
+                        <p class="text-xs text-slate-500">ഈ ക്ലാസ്സിലെ വിദ്യാർത്ഥികളുടെ വിവരങ്ങളും ജനന തീയ്യതിയും ചേർക്കുക</p>
                     </div>
                     
-                    <form id="student-add-form" onsubmit="handleAddStudent(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <form id="student-add-form" onsubmit="handleAddStudent(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3.5 bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <div>
                             <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">റോൾ നമ്പർ (Roll No) *</label>
                             <input type="number" id="std-roll" required placeholder="1" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
@@ -272,8 +272,12 @@
                             <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">അഡ്മിഷൻ / Reg No *</label>
                             <input type="text" id="std-regno" required placeholder="ADM-2026-001" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
                         </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">ജനന തീയ്യതി (DOB) *</label>
+                            <input type="date" id="std-dob" required class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
+                        </div>
                         <div class="flex items-end">
-                            <button type="submit" class="w-full py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-sm">
+                            <button type="submit" id="btn-add-student" class="w-full py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-sm">
                                 <i data-lucide="user-plus" class="w-4 h-4"></i>
                                 <span>ആഡ് ചെയ്യുക</span>
                             </button>
@@ -288,6 +292,7 @@
                                     <th class="p-3">Roll No</th>
                                     <th class="p-3">പേര്</th>
                                     <th class="p-3">Register No</th>
+                                    <th class="p-3">ജനന തീയ്യതി (DOB)</th>
                                     <th class="p-3">Class</th>
                                     <th class="p-3 text-right">പ്രവർത്തനങ്ങൾ</th>
                                 </tr>
@@ -383,7 +388,7 @@
         let currentStudents = [];
         let currentClassResults = {};
 
-        // UI Helpers
+        // UI Alert Helpers
         function showAuthMsg(msg, isError = true) {
             const el = document.getElementById('auth-msg');
             el.className = `p-3 rounded-xl text-xs font-bold text-center block ${isError ? 'bg-rose-100 text-rose-900 border border-rose-200' : 'bg-emerald-100 text-emerald-900 border border-emerald-200'}`;
@@ -570,7 +575,7 @@
         // LOAD REALTIME DATA FROM FIRESTORE
         async function loadClassData() {
             try {
-                // Students
+                // Fetch Students Direct from Firestore Collection
                 const stdRef = collection(db, 'students');
                 onSnapshot(stdRef, (snap) => {
                     const allDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -579,9 +584,9 @@
 
                     renderClassMarksTable();
                     renderStudentList();
-                }, (err) => console.error(err));
+                }, (err) => console.error("Students snapshot error:", err));
 
-                // Results
+                // Fetch Exam Results Direct from Firestore
                 const resRef = collection(db, 'results');
                 onSnapshot(resRef, (snap) => {
                     currentClassResults = {};
@@ -592,7 +597,7 @@
                         }
                     });
                     renderClassMarksTable();
-                }, (err) => console.error(err));
+                }, (err) => console.error("Results snapshot error:", err));
 
             } catch(e) {
                 console.error("Data load error:", e);
@@ -699,7 +704,7 @@
             }
         };
 
-        // SAVE MARKS TO FIRESTORE
+        // SAVE MARKS DIRECT TO FIRESTORE
         window.saveAllClassMarks = async function() {
             try {
                 for (const student of currentStudents) {
@@ -720,6 +725,7 @@
                         studentName: student.name,
                         registerNo: regNo,
                         rollNo: student.rollNo,
+                        dob: student.dob || '',
                         classId: currentClass,
                         subjects: markObj,
                         status: "PUBLISHED",
@@ -731,7 +737,7 @@
                     await setDoc(resultDocRef, payload, { merge: true });
                 }
 
-                alert(`${currentClass} വിദ്യാർത്ഥികളുടെ മാർക്കുകൾ വിജയകരമായി സേവ് ചെയ്തു!`);
+                alert(`${currentClass} വിദ്യാർത്ഥികളുടെ മാർക്കുകൾ വിജയകരമായി ഫയർബേസിൽ സേവ് ചെയ്തു!`);
             } catch(e) {
                 console.error("Save error:", e);
                 alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു: " + e.message);
@@ -742,49 +748,67 @@
             switchNav('students');
         };
 
-        // ADD NEW STUDENT
+        // ADD NEW STUDENT DIRECT TO FIRESTORE WITH DOB
         window.handleAddStudent = async function(e) {
             e.preventDefault();
             const rollNo = document.getElementById('std-roll').value.trim();
             const name = document.getElementById('std-name').value.trim();
             const regNo = document.getElementById('std-regno').value.trim();
+            const dob = document.getElementById('std-dob').value;
+
+            const btn = document.getElementById('btn-add-student');
 
             try {
+                btn.disabled = true;
                 const stdRef = collection(db, 'students');
                 await addDoc(stdRef, {
                     name: name,
                     rollNo: parseInt(rollNo),
                     registerNo: regNo,
+                    dob: dob,
                     classId: currentClass,
                     createdAt: new Date().toISOString()
                 });
 
                 document.getElementById('student-add-form').reset();
-                alert('കുട്ടിയുടെ വിവരങ്ങൾ ചേർത്തുകഴിഞ്ഞു!');
+                alert('കുട്ടിയുടെ വിവരങ്ങൾ (പേര്, റോൾ നമ്പർ, അഡ്മിഷൻ നമ്പർ, DOB) വിജയകരമായി ഫയർബേസിൽ ചേർത്തു!');
             } catch(err) {
-                console.error(err);
-                alert('സേവ് ചെയ്യാൻ സാധിച്ചില്ല!');
+                console.error("Add student error:", err);
+                alert('ഡാറ്റാബേസിൽ സേവ് ചെയ്യാൻ സാധിച്ചില്ല: ' + err.message);
+            } finally {
+                btn.disabled = false;
             }
         };
 
+        // RENDER STUDENT DIRECTORY TABLE WITH DOB
         function renderStudentList() {
             const container = document.getElementById('students-list-body');
             if (!container) return;
 
+            if (currentStudents.length === 0) {
+                container.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">കുട്ടികളുടെ വിവരങ്ങൾ ഒന്നും ചേർത്തിട്ടില്ല.</td></tr>`;
+                return;
+            }
+
             container.innerHTML = currentStudents.map(s => `
-                <tr class="hover:bg-slate-50">
+                <tr class="hover:bg-slate-50 transition border-b border-slate-100">
                     <td class="p-3 font-bold text-slate-900">${s.rollNo}</td>
                     <td class="p-3 font-extrabold text-slate-900">${s.name}</td>
-                    <td class="p-3 font-mono text-slate-500">${s.registerNo || '-'}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 rounded font-bold text-[10px]">${s.classId}</span></td>
+                    <td class="p-3 font-mono text-slate-600">${s.registerNo || '-'}</td>
+                    <td class="p-3 font-mono text-slate-600">${s.dob || '-'}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 border border-emerald-300 rounded font-bold text-[10px]">${s.classId}</span></td>
                     <td class="p-3 text-right">
-                        <span class="text-xs text-slate-400 font-medium">Enrolled</span>
+                        <span class="text-xs text-emerald-700 font-bold flex items-center justify-end gap-1">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Enrolled
+                        </span>
                     </td>
                 </tr>
             `).join('');
+
+            if (window.lucide) window.lucide.createIcons();
         }
 
-        // POST NOTICE
+        // POST NOTICE TO FIRESTORE
         window.handlePostNotice = async function(e) {
             e.preventDefault();
             const title = document.getElementById('notice-title').value;
@@ -799,10 +823,10 @@
                     createdAt: new Date().toISOString()
                 });
 
-                alert('അറിയിപ്പ് വിജയകരമായി പ്രസിദ്ധീകരിച്ചു!');
+                alert('അറിയിപ്പ് വിജയകരമായി ഫയർബേസിൽ പ്രസിദ്ധീകരിച്ചു!');
                 e.target.reset();
             } catch(e) {
-                alert('നോട്ടീസ് പബ്ലിഷ് ചെയ്യാൻ സാധിച്ചില്ല.');
+                alert('നോട്ടീസ് പബ്ലിഷ് ചെയ്യാൻ സാധിച്ചില്ല: ' + e.message);
             }
         };
 
