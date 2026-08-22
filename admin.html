@@ -46,6 +46,7 @@
 </head>
 <body class="font-sans bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between">
 
+    <!-- Firebase Invisible Recaptcha Container -->
     <div id="recaptcha-container"></div>
 
     <!-- VIEW 1: AUTHENTICATION / PHONE OTP LOGIN -->
@@ -54,8 +55,8 @@
             
             <div class="text-center space-y-3">
                 <div class="flex justify-center items-center gap-3">
-                    <img src="8708-removebg-preview.png" alt="Madrasa Logo" class="h-16 w-auto object-contain">
-                    <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-12 w-auto object-contain">
+                    <img src="8708-removebg-preview.png" alt="Madrasa Logo" class="h-16 w-auto object-contain" onerror="this.src='https://via.placeholder.com/60?text=Madrasa'">
+                    <img src="8712-removebg-preview.png" alt="Wisdom Board Logo" class="h-12 w-auto object-contain" onerror="this.src='https://via.placeholder.com/50?text=Wisdom'">
                 </div>
                 <div>
                     <h1 class="text-lg font-extrabold text-emerald-950 leading-tight">NANDI AL-HIKMA HOLIDAY MADRASA</h1>
@@ -66,40 +67,43 @@
             <!-- STEP 1: PHONE INPUT -->
             <form id="phone-login-form" onsubmit="handleSendOtp(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Authorized Mobile Number</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">അംഗീകൃത മൊബൈൽ നമ്പർ (Mobile Number)</label>
                     <div class="relative">
                         <span class="absolute left-3.5 top-3 text-sm font-semibold text-slate-400">+91</span>
-                        <input type="tel" id="input-phone" required placeholder="9876543210" class="w-full pl-12 pr-4 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none font-semibold">
+                        <input type="tel" id="input-phone" required maxlength="10" placeholder="9876543210" class="w-full pl-12 pr-4 py-2.5 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none font-semibold">
                     </div>
+                    <p class="text-[11px] text-slate-500 mt-1">ഫയർബേസിൽ രജിസ്റ്റർ ചെയ്ത നമ്പർ മാത്രം നൽകുക.</p>
                 </div>
 
                 <button type="submit" id="btn-send-otp" class="w-full py-3 bg-emerald-850 hover:bg-emerald-950 text-white font-bold rounded-xl shadow text-sm transition-all flex items-center justify-center gap-2">
                     <i data-lucide="smartphone" class="w-4 h-4"></i>
-                    <span>Send SMS OTP</span>
+                    <span id="btn-send-text">SMS OTP അയക്കുക</span>
                 </button>
             </form>
 
             <!-- STEP 2: OTP VERIFICATION -->
             <form id="otp-verify-form" onsubmit="handleVerifyOtp(event)" class="hidden space-y-4">
-                <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900">
-                    SMS OTP sent to <strong id="display-sent-phone">+91 XXXXX XXXXX</strong>
+                <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 flex justify-between items-center">
+                    <span>ഫോണിലേക്ക് OTP അയച്ചിട്ടുണ്ട്: <strong id="display-sent-phone">+91 XXXXX XXXXX</strong></span>
+                    <button type="button" onclick="resetToPhoneStep()" class="text-xs text-gold-600 underline font-bold">Change</button>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">6-Digit Verification Code</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">6-ഡിജിറ്റ് OTP കോഡ്</label>
                     <input type="text" id="input-otp" required maxlength="6" placeholder="123456" class="w-full px-4 py-2.5 text-center text-lg font-bold tracking-widest border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                 </div>
 
                 <button type="submit" id="btn-verify-otp" class="w-full py-3 bg-gold-400 hover:bg-gold-500 text-slate-950 font-bold rounded-xl shadow text-sm transition-all flex items-center justify-center gap-2">
                     <i data-lucide="check-circle" class="w-4 h-4"></i>
-                    <span>Verify & Login</span>
+                    <span id="btn-verify-text">OTP പരിശോധിക്കുക</span>
                 </button>
             </form>
 
+            <!-- Error / Status Alert Box -->
             <div id="auth-msg" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
 
             <div class="text-center pt-2 border-t border-slate-100">
-                <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-emerald-800">← Back to Main Website</a>
+                <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-emerald-800">← പ്രധാന വെബ്‌സൈറ്റിലേക്ക് തിരികെ പോകുക</a>
             </div>
         </div>
     </div>
@@ -107,105 +111,153 @@
     <!-- VIEW 2: AUTHENTICATED DASHBOARD -->
     <div id="view-dashboard" class="hidden min-h-screen flex flex-col md:flex-row bg-slate-100">
 
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR NAVIGATION -->
         <aside class="w-full md:w-64 bg-emerald-950 text-slate-300 flex-shrink-0 border-r border-emerald-900 flex flex-col justify-between">
             <div>
                 <div class="p-5 border-b border-emerald-900 flex items-center gap-3">
-                    <img src="8708-removebg-preview.png" alt="Logo" class="h-10 w-auto">
+                    <img src="8708-removebg-preview.png" alt="Logo" class="h-10 w-auto" onerror="this.src='https://via.placeholder.com/40'">
                     <div>
                         <h2 class="text-xs font-extrabold text-white leading-tight">NANDI AL-HIKMA</h2>
-                        <span class="text-[10px] text-gold-400 font-bold uppercase tracking-wider block">Dashboard</span>
+                        <span class="text-[10px] text-gold-400 font-bold uppercase tracking-wider block">Staff Portal</span>
                     </div>
                 </div>
 
                 <div class="p-4 m-3 bg-emerald-900/60 rounded-xl border border-emerald-800 text-xs space-y-1">
                     <div class="flex items-center justify-between">
-                        <span id="user-display-role" class="px-2 py-0.5 rounded text-[9px] font-extrabold bg-gold-400 text-slate-950 uppercase">TEACHER</span>
-                        <span id="user-display-class" class="text-slate-300 font-semibold text-[10px]">Standard 1</span>
+                        <span id="user-display-role" class="px-2 py-0.5 rounded text-[9px] font-extrabold bg-gold-400 text-slate-950 uppercase">STAFF</span>
+                        <span id="user-display-class" class="text-slate-300 font-semibold text-[10px]">STD 1</span>
                     </div>
-                    <p id="user-display-name" class="font-bold text-white text-sm truncate">Faculty Member</p>
+                    <p id="user-display-name" class="font-bold text-white text-sm truncate">Staff Member</p>
+                    <p id="user-display-phone" class="text-[10px] text-slate-400 font-mono"></p>
                 </div>
 
                 <nav class="px-3 py-2 space-y-1 text-xs font-bold">
-                    <button onclick="switchNav('overview')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white bg-emerald-850">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+                    <button onclick="switchNav('overview')" id="nav-overview" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white bg-emerald-850">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> ഡാഷ്‌ബോർഡ് Overview
                     </button>
-                    <button onclick="switchNav('students')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900">
-                        <i data-lucide="users" class="w-4 h-4"></i> Students
+                    <button onclick="switchNav('students')" id="nav-students" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900 text-slate-300">
+                        <i data-lucide="users" class="w-4 h-4"></i> അഡ്മിഷൻ അപേക്ഷകൾ
                     </button>
-                    <button onclick="switchNav('marks')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900">
-                        <i data-lucide="edit-3" class="w-4 h-4"></i> Mark Entry
+                    <button onclick="switchNav('marks')" id="nav-marks" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900 text-slate-300">
+                        <i data-lucide="edit-3" class="w-4 h-4"></i> മാർക്ക് എൻട്രി
                     </button>
                     <div id="admin-menu-group" class="hidden space-y-1 pt-2 border-t border-emerald-900">
-                        <span class="px-3 text-[10px] uppercase font-bold text-gold-500">Admin Only</span>
-                        <button onclick="switchNav('results')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900">
-                            <i data-lucide="award" class="w-4 h-4"></i> Publish Results
+                        <span class="px-3 text-[10px] uppercase font-bold text-gold-500">Admin Panel</span>
+                        <button onclick="switchNav('results')" id="nav-results" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900 text-slate-300">
+                            <i data-lucide="award" class="w-4 h-4"></i> റിസൾട്ട് പബ്ലിഷിംഗ്
                         </button>
                     </div>
                 </nav>
             </div>
 
             <div class="p-4 border-t border-emerald-900">
-                <button onclick="handleLogout()" class="w-full py-2.5 bg-rose-900/80 hover:bg-rose-900 text-rose-100 font-bold text-xs rounded-xl flex items-center justify-center gap-2">
-                    <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                <button onclick="handleLogout()" class="w-full py-2.5 bg-rose-900/80 hover:bg-rose-900 text-rose-100 font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> ലോഗ്ഔട്ട് (Logout)
                 </button>
             </div>
         </aside>
 
         <!-- MAIN CONTENT AREA -->
-        <div class="flex-1 p-6 space-y-6">
+        <div class="flex-1 p-6 space-y-6 overflow-y-auto">
 
+            <!-- OVERVIEW PANEL -->
             <section id="panel-overview" class="space-y-4">
-                <h3 class="text-lg font-bold text-slate-900">Overview Panel</h3>
-                <div class="p-6 bg-white rounded-2xl border border-slate-200">
-                    <p class="text-xs text-slate-600">Assigned Class: <strong id="overview-class" class="text-slate-900">Standard 1</strong></p>
+                <h3 class="text-lg font-bold text-slate-900">സ്വാഗതം, <span id="welcome-user-name">Staff</span></h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">ലോഗിൻ ചെയ്ത പദവി</span>
+                        <h4 id="overview-role" class="text-xl font-bold text-emerald-950 uppercase">Teacher</h4>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">ചുമതലയുള്ള ക്ലാസ്</span>
+                        <h4 id="overview-class" class="text-xl font-bold text-emerald-950">Standard 1</h4>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-1">
+                        <span class="text-xs text-slate-500 font-semibold uppercase">സ്റ്റാറ്റസ്</span>
+                        <h4 class="text-xl font-bold text-emerald-600 flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span> Active
+                        </h4>
+                    </div>
                 </div>
             </section>
 
+            <!-- ADMISSION APPLICATIONS PANEL -->
             <section id="panel-students" class="hidden space-y-4">
-                <h3 class="text-lg font-bold text-slate-900">Student Directory</h3>
-                <div class="bg-white rounded-2xl border border-slate-200 p-4">
-                    <ul id="students-list" class="divide-y divide-slate-100 text-xs"></ul>
+                <h3 class="text-lg font-bold text-slate-900">ഓൺലൈൻ അഡ്മിഷൻ അപേക്ഷകൾ</h3>
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                                <th class="p-3">പേര്</th>
+                                <th class="p-3">ക്ലാസ്</th>
+                                <th class="p-3">രക്ഷിതാവ്</th>
+                                <th class="p-3">ഫോൺ</th>
+                                <th class="p-3">തിയ്യതി</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrations-tbody" class="divide-y divide-slate-100">
+                            <tr><td colspan="5" class="p-4 text-center text-slate-400">ഡാറ്റ ലോഡ് ചെയ്യുന്നു...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
+            <!-- MARK ENTRY PANEL -->
             <section id="panel-marks" class="hidden space-y-4">
-                <h3 class="text-lg font-bold text-slate-900">Mark Evaluation Entry</h3>
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
-                    <select id="mark-select-student" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl">
-                        <option value="">Select Student</option>
-                    </select>
-                    <button onclick="saveStudentMarks('DRAFT')" class="px-5 py-2.5 bg-emerald-850 text-white text-xs font-bold rounded-xl">Save Mark Draft</button>
+                <h3 class="text-lg font-bold text-slate-900">വിദ്യാർത്ഥികളുടെ മാർക്ക് എൻട്രി</h3>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 max-w-xl shadow-sm">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student ID / Admission No.</label>
+                        <input type="text" id="mark-student-id" value="ADM-2026-001" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student Name</label>
+                        <input type="text" id="mark-student-name" value="Mohammed Rayan" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Academic Year</label>
+                        <select id="mark-academic-year" class="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl">
+                            <option value="2025-2026">2025 – 2026</option>
+                        </select>
+                    </div>
+                    <button onclick="saveStudentMarks('DRAFT')" class="px-5 py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white text-xs font-bold rounded-xl shadow transition-all">
+                        Save Mark Draft
+                    </button>
                 </div>
             </section>
 
+            <!-- RESULTS PUBLISH PANEL (ADMIN ONLY) -->
             <section id="panel-results" class="hidden space-y-4">
-                <h3 class="text-lg font-bold text-slate-900">Result Publishing Controls</h3>
-                <div class="bg-white rounded-2xl border border-slate-200 p-6">
-                    <p class="text-xs text-slate-600 mb-4">Toggle publication status to reveal grades on `results.html`.</p>
-                    <button onclick="saveStudentMarks('PUBLISHED')" class="px-5 py-2.5 bg-gold-400 text-slate-950 text-xs font-bold rounded-xl">Publish All Class Results</button>
+                <h3 class="text-lg font-bold text-slate-900">പരീക്ഷാ റിസൾട്ട് പബ്ലിഷിംഗ് ഡാഷ്‌ബോർഡ്</h3>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 max-w-xl">
+                    <p class="text-xs text-slate-600">
+                        തയ്യാറാക്കിയ മാർക്കുകൾ പബ്ലിഷ് ചെയ്താൽ മാത്രമേ വെബ്‌സൈറ്റിലെ `results.html` വഴി വിദ്യാർത്ഥികൾക്ക് കാണാൻ സാധിക്കുകയുള്ളൂ.
+                    </p>
+                    <button onclick="saveStudentMarks('PUBLISHED')" class="px-5 py-2.5 bg-gold-400 hover:bg-gold-500 text-slate-950 text-xs font-bold rounded-xl shadow transition-all">
+                        Publish Class Results to Website
+                    </button>
                 </div>
             </section>
 
         </div>
     </div>
 
-    <!-- FIREBASE MODULE -->
+    <!-- FIREBASE MODULE LOGIC -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
         import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
         import { getFirestore, collection, getDocs, query, where, addDoc } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
+        // Updated Firebase Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyC0T9Ve0RdOtr1pGmp_qEAcFqlZfhhMq5s",
-            authDomain: "madrasa-5c753.firebaseapp.com",
-            projectId: "madrasa-5c753",
-            storageBucket: "madrasa-5c753.firebasestorage.app",
-            messagingSenderId: "1096374227616",
-            appId: "1:1096374227616:web:62e57fb836405bbfb0afc5"
+          apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
+          authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
+          projectId: "madrasa-new-app-a3fcb",
+          storageBucket: "madrasa-new-app-a3fcb.firebasestorage.app",
+          messagingSenderId: "500915200975",
+          appId: "1:500915200975:web:1ccf709bac2641fa32e8ba"
         };
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -214,86 +266,253 @@
         let recaptchaVerifier = null;
         let currentUserProfile = null;
 
+        // UI Helpers
+        function showAuthMsg(msg, isError = true) {
+            const el = document.getElementById('auth-msg');
+            el.className = `p-3 rounded-xl text-xs font-bold text-center block ${isError ? 'bg-rose-100 text-rose-900 border border-rose-200' : 'bg-emerald-100 text-emerald-900 border border-emerald-200'}`;
+            el.textContent = msg;
+        }
+
+        function hideAuthMsg() {
+            document.getElementById('auth-msg').classList.add('hidden');
+        }
+
+        window.resetToPhoneStep = function() {
+            document.getElementById('phone-login-form').classList.remove('hidden');
+            document.getElementById('otp-verify-form').classList.add('hidden');
+            document.getElementById('input-otp').value = '';
+            hideAuthMsg();
+        }
+
+        // STEP 1: VERIFY PHONE IN FIRESTORE, THEN SEND OTP
         window.handleSendOtp = async function(e) {
             e.preventDefault();
-            const phoneInput = document.getElementById('input-phone').value.trim();
-            const fullPhone = phoneInput.startsWith('+') ? phoneInput : `+91${phoneInput}`;
+            hideAuthMsg();
 
-            if (!recaptchaVerifier) {
-                recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+            const phoneInput = document.getElementById('input-phone').value.trim();
+            if (!phoneInput || phoneInput.length < 10) {
+                showAuthMsg("ദയവായി കൃത്യമായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക.");
+                return;
             }
 
+            const fullPhone = phoneInput.startsWith('+') ? phoneInput : `+91${phoneInput}`;
+            const btnSend = document.getElementById('btn-send-otp');
+            const btnText = document.getElementById('btn-send-text');
+
             try {
+                btnSend.disabled = true;
+                btnText.textContent = "പരിശോധിക്കുന്നു...";
+
+                // 1. Check if mobile number is in Firestore `authorized_users` collection
+                const usersRef = collection(db, 'authorized_users');
+                const q = query(usersRef, where("phone", "==", fullPhone));
+                const querySnap = await getDocs(q);
+
+                if (querySnap.empty) {
+                    showAuthMsg("ഈ ഫോൺ നമ്പർ പോർട്ടലിൽ രജിസ്റ്റർ ചെയ്തിട്ടില്ല. അഡ്മിനുമായി ബന്ധപ്പെടുക.");
+                    btnSend.disabled = false;
+                    btnText.textContent = "SMS OTP അയക്കുക";
+                    return;
+                }
+
+                // Store User Data Profile from Firestore
+                const userData = querySnap.docs[0].data();
+                currentUserProfile = userData;
+
+                btnText.textContent = "OTP അയക്കുന്നു...";
+
+                // 2. Setup Invisible Recaptcha if not ready
+                if (!recaptchaVerifier) {
+                    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                        'size': 'invisible',
+                        'callback': () => {}
+                    });
+                }
+
+                // 3. Send SMS OTP via Firebase Auth
                 confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+
                 document.getElementById('phone-login-form').classList.add('hidden');
                 document.getElementById('otp-verify-form').classList.remove('hidden');
                 document.getElementById('display-sent-phone').textContent = fullPhone;
-            } catch(err) {
-                alert("Failed to send OTP: " + err.message);
+                showAuthMsg("SMS OTP വിജയികരമായി അയച്ചു!", false);
+
+            } catch (err) {
+                console.error(err);
+                showAuthMsg("OTP അയക്കുന്നതിൽ പരാജയപ്പെട്ടു: " + (err.message || "പണം കൈമാറ്റം വാലിഡേഷൻ പരാജയം"));
+                if (recaptchaVerifier) {
+                    recaptchaVerifier.clear();
+                    recaptchaVerifier = null;
+                }
+            } finally {
+                btnSend.disabled = false;
+                btnText.textContent = "SMS OTP അയക്കുക";
             }
         };
 
+        // STEP 2: VERIFY OTP
         window.handleVerifyOtp = async function(e) {
             e.preventDefault();
+            hideAuthMsg();
+
             const otpCode = document.getElementById('input-otp').value.trim();
+            if (!otpCode || otpCode.length !== 6) {
+                showAuthMsg("6 ഡിജിറ്റ് OTP കൃത്യമായി നൽകുക.");
+                return;
+            }
+
+            const btnVerify = document.getElementById('btn-verify-otp');
+            const btnText = document.getElementById('btn-verify-text');
+
             try {
+                btnVerify.disabled = true;
+                btnText.textContent = "പരിശോധിക്കുന്നു...";
+
                 await confirmationResultGlobal.confirm(otpCode);
-            } catch(err) {
-                alert("Invalid OTP Code.");
+                // Auth state change listener will automatically load dashboard
+            } catch (err) {
+                console.error(err);
+                showAuthMsg("നൽകിയ OTP തെറ്റാണ്. ദയവായി വീണ്ടും ശ്രമിക്കുക.");
+            } finally {
+                btnVerify.disabled = false;
+                btnText.textContent = "OTP പരിശോധിക്കുക";
             }
         };
 
+        // LISTEN TO AUTHENTICATION STATE
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                currentUserProfile = {
+                const userPhone = user.phoneNumber;
+
+                // Fetch Profile from Firestore if not already loaded
+                if (!currentUserProfile) {
+                    try {
+                        const usersRef = collection(db, 'authorized_users');
+                        const q = query(usersRef, where("phone", "==", userPhone));
+                        const snap = await getDocs(q);
+                        if (!snap.empty) {
+                            currentUserProfile = snap.docs[0].data();
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+
+                // Fallback details
+                const profile = currentUserProfile || {
                     name: "Staff Member",
-                    phone: user.phoneNumber || "+919876543210",
-                    role: user.phoneNumber === "+919876543210" ? "admin" : "teacher",
+                    phone: userPhone,
+                    role: "teacher",
                     assignedClass: "std-1"
                 };
 
+                // Render Dashboard
                 document.getElementById('view-login').classList.add('hidden');
                 document.getElementById('view-dashboard').classList.remove('hidden');
-                document.getElementById('user-display-name').textContent = currentUserProfile.name;
-                document.getElementById('user-display-role').textContent = currentUserProfile.role.toUpperCase();
-                document.getElementById('user-display-class').textContent = currentUserProfile.assignedClass.toUpperCase();
 
-                if (currentUserProfile.role === 'admin') {
+                document.getElementById('user-display-name').textContent = profile.name || "Staff Member";
+                document.getElementById('welcome-user-name').textContent = profile.name || "Staff Member";
+                document.getElementById('user-display-phone').textContent = profile.phone || userPhone;
+                document.getElementById('user-display-role').textContent = (profile.role || 'teacher').toUpperCase();
+                document.getElementById('user-display-class').textContent = (profile.assignedClass || 'std-1').toUpperCase();
+                document.getElementById('overview-role').textContent = profile.role || 'Teacher';
+                document.getElementById('overview-class').textContent = profile.assignedClass || 'Standard 1';
+
+                // Display Admin Actions if Admin
+                if (profile.role === 'admin') {
                     document.getElementById('admin-menu-group').classList.remove('hidden');
+                } else {
+                    document.getElementById('admin-menu-group').classList.add('hidden');
                 }
+
+                // Load initial data
+                loadRegistrations();
+
             } else {
                 document.getElementById('view-login').classList.remove('hidden');
                 document.getElementById('view-dashboard').classList.add('hidden');
             }
         });
 
+        // SWITCH DASHBOARD PANELS
         window.switchNav = function(panel) {
             ['overview', 'students', 'marks', 'results'].forEach(p => {
-                document.getElementById(`panel-${p}`).classList.add('hidden');
+                const sec = document.getElementById(`panel-${p}`);
+                const btn = document.getElementById(`nav-${p}`);
+                if (sec) sec.classList.add('hidden');
+                if (btn) {
+                    btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-emerald-900 text-slate-300";
+                }
             });
-            document.getElementById(`panel-${panel}`).classList.remove('hidden');
+
+            const targetSec = document.getElementById(`panel-${panel}`);
+            const targetBtn = document.getElementById(`nav-${panel}`);
+            if (targetSec) targetSec.classList.remove('hidden');
+            if (targetBtn) targetBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white bg-emerald-850";
         };
 
+        // FETCH REGISTRATIONS FROM FIRESTORE
+        async function loadRegistrations() {
+            const tbody = document.getElementById('registrations-tbody');
+            try {
+                const snap = await getDocs(collection(db, 'registrations'));
+                if (snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500">പുതിയ അപേക്ഷകൾ ഒന്നും ലഭിച്ചിട്ടില്ല.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = snap.docs.map(doc => {
+                    const d = doc.data();
+                    return `
+                        <tr>
+                            <td class="p-3 font-bold text-slate-900">${d.studentName || '--'}</td>
+                            <td class="p-3">${d.applyingClass || '--'}</td>
+                            <td class="p-3">${d.fatherName || '--'}</td>
+                            <td class="p-3 font-mono">${d.phone || '--'}</td>
+                            <td class="p-3 text-[10px] text-slate-400">${d.createdAt ? new Date(d.createdAt).toLocaleDateString() : '--'}</td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch(err) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-rose-500">ഡാറ്റ കാണുന്നതിൽ തടസ്സം നേരിട്ടു.</td></tr>`;
+            }
+        }
+
+        // SAVE / PUBLISH MARKS
         window.saveStudentMarks = async function(status) {
+            const studentId = document.getElementById('mark-student-id').value.trim();
+            const studentName = document.getElementById('mark-student-name').value.trim();
+            const year = document.getElementById('mark-academic-year').value;
+
             const payload = {
-                studentId: "ADM-2026-001",
-                studentName: "Mohammed Rayan",
-                classId: currentUserProfile.assignedClass,
-                academicYear: "2025-2026",
+                studentId: studentId,
+                studentName: studentName,
+                classId: currentUserProfile?.assignedClass || "std-1",
+                academicYear: year,
                 examId: "annual-2026",
                 status: status,
+                subjects: [
+                    { name: "Quran Recitation & Hifz", maxMarks: 100, obtainedMarks: 94 },
+                    { name: "Tajweed Rules", maxMarks: 50, obtainedMarks: 46 },
+                    { name: "Fiqh (Fasting & Zakat)", maxMarks: 100, obtainedMarks: 88 }
+                ],
                 updatedAt: new Date().toISOString()
             };
 
             try {
-                const resultsRef = collection(db, 'artifacts', appId, 'public', 'data', 'results');
-                await addDoc(resultsRef, payload);
-                alert(`Marks saved with status: ${status}`);
-            } catch(e) {}
+                await addDoc(collection(db, 'results'), payload);
+                alert(`മാർക്കുകൾ വിജയകരമായി സേവ് ചെയ്തു Status: ${status}`);
+            } catch(e) {
+                alert("സേവ് ചെയ്യുന്നതിൽ പരാജയം: " + e.message);
+            }
         };
 
+        // LOGOUT
         window.handleLogout = function() {
-            signOut(auth);
+            signOut(auth).then(() => {
+                currentUserProfile = null;
+                resetToPhoneStep();
+            });
         };
 
         window.addEventListener('DOMContentLoaded', () => {
