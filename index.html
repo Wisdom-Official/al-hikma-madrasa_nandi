@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,6 +51,20 @@
 </head>
 <body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-gold-500 selection:text-white min-h-screen flex flex-col justify-between">
 
+    <!-- Custom Notification Modal -->
+    <div id="notification-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 shadow-2xl border border-slate-100 text-center animate-in fade-in zoom-in duration-200">
+            <div id="modal-icon-container" class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="info" class="w-6 h-6"></i>
+            </div>
+            <h3 id="modal-title" class="text-lg font-bold text-emerald-950 mb-2">അറിയിപ്പ്</h3>
+            <p id="modal-message" class="text-sm text-slate-600 mb-6 leading-relaxed"></p>
+            <button onclick="closeNotificationModal()" class="w-full py-2.5 px-4 bg-emerald-850 hover:bg-emerald-950 text-white font-bold rounded-xl text-sm transition-all shadow-md">
+                ശരി (OK)
+            </button>
+        </div>
+    </div>
+
     <!-- HEADER / NAVIGATION -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-emerald-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,65 +72,82 @@
                 
                 <!-- Logo & Institution Branding -->
                 <a href="index.html" class="flex items-center gap-3 group">
-                    <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/60?text=Madrasa+Logo'">
+                    <img src="8708-removebg-preview.png" alt="Nandi Al-Hikma Logo" class="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/60?text=Madrasa+Logo'">
                     <div class="flex flex-col">
-                        <span class="font-bold text-base sm:text-xl text-emerald-950 leading-tight tracking-tight">NANDI AL-HIKMA</span>
-                        <span class="text-[11px] sm:text-xs font-semibold text-gold-600 uppercase tracking-wider">Holiday Madrasa</span>
-                        <span class="text-[9px] sm:text-[10px] text-slate-500 font-medium">Wisdom Education Board</span>
+                        <span class="font-bold text-lg sm:text-xl text-emerald-950 leading-tight tracking-tight">NANDI AL-HIKMA</span>
+                        <span class="text-xs font-semibold text-gold-600 uppercase tracking-wider">Holiday Madrasa</span>
+                        <span class="text-[10px] text-slate-500 font-medium">Wisdom Education Board</span>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation Links -->
                 <nav class="hidden lg:flex items-center gap-6 font-medium text-sm text-slate-700">
-                    <a href="index.html#home" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">ഹോം (Home)</a>
-                    <a href="index.html#about" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">മദ്‌റസയെ കുറിച്ച്</a>
-                    <a href="index.html#education-board" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">എഡ്യൂക്കേഷൻ ബോർഡ്</a>
-                    <a href="index.html#classes" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">ക്ലാസുകൾ</a>
-                    <a href="index.html#notices" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">നോട്ടീസ് ബോർഡ്</a>
-                    <a href="index.html#contact" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">ബന്ധപ്പെടാൻ</a>
+                    <a href="index.html#home" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">Home</a>
+                    <a href="index.html#about" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">About</a>
+                    <a href="index.html#education-board" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">Education Board</a>
+                    <a href="index.html#classes" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">Classes</a>
+                    <a href="index.html#examination" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">Examination</a>
+                    <a href="index.html#notices" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">Notices</a>
+                    <a href="index.html#contact" class="hover:text-emerald-800 transition-colors py-2 border-b-2 border-transparent hover:border-emerald-700">Contact</a>
                 </nav>
 
                 <!-- Action CTA Buttons -->
                 <div class="hidden sm:flex items-center gap-2.5">
+                    <!-- Results & Register Buttons commented out and replaced with notification triggers as requested -->
+                    <!-- 
                     <a href="results.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-950 bg-gold-400 hover:bg-gold-500 rounded-lg shadow-sm transition-all">
                         <i data-lucide="award" class="w-4 h-4"></i>
-                        <span>പരീക്ഷാ ഫലം (Results)</span>
+                        <span>Results</span>
                     </a>
                     <a href="results.html?tab=register" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-emerald-850 hover:bg-emerald-950 rounded-lg shadow-sm transition-all">
                         <i data-lucide="user-plus" class="w-4 h-4"></i>
-                        <span>രജിസ്ട്രേഷൻ</span>
+                        <span>Register</span>
                     </a>
+                    -->
+                    
+                    <!-- Notification Trigger Buttons (Hidden active status buttons replaced with click notifications) -->
+                    <button onclick="showResultsNotification()" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-950 bg-gold-400 hover:bg-gold-500 rounded-lg shadow-sm transition-all">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                        <span>Results</span>
+                    </button>
+                    <button onclick="showRegisterNotification()" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-emerald-850 hover:bg-emerald-950 rounded-lg shadow-sm transition-all">
+                        <i data-lucide="user-plus" class="w-4 h-4"></i>
+                        <span>Register</span>
+                    </button>
+
                     <a href="admin.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition-all">
                         <i data-lucide="lock" class="w-4 h-4 text-emerald-800"></i>
-                        <span>സ്റ്റാഫ് ലോഗിൻ</span>
+                        <span>Staff Login</span>
                     </a>
                 </div>
 
                 <!-- Mobile Hamburger Button -->
-                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-700 hover:text-emerald-800 rounded-lg focus:outline-none" aria-label="Toggle Navigation">
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-700 hover:text-emerald-800 rounded-lg" aria-label="Toggle Navigation">
                     <i data-lucide="menu" class="w-7 h-7"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Drawer Navigation -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 transition-all duration-300">
-            <a href="index.html#home" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-800 border-b border-slate-100">ഹോം (Home)</a>
-            <a href="index.html#about" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-800 border-b border-slate-100">മദ്‌റസയെ കുറിച്ച്</a>
-            <a href="index.html#education-board" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-800 border-b border-slate-100">എഡ്യൂക്കേഷൻ ബോർഡ്</a>
-            <a href="index.html#classes" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-800 border-b border-slate-100">ക്ലാസുകൾ (1-8)</a>
-            <a href="index.html#notices" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-800 border-b border-slate-100">നോട്ടീസ് ബോർഡ്</a>
-            <a href="index.html#contact" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-800 border-b border-slate-100">ബന്ധപ്പെടാൻ</a>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="index.html#home" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Home</a>
+            <a href="index.html#about" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">About Madrasa</a>
+            <a href="index.html#education-board" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Education Board</a>
+            <a href="index.html#classes" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Standards 1 - 8</a>
+            <a href="index.html#examination" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Examination</a>
+            <a href="index.html#notices" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Notice Board</a>
+            <a href="index.html#contact" onclick="toggleMobileMenu()" class="block py-2 text-base font-semibold text-slate-800 border-b border-slate-100">Contact Us</a>
             
             <div class="pt-3 flex flex-col gap-2">
-                <a href="results.html" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-emerald-950 bg-gold-400 rounded-xl shadow">
-                    <i data-lucide="award" class="w-4 h-4"></i> പരീക്ഷാ ഫലം പരിശോധിക്കാം
-                </a>
-                <a href="results.html?tab=register" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-white bg-emerald-850 rounded-xl shadow">
-                    <i data-lucide="user-plus" class="w-4 h-4"></i> ഓൺലൈൻ അഡ്മിഷൻ രജിസ്ട്രേഷൻ
-                </a>
-                <a href="admin.html" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-800 bg-slate-100 border border-slate-300 rounded-xl">
-                    <i data-lucide="lock" class="w-4 h-4"></i> ടീച്ചർ & അഡ്മിൻ ലോഗിൻ
+                <!-- Mobile Notification Buttons -->
+                <button onclick="showResultsNotification(); toggleMobileMenu();" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-emerald-950 bg-gold-400 rounded-lg shadow">
+                    <i data-lucide="award" class="w-4 h-4"></i> View Examination Results
+                </button>
+                <button onclick="showRegisterNotification(); toggleMobileMenu();" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-white bg-emerald-850 rounded-lg shadow">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i> Online Admission Registration
+                </button>
+                <a href="admin.html" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-slate-800 bg-slate-100 border border-slate-300 rounded-lg">
+                    <i data-lucide="lock" class="w-4 h-4"></i> Teacher & Admin Login
                 </a>
             </div>
         </div>
@@ -126,9 +157,9 @@
     <main class="flex-grow">
 
         <!-- HERO SECTION -->
-        <section id="home" class="relative bg-islamic-pattern text-white py-16 sm:py-20 lg:py-28 overflow-hidden">
+        <section id="home" class="relative bg-islamic-pattern text-white py-20 lg:py-28 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     
                     <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/20 border border-gold-400/40 text-gold-300 text-xs sm:text-sm font-medium">
@@ -141,44 +172,44 @@
                             <span class="text-gold-400">HOLIDAY MADRASA</span>
                         </h1>
                         
-                        <p class="text-slate-200 text-sm sm:text-base lg:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                            അവധിക്കാലങ്ങളിൽ കുട്ടികളിൽ വിശുദ്ധ ഖുർആൻ പാരയണ മികവും, ഇസ്ലാമിക ധാർമ്മിക വിദ്യാഭ്യാസവും സമ്മാനിക്കുന്ന നന്ദി അൽ-ഹിക്മ ഹോളിഡേ മദ്‌റസ.
+                        <p class="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                            Nurturing authentic Islamic knowledge, Quranic mastery, and moral excellence across Standards 1 through 8 during holiday seasons. Building a strong foundation for young minds under structured educational governance.
                         </p>
                         
-                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
-                            <a href="results.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs sm:text-sm font-bold text-slate-950 bg-gold-400 hover:bg-gold-500 rounded-xl shadow-lg transition-all">
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <button onclick="showResultsNotification()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-gold-400 hover:bg-gold-500 rounded-xl shadow-lg transition-all">
                                 <i data-lucide="award" class="w-4 h-4"></i>
-                                <span>പരീക്ഷാ ഫലം കാണുക</span>
-                            </a>
-                            <a href="results.html?tab=register" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-emerald-850 hover:bg-emerald-950 border border-emerald-700/60 rounded-xl shadow-lg transition-all">
+                                <span>Check Exam Results</span>
+                            </button>
+                            <button onclick="showRegisterNotification()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-emerald-850 hover:bg-emerald-950 border border-emerald-700/60 rounded-xl shadow-lg transition-all">
                                 <i data-lucide="user-plus" class="w-4 h-4"></i>
-                                <span>ഓൺലൈൻ അഡ്മിഷൻ</span>
-                            </a>
+                                <span>Student Registration</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Dual Logo Showcase Card -->
                     <div class="lg:col-span-5 flex justify-center">
-                        <div class="glass-dark border border-emerald-700/40 rounded-3xl p-6 sm:p-8 shadow-2xl text-center max-w-md w-full relative">
-                            <div class="absolute -top-3.5 -right-2 bg-gold-500 text-slate-950 font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                        <div class="glass-dark border border-emerald-700/40 rounded-3xl p-8 shadow-2xl text-center max-w-md w-full relative">
+                            <div class="absolute -top-4 -right-4 bg-gold-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow">
                                 Official Center
                             </div>
 
-                            <p class="font-arabic text-xl sm:text-2xl text-gold-300 mb-2">بسم الله الرحمن الرحيم</p>
+                            <p class="font-arabic text-xl text-gold-300 mb-2">بسم الله الرحمن الرحيم</p>
                             
-                            <div class="space-y-4 my-4">
+                            <div class="space-y-6 my-4">
                                 <div class="p-4 bg-white/10 rounded-2xl border border-white/10 flex items-center justify-center">
-                                    <img src="8708-removebg-preview.png" alt="Al-Hikma Nandi Logo" class="h-24 sm:h-28 w-auto object-contain drop-shadow-md" onerror="this.src='https://via.placeholder.com/100?text=Logo'">
+                                    <img src="8708-removebg-preview.png" alt="Al-Hikma Nandi Logo" class="h-28 w-auto object-contain drop-shadow-md">
                                 </div>
                                 
                                 <div class="flex items-center justify-center gap-3">
                                     <div class="h-px bg-emerald-800 flex-grow"></div>
-                                    <span class="text-[11px] font-semibold uppercase text-slate-400">Affiliated With</span>
+                                    <span class="text-xs font-semibold uppercase text-slate-400">Affiliated With</span>
                                     <div class="h-px bg-emerald-800 flex-grow"></div>
                                 </div>
 
                                 <div class="p-3 bg-white rounded-xl border border-white/20 flex items-center justify-center">
-                                    <img src="8712-removebg-preview.png" alt="WISDOM Board Logo" class="h-12 sm:h-14 w-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=Wisdom'">
+                                    <img src="8712-removebg-preview.png" alt="WISDOM Board Logo" class="h-14 w-auto object-contain">
                                 </div>
                             </div>
                         </div>
@@ -189,35 +220,35 @@
         </section>
 
         <!-- ABOUT MADRASA -->
-        <section id="about" class="py-16 sm:py-20 bg-slate-50">
+        <section id="about" class="py-20 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                <div class="text-center max-w-3xl mx-auto mb-16">
                     <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-100 px-3 py-1 rounded-full">About Our Madrasa</span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-emerald-950 mt-3">ധാർമ്മിക മുന്നേറ്റത്തിന് അൽ-ഹിക്മ</h2>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-950 mt-3">Dedicated to Moral & Spiritual Excellence</h2>
                     <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                    <div class="space-y-4 sm:space-y-6">
-                        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
-                            നന്ദി അൽ-ഹിക്മ ഹോളിഡേ മദ്‌റസയിലേക്ക് സ്വാഗതം
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-slate-900 leading-snug">
+                            Welcome to Nandi Al-Hikma Holiday Madrasa
                         </h3>
-                        <p class="text-slate-600 leading-relaxed text-xs sm:text-sm">
-                            സ്കൂൾ അവധിക്കാലങ്ങളിൽ കുട്ടികളുടെ ഒഴിവുസമയങ്ങൾ ഫലപ്രദമായി ഉപയോഗപ്പെടുത്തി ആധികാരികമായ ഇസ്ലാമിക അറിവ് സമ്മാനിക്കുക എന്ന ലക്ഷ്യത്തോടെയാണ് അൽ-ഹിക്മ ഹോളിഡേ മദ്‌റസ പ്രവർത്തിക്കുന്നത്.
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Nandi Al-Hikma Holiday Madrasa provides structured, high-quality Islamic learning tailored specifically for students during school vacation periods. Our specialized curriculum ensures students remain connected to their faith, Quranic recitation, Islamic history, and jurisprudence.
                         </p>
-                        <p class="text-slate-600 leading-relaxed text-xs sm:text-sm">
-                            വിസ്ഡം എഡ്യൂക്കേഷൻ ബോർഡിന്റെ അംഗീകാരത്തോടെ 1 മുതൽ 8 വരെയുള്ള ക്ലാസുകളിലായി ക്രമീകരിച്ച മികച്ച പാഠ്യപദ്ധതിയിലൂടെ കുട്ടികളെ ഉത്തമ വ്യക്തിത്വങ്ങളാക്കി മാറ്റുന്നു.
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            With structured classes from Standard 1 through Standard 8, our team of dedicated teachers guides young learners through standard educational benchmarks set forth by the Wisdom Education Board.
                         </p>
                     </div>
 
-                    <div class="space-y-4 sm:space-y-6">
-                        <div class="p-5 sm:p-6 bg-white rounded-2xl border-l-4 border-emerald-850 shadow-sm">
-                            <h4 class="text-lg font-bold text-emerald-950 mb-1">Our Vision (ഞങ്ങളുടെ ലക്ഷ്യം)</h4>
-                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">ധാർമ്മിക ബോധമുള്ള, അറിവും നന്മയും നിറഞ്ഞ ഒരു പുതിയ തലമുറയെ വളർത്തിയെടുക്കുക.</p>
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white rounded-2xl border-l-4 border-emerald-850 shadow-sm">
+                            <h4 class="text-xl font-bold text-emerald-950 mb-2">Our Vision</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">To raise a generation of morally grounded, knowledgeable, and compassionate Muslim youths who exemplify Islamic values in their personal and social lives.</p>
                         </div>
-                        <div class="p-5 sm:p-6 bg-white rounded-2xl border-l-4 border-gold-500 shadow-sm">
-                            <h4 class="text-lg font-bold text-emerald-950 mb-1">Our Mission (ഞങ്ങളുടെ ദൗത്യം)</h4>
-                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">നൂതനവും ആകർഷകവുമായ പഠനരീതികളിലൂടെ ഖുർആൻ, ഹദീസ്, നിത്യജീവിതത്തിലെ കർമ്മശാസ്ത്ര പാഠങ്ങൾ എന്നിവ കുട്ടികളിലേക്ക് എത്തിക്കുക.</p>
+                        <div class="p-6 bg-white rounded-2xl border-l-4 border-gold-500 shadow-sm">
+                            <h4 class="text-xl font-bold text-emerald-950 mb-2">Our Mission</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">To deliver comprehensive holiday religious education with modern teaching methodologies, empowering students with Quranic comprehension, Hadith studies, and practical Islamic living.</p>
                         </div>
                     </div>
                 </div>
@@ -225,21 +256,21 @@
         </section>
 
         <!-- EDUCATION BOARD SECTION -->
-        <section id="education-board" class="py-12 sm:py-16 bg-white border-y border-slate-200">
+        <section id="education-board" class="py-16 bg-white border-y border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-gradient-to-br from-emerald-900 to-emerald-950 rounded-3xl p-6 sm:p-12 text-white shadow-xl">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+                <div class="bg-gradient-to-br from-emerald-900 to-emerald-950 rounded-3xl p-8 sm:p-12 text-white shadow-xl">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         <div class="lg:col-span-4 flex justify-center">
                             <div class="p-6 bg-white rounded-2xl shadow-lg max-w-xs w-full text-center">
-                                <img src="8712-removebg-preview.png" alt="Wisdom Education Board Logo" class="h-20 sm:h-24 w-auto mx-auto object-contain" onerror="this.src='https://via.placeholder.com/80?text=Wisdom'">
+                                <img src="8712-removebg-preview.png" alt="Wisdom Education Board Logo" class="h-24 w-auto mx-auto object-contain">
                             </div>
                         </div>
 
-                        <div class="lg:col-span-8 space-y-3 sm:space-y-4 text-center lg:text-left">
+                        <div class="lg:col-span-8 space-y-4 text-center lg:text-left">
                             <span class="text-gold-400 text-xs font-bold uppercase tracking-widest bg-gold-400/10 px-3 py-1 rounded-full border border-gold-400/20">Educational Affiliation</span>
                             <h2 class="text-2xl sm:text-4xl font-extrabold text-white">WISDOM EDUCATION BOARD</h2>
-                            <p class="text-slate-200 text-xs sm:text-base leading-relaxed">
-                                സംസ്ഥാന തലത്തിൽ കൃത്യമായ സിലബസും മൂല്യനിർണ്ണയ ബോർഡുമുള്ള <strong>വിസ്ഡം എഡ്യൂക്കേഷൻ ബോർഡിന് (هيئـة الحكمة للتعليم والتربية الإسلامية)</strong> കീഴിലാണ് ഈ സ്ഥാപനം പ്രവർത്തിക്കുന്നത്.
+                            <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                                Nandi Al-Hikma Holiday Madrasa operates under the strict academic framework, syllabus guidelines, and evaluation standards established by the <strong>Wisdom Education Board</strong> (هيئـة الحكمة للتعليم والتربية الإسلامية).
                             </p>
                         </div>
                     </div>
@@ -248,50 +279,50 @@
         </section>
 
         <!-- CLASSES SECTION -->
-        <section id="classes" class="py-16 sm:py-20 bg-slate-50">
+        <section id="classes" class="py-20 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                <div class="text-center max-w-3xl mx-auto mb-16">
                     <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-100 px-3 py-1 rounded-full">Academic Structure</span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold text-emerald-950 mt-3">ക്ലാസുകൾ (Standards 1 to 8)</h2>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-950 mt-3">Standards 1 Through 8</h2>
                     <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div id="classes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                    <!-- Dynamic rendering via JavaScript -->
+                <div id="classes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic rendering -->
                 </div>
             </div>
         </section>
 
         <!-- NOTICES SECTION -->
-        <section id="notices" class="py-16 sm:py-20 bg-white border-t border-slate-200">
+        <section id="notices" class="py-20 bg-white border-t border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                     <div>
                         <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-100 px-3 py-1 rounded-full">Updates</span>
-                        <h2 class="text-2xl sm:text-4xl font-extrabold text-emerald-950 mt-3">അറിയിപ്പുകൾ & വാർത്തകൾ</h2>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-950 mt-3">Notice Board & Announcements</h2>
                     </div>
                 </div>
                 <div id="notices-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Dynamic Notices Rendering -->
+                    <!-- Populated dynamically -->
                 </div>
             </div>
         </section>
 
         <!-- CONTACT -->
-        <section id="contact" class="py-16 sm:py-20 bg-slate-50 border-t border-slate-200">
+        <section id="contact" class="py-20 bg-slate-50 border-t border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mb-8">ബന്ധപ്പെടാനുള്ള വിലാസം</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-xs text-slate-600">
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                        <strong class="block text-slate-900 text-sm mb-1">വിലാസം (Address)</strong>
-                        Nandi Al-Hikma Holiday Madrasa, Nandi Post, Kozhikode, Kerala, India
+                <h2 class="text-3xl font-extrabold text-emerald-950 mb-8">Contact Administration</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600">
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200">
+                        <strong class="block text-slate-900 text-sm mb-1">Address</strong>
+                        Nandi Al-Hikma Holiday Madrasa, Nandi Post, Kerala, India
                     </div>
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                        <strong class="block text-slate-900 text-sm mb-1">ഫോൺ (Phone)</strong>
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200">
+                        <strong class="block text-slate-900 text-sm mb-1">Phone</strong>
                         +91 98765 43210 / +91 98765 01234
                     </div>
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                        <strong class="block text-slate-900 text-sm mb-1">ഇമെയിൽ & കോഡ്</strong>
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200">
+                        <strong class="block text-slate-900 text-sm mb-1">Email & Affiliation</strong>
                         info@nandialhikma.edu | Wisdom Board Code: WEB-NDI-87
                     </div>
                 </div>
@@ -304,55 +335,74 @@
     <footer class="bg-emerald-950 text-slate-400 py-8 text-xs border-t border-emerald-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p>&copy; 2026 Nandi Al-Hikma Holiday Madrasa. All Rights Reserved.</p>
-            <a href="admin.html" class="text-gold-400 hover:underline">Faculty & Staff Login Portal</a>
+            <a href="admin.html" class="text-gold-400 hover:underline">Faculty & Admin Login Portal</a>
         </div>
     </footer>
 
-    <!-- FIREBASE MODULE -->
+    <!-- FIREBASE & JS LOGIC -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
         import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-        // Firebase Config
         const firebaseConfig = {
-          apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
-          authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
-          projectId: "madrasa-new-app-a3fcb",
-          storageBucket: "madrasa-new-app-a3fcb.firebasestorage.app",
-          messagingSenderId: "500915200975",
-          appId: "1:500915200975:web:1ccf709bac2641fa32e8ba"
+            apiKey: "AIzaSyC0T9Ve0RdOtr1pGmp_qEAcFqlZfhhMq5s",
+            authDomain: "madrasa-5c753.firebaseapp.com",
+            projectId: "madrasa-5c753",
+            storageBucket: "madrasa-5c753.firebasestorage.app",
+            messagingSenderId: "1096374227616",
+            appId: "1:1096374227616:web:62e57fb836405bbfb0afc5"
         };
 
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         const MADRASA_CLASSES = [
-            { id: 1, name: "Standard 1", desc: "അറബിക് അക്ഷരമാല, അടിസ്ഥാന പ്രാർത്ഥനകൾ.", subjects: 4 },
-            { id: 2, name: "Standard 2", desc: "തജ്‌വീദ് അടിസ്ഥാനങ്ങൾ, വുളൂഇന്റെ രീതികൾ.", subjects: 5 },
-            { id: 3, name: "Standard 3", desc: "നമസ്‌കാര നിയമങ്ങൾ, ജുസ്അ് അമ്മ പഠനം.", subjects: 5 },
-            { id: 4, name: "Standard 4", desc: "ഖുർആൻ ഹൃദ്യസ്ഥമാക്കൽ, ഹദീസ് പഠനം.", subjects: 5 },
-            { id: 5, name: "Standard 5", desc: "നോമ്പ്, സകാത്ത്, പ്രവാചക ചരിത്രം.", subjects: 6 },
-            { id: 6, name: "Standard 6", desc: "ഇസ്ലാമിക ധാർമ്മികത, കർമ്മശാസ്ത്രം (Fiqh).", subjects: 6 },
-            { id: 7, name: "Standard 7", desc: "വിസ്ഡം ബോർഡ് സീനിയർ പാഠ്യപദ്ധതി.", subjects: 6 },
-            { id: 8, name: "Standard 8", desc: "ഫൈനൽ ബോർഡ് പരീക്ഷക്കുള്ള പ്രത്യേക പരിശീലനം.", subjects: 6 }
+            { id: 1, name: "Standard 1", desc: "Arabic alphabet, basic Duas, and Islamic manners.", subjects: 4 },
+            { id: 2, name: "Standard 2", desc: "Tajweed basics, short Surah memorization, practical Wudhu.", subjects: 5 },
+            { id: 3, name: "Standard 3", desc: "Systematic Salah rules, Juz Amma memorization portion.", subjects: 5 },
+            { id: 4, name: "Standard 4", desc: "Intermediate Quranic study, Hadith lessons, Islamic etiquette.", subjects: 5 },
+            { id: 5, name: "Standard 5", desc: "Study of Sawm, Zakat basics, and Prophetic Sirah.", subjects: 6 },
+            { id: 6, name: "Standard 6", desc: "Quranic reflection, ethical philosophy, systematic Fiqh.", subjects: 6 },
+            { id: 7, name: "Standard 7", desc: "Senior preparatory standard under Wisdom Board guidelines.", subjects: 6 },
+            { id: 8, name: "Standard 8", desc: "Final Board examination class leading to official certification.", subjects: 6 }
         ];
 
         window.toggleMobileMenu = function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         };
 
+        // Notification Modal Functions
+        window.showResultsNotification = function() {
+            document.getElementById('modal-title').innerText = "പരീക്ഷാ ഫലം (Examination Results)";
+            document.getElementById('modal-message').innerText = "റിസൾട്ട് പ്രസിദ്ധീകരിക്കുന്ന സമയത്ത് ഈ ബട്ടൺ ആക്ടിവേറ്റ് ആവുന്നതാണ്.";
+            document.getElementById('notification-modal').classList.remove('hidden');
+            if (window.lucide) window.lucide.createIcons();
+        };
+
+        window.showRegisterNotification = function() {
+            document.getElementById('modal-title').innerText = "അഡ്മിഷൻ വിവരങ്ങൾ (Admission Notice)";
+            document.getElementById('modal-message').innerText = "2026-27 അധ്യയന വർഷത്തേക്കുള്ള അഡ്മിഷൻ അവസാനിച്ചിരിക്കുന്നു. അടുത്ത അധ്യയന വർഷത്തേക്കുള്ള അഡ്മിഷൻ ആരംഭിക്കുമ്പോൾ ഈ ബട്ടൺ ആക്ടിവേറ്റ് ആകുന്നതാണ്.";
+            document.getElementById('notification-modal').classList.remove('hidden');
+            if (window.lucide) window.lucide.createIcons();
+        };
+
+        window.closeNotificationModal = function() {
+            document.getElementById('notification-modal').classList.add('hidden');
+        };
+
         function renderClasses() {
             const container = document.getElementById('classes-grid');
             container.innerHTML = MADRASA_CLASSES.map(cls => `
-                <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-850 bg-emerald-100 px-2.5 py-1 rounded-md">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-850 bg-emerald-100 px-2.5 py-1 rounded-md">
                                 Class ${cls.id}
                             </span>
-                            <span class="text-[11px] font-semibold text-slate-400">${cls.subjects} Subjects</span>
+                            <span class="text-xs font-semibold text-slate-400">${cls.subjects} Subjects</span>
                         </div>
-                        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">${cls.name}</h3>
+                        <h3 class="text-xl font-extrabold text-slate-900">${cls.name}</h3>
                         <p class="text-xs text-slate-600 mt-2 leading-relaxed">${cls.desc}</p>
                     </div>
                 </div>
@@ -362,21 +412,17 @@
         async function renderNotices() {
             const container = document.getElementById('notices-container');
             let notices = [
-                { title: "വിസ്ഡം ബോർഡ് വാർഷിക പരീക്ഷാ ടൈംടേബിൾ പ്രസിദ്ധീകരിച്ചു", date: "March 15, 2026", content: "ഈ വർഷത്തെ വാർഷിക പരീക്ഷാ തീയ്യതികൾ നോട്ടീസ് ബോർഡിൽ ലഭ്യമാണ്." },
-                { title: "പുതിയ അധ്യയന വർഷത്തേക്കുള്ള അഡ്മിഷൻ ആരംഭിച്ചു", date: "March 01, 2026", content: "രക്ഷകർത്താക്കൾക്ക് വെബ്‌സൈറ്റ് വഴി ഓൺലൈനായി രജിസ്റ്റർ ചെയ്യാവുന്നതാണ്." }
+                { title: "Wisdom Board Annual Exam Schedule 2026", date: "March 15, 2026", content: "The central holiday examination timetable has been published." },
+                { title: "Online Admission Open for Upcoming Vacation Session", date: "March 01, 2026", content: "Parents can register new students online via the result portal." }
             ];
 
             try {
-                const snap = await getDocs(collection(db, 'notices'));
-                if (!snap.empty) {
-                    notices = snap.docs.map(doc => doc.data());
-                }
-            } catch(e) {
-                console.log("Notices Firestore load error:", e);
-            }
+                const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'notices'));
+                if (!snap.empty) notices = snap.docs.map(doc => doc.data());
+            } catch(e) {}
 
             container.innerHTML = notices.map(n => `
-                <div class="bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200 space-y-2">
+                <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-2">
                     <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-gold-100 text-gold-800">${n.date || 'Notice'}</span>
                     <h4 class="font-bold text-slate-900 text-sm">${n.title}</h4>
                     <p class="text-xs text-slate-600 leading-relaxed">${n.content}</p>
