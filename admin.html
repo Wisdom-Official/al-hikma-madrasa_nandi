@@ -89,7 +89,7 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
 
-        <!-- VIEW 1: AUTHENTICATION LOGIN CARD -->
+        <!-- VIEW 1: AUTHENTICATION LOGIN CARD (OTP LOGIN) -->
         <section id="view-login" class="max-w-md mx-auto my-6 sm:my-12">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200/80 space-y-6 relative overflow-hidden">
                 <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-800 via-gold-500 to-emerald-950"></div>
@@ -198,7 +198,7 @@
                                 <span id="active-class-badge" class="bg-gold-500 text-emerald-950 font-black text-xs px-2.5 py-0.5 rounded-md uppercase tracking-wider">Class 1</span>
                                 <span class="text-xs text-emerald-300 font-medium">വിഷയാടിസ്ഥാനത്തിലുള്ള മൂല്യനിർണ്ണയം</span>
                             </div>
-                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ विषयोंങ്ങൾ</h3>
+                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ വിഷയങ്ങൾ</h3>
                         </div>
                         <div id="subjects-badge-container" class="flex flex-wrap gap-1.5 max-w-2xl">
                             <!-- Dynamic Content -->
@@ -220,7 +220,7 @@
                             </button>
                             <button onclick="saveAllClassMarks()" class="px-4 py-2 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 shadow-md">
                                 <i data-lucide="check-circle" class="w-4 h-4 text-gold-400"></i>
-                                <span>മാർക്ക് സേവ് ചെയ്യുക</span>
+                                <span>എല്ലാ കുട്ടികളുടെയും മാർക്ക് സേവ് ചെയ്യുക</span>
                             </button>
                         </div>
                     </div>
@@ -321,7 +321,7 @@
                         </form>
                     </div>
 
-                    <!-- Existing Posted Notices List with Delete Button -->
+                    <!-- Existing Posted Notices List -->
                     <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
                             <h3 class="font-extrabold text-slate-900 text-base">പ്രസിദ്ധീകരിച്ച അറിയിപ്പുകൾ</h3>
@@ -362,6 +362,7 @@
             onSnapshot 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // results.html നു അനുയോജ്യമായ ഫയർബേസ് കോൺഫിഗറേഷൻ
         const firebaseConfig = {
             apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
             authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
@@ -410,6 +411,7 @@
             hideAuthMsg();
         };
 
+        // 1. ഫോൺ ലോഗിൻ & OTP അയക്കൽ ഫങ്ഷൻ
         window.handleSendOtp = async function(e) {
             e.preventDefault();
             hideAuthMsg();
@@ -428,6 +430,7 @@
                 btnSend.disabled = true;
                 btnText.textContent = "പരിശോധിക്കുന്നു...";
 
+                // ഫയർബേസിലെ authorized_users കളക്ഷൻ വെരിഫിക്കേഷൻ
                 const usersRef = collection(db, 'authorized_users');
                 const q = query(usersRef, where("phone", "==", fullPhone));
                 const querySnap = await getDocs(q);
@@ -469,6 +472,7 @@
             }
         };
 
+        // 2. ലഭിച്ച OTP വെരിഫൈ ചെയ്യൽ ഫങ്ഷൻ
         window.handleVerifyOtp = async function(e) {
             e.preventDefault();
             hideAuthMsg();
@@ -496,6 +500,7 @@
             }
         };
 
+        // ഓതെന്റിക്കേഷൻ സ്റ്റേറ്റ് നിരീക്ഷണം
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userPhone = user.phoneNumber;
@@ -570,8 +575,10 @@
             loadClassData();
         };
 
+        // റിയൽടൈം ഡാറ്റ ലോഡ് ചെയ്യുന്നു
         async function loadClassData() {
             try {
+                // കുട്ടികളുടെ ഡാറ്റ
                 const stdRef = collection(db, 'students');
                 onSnapshot(stdRef, (snap) => {
                     const allDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -582,13 +589,14 @@
                     renderStudentList();
                 }, (err) => console.error("Students snapshot error:", err));
 
+                // ഫലങ്ങളുടെ ഡാറ്റ
                 const resRef = collection(db, 'results');
                 onSnapshot(resRef, (snap) => {
                     currentClassResults = {};
                     snap.docs.forEach(d => {
                         const data = d.data();
                         if (data.classId === currentClass) {
-                            currentClassResults[data.registerNo || data.studentId] = data.subjects || {};
+                            currentClassResults[data.registerNo || data.studentId] = data;
                         }
                     });
                     renderClassMarksTable();
@@ -599,6 +607,7 @@
             }
         }
 
+        // ഓരോ കുട്ടിയുടെയും നിരയിൽ Save ബട്ടണും സ്റ്റാറ്റസ് ബാഡ്ജും സഹിതം പട്ടിക നിർമ്മിക്കുന്നു
         function renderClassMarksTable() {
             document.getElementById('active-class-badge').textContent = currentClass;
             const subjects = CLASS_SUBJECTS[currentClass] || CLASS_SUBJECTS["Class 1"];
@@ -613,11 +622,12 @@
             const headerRow = document.getElementById('marks-table-header');
             headerRow.innerHTML = `
                 <th class="p-3 w-12 sticky-col-1 bg-slate-100 border-r border-slate-200">Roll</th>
-                <th class="p-3 min-w-[130px] sticky-col-2 bg-slate-100 border-r border-slate-200">പേര്</th>
+                <th class="p-3 min-w-[150px] sticky-col-2 bg-slate-100 border-r border-slate-200">പേര് & അപ്ഡേറ്റ് സ്റ്റാറ്റസ്</th>
                 <th class="p-3 w-28 border-r border-slate-200">Reg No</th>
                 ${subjects.map(sub => `<th class="p-3 text-center min-w-[85px] border-r border-slate-200">${sub}</th>`).join('')}
                 <th class="p-3 text-center w-20 border-r border-slate-200">Total</th>
-                <th class="p-3 text-center w-24">Status</th>
+                <th class="p-3 text-center w-24 border-r border-slate-200">Status</th>
+                <th class="p-3 text-center w-28">ആക്ഷൻ</th>
             `;
 
             const tbody = document.getElementById('marks-table-body');
@@ -633,7 +643,9 @@
 
             tbody.innerHTML = currentStudents.map((student, idx) => {
                 const regNo = student.registerNo || `REG-${student.rollNo}`;
-                const savedMarks = currentClassResults[regNo] || {};
+                const savedResultDoc = currentClassResults[regNo];
+                const savedMarks = savedResultDoc ? (savedResultDoc.subjects || {}) : {};
+                const isUpdatedInFirebase = !!savedResultDoc;
 
                 let total = 0;
                 let isPass = true;
@@ -660,18 +672,32 @@
                 return `
                     <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
                         <td class="p-3 font-bold text-slate-900 sticky-col-1 bg-white border-r border-slate-200">${student.rollNo || idx + 1}</td>
-                        <td class="p-3 text-slate-900 font-extrabold sticky-col-2 bg-white border-r border-slate-200 truncate max-w-[130px]">${student.name}</td>
+                        <td class="p-3 text-slate-900 font-extrabold sticky-col-2 bg-white border-r border-slate-200 truncate max-w-[160px]">
+                            <div>${student.name}</div>
+                            <div class="mt-0.5">
+                                ${isUpdatedInFirebase 
+                                    ? `<span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 text-[9px] font-black rounded-md inline-flex items-center gap-0.5"><i data-lucide="check" class="w-2.5 h-2.5"></i> UPDATED</span>` 
+                                    : `<span class="px-1.5 py-0.5 bg-amber-100 text-amber-800 border border-amber-300 text-[9px] font-black rounded-md inline-flex items-center gap-0.5"><i data-lucide="clock" class="w-2.5 h-2.5"></i> PENDING</span>`}
+                            </div>
+                        </td>
                         <td class="p-3 text-xs text-slate-500 font-mono border-r border-slate-100">${regNo}</td>
                         ${subjectInputs}
                         <td class="p-3 text-center font-black text-emerald-950 row-total-${regNo} border-r border-slate-100">${total}</td>
-                        <td class="p-3 text-center">
+                        <td class="p-3 text-center border-r border-slate-100">
                             <span class="row-status-${regNo} inline-block px-2 py-0.5 text-[10px] font-black rounded-md ${isPass ? 'bg-emerald-100 text-emerald-900 border border-emerald-300' : 'bg-rose-100 text-rose-900 border border-rose-300'}">
                                 ${isPass ? 'PASSED' : 'FAILED'}
                             </span>
                         </td>
+                        <td class="p-2 text-center">
+                            <button onclick="saveSingleStudentMarks('${regNo}')" id="btn-save-${regNo}" class="px-2.5 py-1.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-lg text-[11px] font-bold shadow-sm transition flex items-center justify-center gap-1 mx-auto">
+                                <i data-lucide="save" class="w-3.5 h-3.5 text-gold-400"></i> Save
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
+
+            if (window.lucide) window.lucide.createIcons();
         }
 
         window.calculateRowTotal = function(inputElem) {
@@ -696,42 +722,69 @@
             }
         };
 
+        // ഒരു കുട്ടിയുടെ മാർക്ക് മാത്രം ഡയറക്ട് ഫയർബേസിലേക്ക് സേവ് ചെയ്യുന്നു
+        window.saveSingleStudentMarks = async function(regNo) {
+            const student = currentStudents.find(s => (s.registerNo || `REG-${s.rollNo}`) === regNo);
+            if (!student) return;
+
+            const inputs = document.querySelectorAll(`input[data-reg="${regNo}"]`);
+            const btn = document.getElementById(`btn-save-${regNo}`);
+
+            let markObj = {};
+            let grandTotal = 0;
+
+            inputs.forEach(inp => {
+                const sub = inp.getAttribute('data-subject');
+                const val = parseFloat(inp.value) || 0;
+                markObj[sub] = val;
+                grandTotal += val;
+            });
+
+            const payload = {
+                studentName: student.name,
+                registerNo: regNo,
+                rollNo: student.rollNo,
+                dob: student.dob || '',
+                classId: currentClass,
+                subjects: markObj,
+                status: "PUBLISHED",
+                totalMarks: grandTotal,
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                if(btn) {
+                    btn.disabled = true;
+                    btn.innerText = "Saving...";
+                }
+
+                const resultDocRef = doc(db, 'results', `${currentClass}_${regNo}`);
+                await setDoc(resultDocRef, payload, { merge: true });
+
+                alert(`${student.name} (${regNo}) യുടെ മാർക്ക് വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു!`);
+            } catch(e) {
+                console.error("Single save error:", e);
+                alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു: " + e.message);
+            } finally {
+                if(btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="save" class="w-3.5 h-3.5 text-gold-400"></i> Save`;
+                    if (window.lucide) window.lucide.createIcons();
+                }
+            }
+        };
+
+        // എല്ലാ കുട്ടികളുടെയും മാർക്കുകൾ ഒരുമിച്ച് സേവ് ചെയ്യുന്നു
         window.saveAllClassMarks = async function() {
             try {
                 for (const student of currentStudents) {
                     const regNo = student.registerNo || `REG-${student.rollNo}`;
-                    const inputs = document.querySelectorAll(`input[data-reg="${regNo}"]`);
-                    
-                    let markObj = {};
-                    let grandTotal = 0;
-
-                    inputs.forEach(inp => {
-                        const sub = inp.getAttribute('data-subject');
-                        const val = parseFloat(inp.value) || 0;
-                        markObj[sub] = val;
-                        grandTotal += val;
-                    });
-
-                    const payload = {
-                        studentName: student.name,
-                        registerNo: regNo,
-                        rollNo: student.rollNo,
-                        dob: student.dob || '',
-                        classId: currentClass,
-                        subjects: markObj,
-                        status: "PUBLISHED",
-                        totalMarks: grandTotal,
-                        updatedAt: new Date().toISOString()
-                    };
-
-                    const resultDocRef = doc(db, 'results', `${currentClass}_${regNo}`);
-                    await setDoc(resultDocRef, payload, { merge: true });
+                    await window.saveSingleStudentMarks(regNo);
                 }
-
-                alert(`${currentClass} വിദ്യാർത്ഥികളുടെ മാർക്കുകൾ വിജയകരമായി സേവ് ചെയ്തു!`);
+                alert(`${currentClass} കുട്ടികളുടെ എല്ലാ മാർക്കുകളും ഫയർബേസിൽ സേവ് ചെയ്തു!`);
             } catch(e) {
-                console.error("Save error:", e);
-                alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു: " + e.message);
+                console.error("Save all error:", e);
+                alert("സേവ് ചെയ്യുന്നതിൽ തടസ്സം: " + e.message);
             }
         };
 
@@ -739,6 +792,7 @@
             switchNav('students');
         };
 
+        // വിദ്യാർത്ഥിയുടെ വിവരങ്ങൾ ചേർക്കൽ
         window.handleAddStudent = async function(e) {
             e.preventDefault();
             const rollNo = document.getElementById('std-roll').value.trim();
@@ -770,6 +824,18 @@
             }
         };
 
+        // വിദ്യാർത്ഥിയെ ഡിലീറ്റ് ചെയ്യൽ
+        window.deleteStudent = async function(id, name) {
+            if (confirm(`${name} എന്ന കുട്ടിയെ ലിസ്റ്റിൽ നിന്നും ഡിലീറ്റ് ചെയ്യണമെന്ന് ഉറപ്പാണോ?`)) {
+                try {
+                    await deleteDoc(doc(db, 'students', id));
+                    alert("വിദ്യാർത്ഥിയെ വിജയകരമായി ഡിലീറ്റ് ചെയ്തു.");
+                } catch(e) {
+                    alert("ഡിലീറ്റ് ചെയ്യാൻ സാധിച്ചില്ല: " + e.message);
+                }
+            }
+        };
+
         function renderStudentList() {
             const container = document.getElementById('students-list-body');
             if (!container) return;
@@ -787,9 +853,9 @@
                     <td class="p-3 font-mono text-slate-600">${s.dob || '-'}</td>
                     <td class="p-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-900 border border-emerald-300 rounded font-bold text-[10px]">${s.classId}</span></td>
                     <td class="p-3 text-right">
-                        <span class="text-xs text-emerald-700 font-bold flex items-center justify-end gap-1">
-                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Enrolled
-                        </span>
+                        <button onclick="deleteStudent('${s.id}', '${s.name}')" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-lg font-bold text-xs transition inline-flex items-center gap-1">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete
+                        </button>
                     </td>
                 </tr>
             `).join('');
@@ -797,7 +863,7 @@
             if (window.lucide) window.lucide.createIcons();
         }
 
-        // POST NOTICE TO FIRESTORE (Direct Real-time Sync)
+        // അറിയിപ്പുകൾ പ്രസിദ്ധീകരിക്കൽ
         window.handlePostNotice = async function(e) {
             e.preventDefault();
             const title = document.getElementById('notice-title').value.trim();
@@ -823,7 +889,7 @@
             }
         };
 
-        // ADMIN NOTICES LIST & DELETE
+        // അഡ്മിൻ നോട്ടീസുകൾ ലോഡ് ചെയ്യലും ഡിലീറ്റ് ചെയ്യലും
         function loadAdminNotices() {
             const listContainer = document.getElementById('admin-notices-list');
             const noticeRef = collection(db, 'notices');
