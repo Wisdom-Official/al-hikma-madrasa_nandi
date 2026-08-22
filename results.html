@@ -156,7 +156,7 @@
                     <i data-lucide="alert-circle" class="w-8 h-8 text-amber-700 mx-auto"></i>
                     <h4 class="text-sm font-bold text-amber-900">Result not found.</h4>
                     <p id="error-msg-text" class="text-xs text-amber-800 max-w-md mx-auto">
-                        നൽകിയ അഡ്മിഷൻ നമ്പറിലോ ജനന തീയ്യതിയിലോ മാറ്റമുണ്ട്. വിവരങ്ങൾ ശരിയാണെന്ന് ഉറപ്പുവരുത്തുക.After, Please Contact Your Teacher. 
+                        നൽകിയ അഡ്മിഷൻ നമ്പറിലോ ജനന തീയ്യതിയിലോ മാറ്റമുണ്ട്. വിവരങ്ങൾ ശരിയാണെന്ന് ഉറപ്പുവരുത്തുക.<br>After, Please Contact Your Teacher. 
                     </p>
                 </div>
 
@@ -198,8 +198,8 @@
                     <!-- Exam Title & Class Badge -->
                     <div class="py-2 flex justify-between items-center border-b border-slate-200">
                         <div>
-                            <h3 id="ms-exam-name" class="text-xs sm:text-base font-black text-slate-900">Annual Examination Statement of Marks</h3>
-                            <p class="text-[11px] text-slate-500 font-semibold">Wisdom Education Board Academic Year 2025–2026</p>
+                            <h3 id="ms-exam-name" class="text-xs sm:text-base font-black text-slate-900"> Examination Statement of Marks</h3>
+                            <p class="text-[11px] text-slate-500 font-semibold">Wisdom Education Board Academic Year 2026–2027</p>
                         </div>
                         <div class="text-right">
                             <span id="ms-class-badge" class="text-xs sm:text-sm font-black bg-emerald-950 text-gold-400 px-3.5 py-1 rounded-xl shadow-sm">Class 1</span>
@@ -302,15 +302,15 @@
                 <form id="student-registration-form" onsubmit="handleRegistrationSubmit(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">കുട്ടിയുടെ പേര് *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Student Name *</label>
                             <input type="text" id="reg-name" required placeholder="Mohammed Rayan" class="w-full px-3.5 py-2.5 text-xs font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">ജനന തീയ്യതി (DOB) *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date of Birth (DOB) *</label>
                             <input type="date" id="reg-dob" required class="w-full px-3.5 py-2.5 text-xs font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">ആൺകുട്ടി / പെൺകുട്ടി *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gender *</label>
                             <select id="reg-gender" required class="w-full px-3.5 py-2.5 text-xs font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                                 <option value="Male">Boy</option>
                                 <option value="Female">Girl</option>
@@ -330,24 +330,24 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">പിതാവിന്റെ പേര് *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Parent Name *</label>
                             <input type="text" id="reg-father" required placeholder="Parent Name" class="w-full px-3.5 py-2.5 text-xs font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">മൊബൈൽ നമ്പർ *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mobile No *</label>
                             <input type="tel" id="reg-phone" required maxlength="10" placeholder="9876543210" class="w-full px-3.5 py-2.5 text-xs font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">മേൽവിലാസം (Residential Address) *</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Residential Address *</label>
                         <textarea id="reg-address" required rows="2" placeholder="വീട്ടുപേര്, സ്ഥലം..." class="w-full px-3.5 py-2.5 text-xs font-semibold border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-800 focus:outline-none"></textarea>
                     </div>
 
                     <div id="reg-status-message" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
 
                     <button type="submit" id="reg-submit-btn" class="w-full py-3.5 bg-emerald-850 hover:bg-emerald-950 text-white font-extrabold rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs">
-                        <i data-lucide="send" class="w-4 h-4"></i> അപേക്ഷ സമർപ്പിക്കുക
+                        <i data-lucide="send" class="w-4 h-4"></i> Submit Application 
                     </button>
                 </form>
             </div>
@@ -359,8 +359,7 @@
     <footer class="bg-emerald-950 text-slate-400 py-6 text-xs border-t border-emerald-900 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <p>&copy; 2026 Nandi Al-Hikma Holiday Madrasa. All Rights Reserved.</p>
-            <a href="admin.html" class="text-gold-400 hover:underline font-bold">Faculty & Staff Login Portal</a>
-        </div>
+            </div>
     </footer>
 
     <!-- FIREBASE MODULE & RESULT ENGINE -->
@@ -434,7 +433,7 @@
 
             try {
                 btn.disabled = true;
-                btnText.textContent = "പരിശോധിക്കുന്നു...";
+                btnText.textContent = "Checking...";
 
                 let foundResult = null;
 
@@ -543,10 +542,10 @@
 
                     const resElem = document.getElementById('ms-overall-result');
                     if (isOverallPass) {
-                        resElem.textContent = "PASSED (പാസ്സായി)";
+                        resElem.textContent = "PASSED";
                         resElem.className = "text-base sm:text-lg font-black text-emerald-800";
                     } else {
-                        resElem.textContent = "FAILED (വീണ്ടും ശ്രമിക്കുക)";
+                        resElem.textContent = "FAILED";
                         resElem.className = "text-base sm:text-lg font-black text-rose-800";
                     }
 
@@ -561,7 +560,7 @@
                 document.getElementById('result-unpublished-state').classList.remove('hidden');
             } finally {
                 btn.disabled = false;
-                btnText.textContent = "മാർക്ക് ലിസ്റ്റ് കാണുക";
+                btnText.textContent = "View Mark list";
             }
         };
 
@@ -589,13 +588,13 @@
                 await addDoc(regRef, payload);
 
                 msg.className = "p-3 rounded-xl text-xs font-bold text-center bg-emerald-100 text-emerald-950 border border-emerald-300";
-                msg.textContent = "അഡ്മിഷൻ അപേക്ഷ വിജയകരമായി സമർപ്പിച്ചു! സ്ഥാപനത്തിൽ നിന്ന് ഉടൻ ബന്ധപ്പെടുന്നതാണ്.";
+                msg.textContent = "Admission application submitted successfully! You will be contacted by the institution soon.";
                 msg.classList.remove('hidden');
                 document.getElementById('student-registration-form').reset();
             } catch(err) {
                 console.error("Registration submit error:", err);
                 msg.className = "p-3 rounded-xl text-xs font-bold text-center bg-rose-100 text-rose-950 border border-rose-300";
-                msg.textContent = "അപേക്ഷ സമർപ്പിക്കുന്നതിൽ പരാജയപ്പെട്ടു: " + err.message;
+                msg.textContent = "Submission Failed: " + err.message;
                 msg.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
