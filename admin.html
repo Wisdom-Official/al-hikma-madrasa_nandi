@@ -197,9 +197,9 @@
                         <div class="space-y-1">
                             <div class="flex items-center space-x-2">
                                 <span id="active-class-badge" class="bg-gold-500 text-emerald-950 font-black text-xs px-2.5 py-0.5 rounded-md uppercase tracking-wider">Class 1</span>
-                                <span class="text-xs text-emerald-300 font-medium">വിഷയാടിസ്ഥാനത്തിലുള്ള മൂല്യനിർണ്ണയം</span>
+                                <span class="text-xs text-emerald-300 font-medium">Topic-based assessment</span>
                             </div>
-                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ വിഷയങ്ങൾ</h3>
+                            <h3 class="text-base sm:text-xl font-bold">Topics in the curriculum</h3>
                         </div>
                         <div id="subjects-badge-container" class="flex flex-wrap gap-1.5 max-w-2xl">
                             <!-- Dynamic Content -->
@@ -212,16 +212,16 @@
                     <div class="p-4 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
                         <div class="flex items-center space-x-2">
                             <span class="w-3 h-3 rounded-full bg-emerald-600 animate-pulse"></span>
-                            <h4 class="font-extrabold text-sm text-slate-800">വിദ്യാർത്ഥികളുടെ മാർക്ക് പട്ടിക</h4>
+                            <h4 class="font-extrabold text-sm text-slate-800">Students Mark List</h4>
                         </div>
                         <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
                             <button onclick="addNewStudentRow()" class="px-3.5 py-2 bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-300 rounded-xl text-xs font-bold transition flex items-center space-x-1.5">
                                 <i data-lucide="plus" class="w-4 h-4 text-emerald-800"></i>
-                                <span>കുട്ടിയെ ചേർക്കുക</span>
+                                <span>Add Student</span>
                             </button>
                             <button onclick="saveAllClassMarks()" class="px-4 py-2 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 shadow-md">
                                 <i data-lucide="check-circle" class="w-4 h-4 text-gold-400"></i>
-                                <span>എല്ലാ കുട്ടികളുടെയും മാർക്ക് സേവ് ചെയ്യുക</span>
+                                <span>Save marks of all Student</span>
                             </button>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
 
                     <div id="no-students-msg" class="hidden p-10 text-center text-slate-400 text-xs font-semibold space-y-2">
                         <i data-lucide="users" class="w-8 h-8 text-slate-300 mx-auto"></i>
-                        <p>ഈ ക്ലാസിൽ കുട്ടികളുടെ വിവരങ്ങൾ ലഭ്യമല്ല. "കുട്ടിയെ ചേർക്കുക" ബട്ടൺ അമർത്തി വിവരങ്ങൾ ചേർക്കാവുന്നതാണ്.</p>
+                        <p>ഈ ക്ലാസിൽ കുട്ടികളുടെ വിവരങ്ങൾ ലഭ്യമല്ല. "Add Student" ബട്ടൺ അമർത്തി വിവരങ്ങൾ ചേർക്കാവുന്നതാണ്.</p>
                     </div>
 
                 </div>
@@ -249,31 +249,31 @@
             <div id="panel-students" class="hidden space-y-6">
                 <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-5">
                     <div class="border-b border-slate-100 pb-3">
-                        <h3 class="font-extrabold text-slate-900 text-base">വിദ്യാർത്ഥികളുടെ രജിസ്ട്രേഷൻ & ഇൻഫർമേഷൻ</h3>
-                        <p class="text-xs text-slate-500">ഈ ക്ലാസ്സിലെ വിദ്യാർത്ഥികളുടെ വിവരങ്ങളും ജനന തീയ്യതിയും ചേർക്കുക</p>
+                        <h3 class="font-extrabold text-slate-900 text-base">Student Registration & Information</h3>
+                        <p class="text-xs text-slate-500">Add the information and date of birth of the students in this class.</p>
                     </div>
                     
                     <form id="student-add-form" onsubmit="handleAddStudent(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3.5 bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">റോൾ നമ്പർ (Roll No) *</label>
+                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Roll No *</label>
                             <input type="number" id="std-roll" required placeholder="1" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">വിദ്യാർത്ഥിയുടെ പേര് *</label>
+                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Student Name*</label>
                             <input type="text" id="std-name" required placeholder="Mohammed Rayan" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">അഡ്മിഷൻ / Reg No *</label>
+                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Reg No *</label>
                             <input type="text" id="std-regno" required placeholder="ADM-2026-001" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">ജനന തീയ്യതി (DOB) *</label>
+                            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">DOB *</label>
                             <input type="date" id="std-dob" required class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-800">
                         </div>
                         <div class="flex items-end">
                             <button type="submit" id="btn-add-student" class="w-full py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-sm">
                                 <i data-lucide="user-plus" class="w-4 h-4"></i>
-                                <span>ആഡ് ചെയ്യുക</span>
+                                <span>Add Student</span>
                             </button>
                         </div>
                     </form>
@@ -283,11 +283,11 @@
                             <thead class="bg-slate-100 text-slate-700 font-extrabold uppercase text-[10px]">
                                 <tr>
                                     <th class="p-3">Roll No</th>
-                                    <th class="p-3">പേര്</th>
+                                    <th class="p-3">Name</th>
                                     <th class="p-3">Register No</th>
-                                    <th class="p-3">ജനന തീയ്യതി (DOB)</th>
+                                    <th class="p-3">DOB</th>
                                     <th class="p-3">Class</th>
-                                    <th class="p-3 text-right">പ്രവർത്തനങ്ങൾ</th>
+                                    <th class="p-3 text-right">activities</th>
                                 </tr>
                             </thead>
                             <tbody id="students-list-body" class="divide-y divide-slate-100 font-semibold text-slate-700">
@@ -303,21 +303,21 @@
                     <!-- Notice Add Form -->
                     <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
-                            <h3 class="font-extrabold text-slate-900 text-base">നോട്ടീസ് ബോർഡ് പ്രസിദ്ധീകരണം</h3>
-                            <p class="text-xs text-slate-500">പ്രധാന വെബ്‌സൈറ്റിലെ അറിയിപ്പുകൾ ഇതിൽ നിന്നും നൽകാം</p>
+                            <h3 class="font-extrabold text-slate-900 text-base">Notice board publication</h3>
+                            <p class="text-xs text-slate-500">Announcements on the main website can be made from here.</p>
                         </div>
                         <form onsubmit="handlePostNotice(event)" class="space-y-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിഷയം (Notice Title) *</label>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Notice Title *</label>
                                 <input type="text" id="notice-title" required placeholder="ഉദാ: വാർഷിക പരീക്ഷാ തീയ്യതി" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-emerald-800">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിശദാംശങ്ങൾ (Content) *</label>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Content *</label>
                                 <textarea id="notice-content" rows="3" required placeholder="അറിയിപ്പിന്റെ വിവരങ്ങൾ ഇവിടെ നൽകുക..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
                             </div>
                             <button type="submit" id="btn-post-notice" class="px-5 py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold transition shadow-md flex items-center gap-1.5">
                                 <i data-lucide="send" class="w-4 h-4"></i>
-                                <span>പ്രസിദ്ധീകരിക്കുക (Post Notice)</span>
+                                <span>Post Notice</span>
                             </button>
                         </form>
                     </div>
@@ -325,8 +325,8 @@
                     <!-- Existing Posted Notices List -->
                     <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                         <div class="border-b border-slate-100 pb-3">
-                            <h3 class="font-extrabold text-slate-900 text-base">പ്രസിദ്ധീകരിച്ച അറിയിപ്പുകൾ</h3>
-                            <p class="text-xs text-slate-500">നിലവിലുള്ള അറിയിപ്പുകൾ ഡിലീറ്റ് ചെയ്യാനും നിയന്ത്രിക്കാനും</p>
+                            <h3 class="font-extrabold text-slate-900 text-base">Posted Notices</h3>
+                            <p class="text-xs text-slate-500">To delete and manage existing notifications</p>
                         </div>
 
                         <div id="admin-notices-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
@@ -429,7 +429,7 @@
 
             try {
                 btnSend.disabled = true;
-                btnText.textContent = "പരിശോധിക്കുന്നു...";
+                btnText.textContent = "Checking...";
 
                 // ഫയർബേസിലെ authorized_users കളക്ഷൻ വെരിഫിക്കേഷൻ
                 const usersRef = collection(db, 'authorized_users');
@@ -439,12 +439,12 @@
                 if (querySnap.empty) {
                     showAuthMsg("ഈ ഫോൺ നമ്പർ പോർട്ടലിൽ രജിസ്റ്റർ ചെയ്തിട്ടില്ല. അഡ്മിനുമായി ബന്ധപ്പെടുക.");
                     btnSend.disabled = false;
-                    btnText.textContent = "SMS OTP അയക്കുക";
+                    btnText.textContent = "PIN Check";
                     return;
                 }
 
                 currentUserProfile = querySnap.docs[0].data();
-                btnText.textContent = "OTP അയക്കുന്നു...";
+                btnText.textContent = "PIN Analysing...";
 
                 if (!recaptchaVerifier) {
                     recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
@@ -458,18 +458,18 @@
                 document.getElementById('phone-login-form').classList.add('hidden');
                 document.getElementById('otp-verify-form').classList.remove('hidden');
                 document.getElementById('display-sent-phone').textContent = fullPhone;
-                showAuthMsg("SMS OTP അയച്ചിട്ടുണ്ട്!", false);
+                showAuthMsg("PIN Posted!", false);
 
             } catch (err) {
                 console.error(err);
-                showAuthMsg("OTP അയക്കുന്നതിൽ പരാജയപ്പെട്ടു: " + (err.message || "വെരിഫിക്കേഷൻ പരാജയം"));
+                showAuthMsg("PIN Analysing Failed: " + (err.message || "വെരിഫിക്കേഷൻ പരാജയം"));
                 if (recaptchaVerifier) {
                     recaptchaVerifier.clear();
                     recaptchaVerifier = null;
                 }
             } finally {
                 btnSend.disabled = false;
-                btnText.textContent = "SMS OTP അയക്കുക";
+                btnText.textContent = "PIN Analysing";
             }
         };
 
@@ -480,7 +480,7 @@
 
             const otpCode = document.getElementById('input-otp').value.trim();
             if (!otpCode || otpCode.length !== 6) {
-                showAuthMsg("6 ഡിജിറ്റ് OTP കൃത്യമായി നൽകുക.");
+                showAuthMsg("Enter 6 Digits PIN Code.");
                 return;
             }
 
@@ -489,15 +489,15 @@
 
             try {
                 btnVerify.disabled = true;
-                btnText.textContent = "പരിശോധിക്കുന്നു...";
+                btnText.textContent = "Checking...";
 
                 await confirmationResultGlobal.confirm(otpCode);
             } catch (err) {
                 console.error(err);
-                showAuthMsg("നൽകിയ OTP തെറ്റാണ്. ദയവായി വീണ്ടും ശ്രമിക്കുക.");
+                showAuthMsg("Wrong PIN . Please try again.");
             } finally {
                 btnVerify.disabled = false;
-                btnText.textContent = "OTP പരിശോധിക്കുക";
+                btnText.textContent = "PIN ANALYSING";
             }
         };
 
