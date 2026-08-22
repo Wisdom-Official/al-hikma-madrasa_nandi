@@ -623,12 +623,12 @@
             const headerRow = document.getElementById('marks-table-header');
             headerRow.innerHTML = `
                 <th class="p-3 w-12 sticky-col-1 bg-slate-100 border-r border-slate-200">Roll</th>
-                <th class="p-3 min-w-[150px] sticky-col-2 bg-slate-100 border-r border-slate-200">പേര് & അപ്ഡേറ്റ് സ്റ്റാറ്റസ്</th>
+                <th class="p-3 min-w-[150px] sticky-col-2 bg-slate-100 border-r border-slate-200">Name</th>
                 <th class="p-3 w-28 border-r border-slate-200">Reg No</th>
                 ${subjects.map(sub => `<th class="p-3 text-center min-w-[85px] border-r border-slate-200">${sub}</th>`).join('')}
                 <th class="p-3 text-center w-20 border-r border-slate-200">Total</th>
                 <th class="p-3 text-center w-24 border-r border-slate-200">Status</th>
-                <th class="p-3 text-center w-28">ആക്ഷൻ</th>
+                <th class="p-3 text-center w-28">Action</th>
             `;
 
             const tbody = document.getElementById('marks-table-body');
