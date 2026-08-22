@@ -38,7 +38,6 @@
         }
     </script>
     <style>
-        /* Mobile Table Sticky Columns for Responsive UX */
         .sticky-col-1 {
             position: sticky;
             left: 0;
@@ -90,7 +89,7 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
 
-        <!-- VIEW 1: AUTHENTICATION LOGIN CARD (PHONE OTP LOGIN) -->
+        <!-- VIEW 1: AUTHENTICATION LOGIN CARD -->
         <section id="view-login" class="max-w-md mx-auto my-6 sm:my-12">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200/80 space-y-6 relative overflow-hidden">
                 <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-800 via-gold-500 to-emerald-950"></div>
@@ -192,7 +191,6 @@
             <!-- TAB 1: MARKS EVALUATION ENTRY PANEL -->
             <div id="panel-marks" class="space-y-4 sm:space-y-6">
                 
-                <!-- Class & Subject Mapping Banner -->
                 <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-teal-950 text-white p-5 sm:p-6 rounded-2xl shadow-md border border-emerald-800/80">
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                         <div class="space-y-1">
@@ -200,16 +198,14 @@
                                 <span id="active-class-badge" class="bg-gold-500 text-emerald-950 font-black text-xs px-2.5 py-0.5 rounded-md uppercase tracking-wider">Class 1</span>
                                 <span class="text-xs text-emerald-300 font-medium">വിഷയാടിസ്ഥാനത്തിലുള്ള മൂല്യനിർണ്ണയം</span>
                             </div>
-                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ വിഷയങ്ങൾ</h3>
+                            <h3 class="text-base sm:text-xl font-bold">പാഠ്യപദ്ധതിയിലെ विषयोंങ്ങൾ</h3>
                         </div>
-                        <!-- Subject Badges Container -->
                         <div id="subjects-badge-container" class="flex flex-wrap gap-1.5 max-w-2xl">
-                            <!-- JS Dynamic Content -->
+                            <!-- Dynamic Content -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Marks Entry Sheet Card -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     
                     <div class="p-4 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50">
@@ -229,16 +225,13 @@
                         </div>
                     </div>
 
-                    <!-- Sticky Dynamic Table Container for Mobile/Desktop UX -->
                     <div class="overflow-x-auto relative">
                         <table class="w-full text-left border-collapse min-w-max">
                             <thead>
                                 <tr id="marks-table-header" class="bg-slate-100 text-slate-700 text-[11px] font-extrabold uppercase tracking-wider border-b border-slate-200">
-                                    <!-- Dynamic Columns Generated via JS -->
                                 </tr>
                             </thead>
                             <tbody id="marks-table-body" class="divide-y divide-slate-100 text-xs font-semibold">
-                                <!-- Dynamic Rows Generated via JS -->
                             </tbody>
                         </table>
                     </div>
@@ -284,7 +277,6 @@
                         </div>
                     </form>
 
-                    <!-- Student Directory Table -->
                     <div class="overflow-x-auto border border-slate-200 rounded-xl">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-slate-100 text-slate-700 font-extrabold uppercase text-[10px]">
@@ -298,7 +290,6 @@
                                 </tr>
                             </thead>
                             <tbody id="students-list-body" class="divide-y divide-slate-100 font-semibold text-slate-700">
-                                <!-- Student rows -->
                             </tbody>
                         </table>
                     </div>
@@ -307,25 +298,40 @@
 
             <!-- TAB 3: NOTICES PANEL -->
             <div id="panel-notices" class="hidden space-y-6">
-                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4 max-w-2xl">
-                    <div class="border-b border-slate-100 pb-3">
-                        <h3 class="font-extrabold text-slate-900 text-base">നോട്ടീസ് ബോർഡ് പ്രസിദ്ധീകരണം</h3>
-                        <p class="text-xs text-slate-500">പ്രധാന വെബ്‌സൈറ്റിലെ അറിയിപ്പുകൾ ഇതിൽ നിന്നും നൽകാം</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Notice Add Form -->
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <div class="border-b border-slate-100 pb-3">
+                            <h3 class="font-extrabold text-slate-900 text-base">നോട്ടീസ് ബോർഡ് പ്രസിദ്ധീകരണം</h3>
+                            <p class="text-xs text-slate-500">പ്രധാന വെബ്‌സൈറ്റിലെ അറിയിപ്പുകൾ ഇതിൽ നിന്നും നൽകാം</p>
+                        </div>
+                        <form onsubmit="handlePostNotice(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിഷയം (Notice Title) *</label>
+                                <input type="text" id="notice-title" required placeholder="ഉദാ: വാർഷിക പരീക്ഷാ തീയ്യതി" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-emerald-800">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിശദാംശങ്ങൾ (Content) *</label>
+                                <textarea id="notice-content" rows="3" required placeholder="അറിയിപ്പിന്റെ വിവരങ്ങൾ ഇവിടെ നൽകുക..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
+                            </div>
+                            <button type="submit" id="btn-post-notice" class="px-5 py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold transition shadow-md flex items-center gap-1.5">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>പ്രസിദ്ധീകരിക്കുക (Post Notice)</span>
+                            </button>
+                        </form>
                     </div>
-                    <form onsubmit="handlePostNotice(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിഷയം (Notice Title) *</label>
-                            <input type="text" id="notice-title" required placeholder="ഉദാ: വാർഷിക പരീക്ഷാ തീയ്യതി" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-emerald-800">
+
+                    <!-- Existing Posted Notices List with Delete Button -->
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <div class="border-b border-slate-100 pb-3">
+                            <h3 class="font-extrabold text-slate-900 text-base">പ്രസിദ്ധീകരിച്ച അറിയിപ്പുകൾ</h3>
+                            <p class="text-xs text-slate-500">നിലവിലുള്ള അറിയിപ്പുകൾ ഡിലീറ്റ് ചെയ്യാനും നിയന്ത്രിക്കാനും</p>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">വിശദാംശങ്ങൾ (Content) *</label>
-                            <textarea id="notice-content" rows="3" required placeholder="അറിയിപ്പിന്റെ വിവരങ്ങൾ ഇവിടെ നൽകുക..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-800"></textarea>
+
+                        <div id="admin-notices-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+                            <!-- JS Dynamic Content -->
                         </div>
-                        <button type="submit" class="px-5 py-2.5 bg-emerald-850 hover:bg-emerald-950 text-white rounded-xl text-xs font-extrabold transition shadow-md flex items-center gap-1.5">
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                            <span>പ്രസിദ്ധീകരിക്കുക</span>
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -350,12 +356,12 @@
             getDocs, 
             setDoc, 
             addDoc, 
+            deleteDoc,
             query, 
             where, 
             onSnapshot 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Updated Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAgLzEtvZoufrhr_L4qc5vqDddIXQvKt_0",
             authDomain: "madrasa-new-app-a3fcb.firebaseapp.com",
@@ -369,7 +375,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Subject Mapping Definition
         const CLASS_SUBJECTS = {
             "Class 1": ["Hifdh", "Arabic", "Duroos ul islam"],
             "Class 2": ["Hifdh", "Thilawah", "Thafseer", "Arabic", "Aqeedah", "Fiqh", "Akhlaq", "Tareekh"],
@@ -388,7 +393,6 @@
         let currentStudents = [];
         let currentClassResults = {};
 
-        // UI Alert Helpers
         function showAuthMsg(msg, isError = true) {
             const el = document.getElementById('auth-msg');
             el.className = `p-3 rounded-xl text-xs font-bold text-center block ${isError ? 'bg-rose-100 text-rose-900 border border-rose-200' : 'bg-emerald-100 text-emerald-900 border border-emerald-200'}`;
@@ -406,7 +410,6 @@
             hideAuthMsg();
         };
 
-        // STEP 1: VERIFY PHONE IN FIRESTORE AUTHORIZED_USERS, THEN SEND OTP
         window.handleSendOtp = async function(e) {
             e.preventDefault();
             hideAuthMsg();
@@ -425,7 +428,6 @@
                 btnSend.disabled = true;
                 btnText.textContent = "പരിശോധിക്കുന്നു...";
 
-                // 1. Verify User Authorization from Firestore Collection
                 const usersRef = collection(db, 'authorized_users');
                 const q = query(usersRef, where("phone", "==", fullPhone));
                 const querySnap = await getDocs(q);
@@ -440,7 +442,6 @@
                 currentUserProfile = querySnap.docs[0].data();
                 btnText.textContent = "OTP അയക്കുന്നു...";
 
-                // 2. Setup Recaptcha for Phone Verification
                 if (!recaptchaVerifier) {
                     recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
                         'size': 'invisible',
@@ -448,7 +449,6 @@
                     });
                 }
 
-                // 3. Send SMS OTP
                 confirmationResultGlobal = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
 
                 document.getElementById('phone-login-form').classList.add('hidden');
@@ -469,7 +469,6 @@
             }
         };
 
-        // STEP 2: VERIFY RECEIVED OTP
         window.handleVerifyOtp = async function(e) {
             e.preventDefault();
             hideAuthMsg();
@@ -488,7 +487,6 @@
                 btnText.textContent = "പരിശോധിക്കുന്നു...";
 
                 await confirmationResultGlobal.confirm(otpCode);
-                // Auth State Observer Will Trigger Setup
             } catch (err) {
                 console.error(err);
                 showAuthMsg("നൽകിയ OTP തെറ്റാണ്. ദയവായി വീണ്ടും ശ്രമിക്കുക.");
@@ -498,7 +496,6 @@
             }
         };
 
-        // AUTHENTICATION OBSERVER
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userPhone = user.phoneNumber;
@@ -559,11 +556,12 @@
                 classSelect.disabled = false;
             } else {
                 classSelect.value = currentClass;
-                classSelect.disabled = true; // Teachers restricted to their assigned class
+                classSelect.disabled = true;
             }
 
             renderClassMarksTable();
             loadClassData();
+            loadAdminNotices();
         }
 
         window.handleClassChange = function() {
@@ -572,10 +570,8 @@
             loadClassData();
         };
 
-        // LOAD REALTIME DATA FROM FIRESTORE
         async function loadClassData() {
             try {
-                // Fetch Students Direct from Firestore Collection
                 const stdRef = collection(db, 'students');
                 onSnapshot(stdRef, (snap) => {
                     const allDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -586,7 +582,6 @@
                     renderStudentList();
                 }, (err) => console.error("Students snapshot error:", err));
 
-                // Fetch Exam Results Direct from Firestore
                 const resRef = collection(db, 'results');
                 onSnapshot(resRef, (snap) => {
                     currentClassResults = {};
@@ -604,12 +599,10 @@
             }
         }
 
-        // RENDER DYNAMIC MARKS TABLE WITH UX STICKY COLUMNS
         function renderClassMarksTable() {
             document.getElementById('active-class-badge').textContent = currentClass;
             const subjects = CLASS_SUBJECTS[currentClass] || CLASS_SUBJECTS["Class 1"];
 
-            // Render subject badges
             const badgeContainer = document.getElementById('subjects-badge-container');
             badgeContainer.innerHTML = subjects.map(s => `
                 <span class="bg-emerald-800/80 text-emerald-100 border border-emerald-700/60 text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
@@ -617,7 +610,6 @@
                 </span>
             `).join('');
 
-            // Dynamic Header Columns
             const headerRow = document.getElementById('marks-table-header');
             headerRow.innerHTML = `
                 <th class="p-3 w-12 sticky-col-1 bg-slate-100 border-r border-slate-200">Roll</th>
@@ -704,7 +696,6 @@
             }
         };
 
-        // SAVE MARKS DIRECT TO FIRESTORE
         window.saveAllClassMarks = async function() {
             try {
                 for (const student of currentStudents) {
@@ -737,7 +728,7 @@
                     await setDoc(resultDocRef, payload, { merge: true });
                 }
 
-                alert(`${currentClass} വിദ്യാർത്ഥികളുടെ മാർക്കുകൾ വിജയകരമായി ഫയർബേസിൽ സേവ് ചെയ്തു!`);
+                alert(`${currentClass} വിദ്യാർത്ഥികളുടെ മാർക്കുകൾ വിജയകരമായി സേവ് ചെയ്തു!`);
             } catch(e) {
                 console.error("Save error:", e);
                 alert("മാർക്ക് സേവ് ചെയ്യുന്നതിൽ തടസ്സം നേരിട്ടു: " + e.message);
@@ -748,7 +739,6 @@
             switchNav('students');
         };
 
-        // ADD NEW STUDENT DIRECT TO FIRESTORE WITH DOB
         window.handleAddStudent = async function(e) {
             e.preventDefault();
             const rollNo = document.getElementById('std-roll').value.trim();
@@ -771,7 +761,7 @@
                 });
 
                 document.getElementById('student-add-form').reset();
-                alert('കുട്ടിയുടെ വിവരങ്ങൾ (പേര്, റോൾ നമ്പർ, അഡ്മിഷൻ നമ്പർ, DOB) വിജയകരമായി ഫയർബേസിൽ ചേർത്തു!');
+                alert('കുട്ടിയുടെ വിവരങ്ങൾ വിജയകരമായി ഫയർബേസിൽ ചേർത്തു!');
             } catch(err) {
                 console.error("Add student error:", err);
                 alert('ഡാറ്റാബേസിൽ സേവ് ചെയ്യാൻ സാധിച്ചില്ല: ' + err.message);
@@ -780,7 +770,6 @@
             }
         };
 
-        // RENDER STUDENT DIRECTORY TABLE WITH DOB
         function renderStudentList() {
             const container = document.getElementById('students-list-body');
             if (!container) return;
@@ -808,13 +797,15 @@
             if (window.lucide) window.lucide.createIcons();
         }
 
-        // POST NOTICE TO FIRESTORE
+        // POST NOTICE TO FIRESTORE (Direct Real-time Sync)
         window.handlePostNotice = async function(e) {
             e.preventDefault();
-            const title = document.getElementById('notice-title').value;
-            const content = document.getElementById('notice-content').value;
+            const title = document.getElementById('notice-title').value.trim();
+            const content = document.getElementById('notice-content').value.trim();
+            const btn = document.getElementById('btn-post-notice');
 
             try {
+                btn.disabled = true;
                 const noticeRef = collection(db, 'notices');
                 await addDoc(noticeRef, {
                     title: title,
@@ -823,14 +814,59 @@
                     createdAt: new Date().toISOString()
                 });
 
-                alert('അറിയിപ്പ് വിജയകരമായി ഫയർബേസിൽ പ്രസിദ്ധീകരിച്ചു!');
+                alert('അറിയിപ്പ് വിജയകരമായി പ്രസിദ്ധീകരിച്ചു! വെബ്‌സൈറ്റിൽ തത്സമയം കാണാവുന്നതാണ്.');
                 e.target.reset();
             } catch(e) {
                 alert('നോട്ടീസ് പബ്ലിഷ് ചെയ്യാൻ സാധിച്ചില്ല: ' + e.message);
+            } finally {
+                btn.disabled = false;
             }
         };
 
-        // NAV SWITCHER
+        // ADMIN NOTICES LIST & DELETE
+        function loadAdminNotices() {
+            const listContainer = document.getElementById('admin-notices-list');
+            const noticeRef = collection(db, 'notices');
+
+            onSnapshot(noticeRef, (snap) => {
+                if (snap.empty) {
+                    listContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">അറിയിപ്പുകൾ ഒന്നും ചേർത്തിട്ടില്ല.</p>`;
+                    return;
+                }
+
+                const notices = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                notices.sort((a,b) => new Date(b.createdAt || Date.now()) - new Date(a.createdAt || Date.now()));
+
+                listContainer.innerHTML = notices.map(n => `
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold uppercase text-gold-600 bg-gold-50 px-2 py-0.5 rounded border border-gold-200">${n.date || 'Notice'}</span>
+                            <button onclick="deleteNotice('${n.id}')" class="text-xs text-rose-600 hover:text-rose-800 font-bold flex items-center gap-1 bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded transition">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> ഡിലീറ്റ്
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-xs text-slate-900">${n.title}</h4>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">${n.content}</p>
+                    </div>
+                `).join('');
+
+                if (window.lucide) window.lucide.createIcons();
+            }, (err) => {
+                console.error("Admin notices error:", err);
+            });
+        }
+
+        window.deleteNotice = async function(id) {
+            if (confirm("ഈ അറിയിപ്പ് ഡിലീറ്റ് ചെയ്യണമെന്ന് ഉറപ്പാണോ?")) {
+                try {
+                    await deleteDoc(doc(db, 'notices', id));
+                    alert("അറിയിപ്പ് വിജയകരമായി ഡിലീറ്റ് ചെയ്തു.");
+                } catch(e) {
+                    alert("ഡിലീറ്റ് ചെയ്യാൻ സാധിച്ചില്ല: " + e.message);
+                }
+            }
+        };
+
         window.switchNav = function(panel) {
             ['marks', 'students', 'notices'].forEach(p => {
                 document.getElementById(`panel-${p}`).classList.add('hidden');
